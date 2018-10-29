@@ -15,9 +15,6 @@ NSString * const WOOTabViewControllerSwitchoverTabNotification = @"WOOTabViewCon
 
 @interface WOOTabBarViewController ()
 
-@property (nonatomic, strong) UIImageView *topImageView;
-//@property (nonatomic, strong) UIImageView *bottomImageView;
-
 @property (nonatomic, assign) WOOTabViewControllerType type;
 @property (nonatomic, assign) CGFloat tabBarY;
 
@@ -62,11 +59,6 @@ NSString * const WOOTabViewControllerSwitchoverTabNotification = @"WOOTabViewCon
 
 
 - (void)setupUI {
-    [self.view insertSubview:self.topImageView atIndex:0];
-    //    [self.view insertSubview:self.bottomImageView belowSubview:self.tabBar];
-    self.topImageView.frame = CGRectMake(0, (IS_IPHONEX ? 0 : -24), VERTICAL_SCREEN_WIDTH, 175);
-    //    self.bottomImageView.frame = CGRectMake(0, VERTICAL_SCREEN_HEIGHT-150-HOME_INDICATOR_HEIGHT, VERTICAL_SCREEN_WIDTH, 150);
-    
     //debug 头部帧数显示控件
 #ifdef DEBUG
     self.performanceMonitor = [[GDPerformanceMonitor alloc] init];
@@ -146,28 +138,6 @@ NSString * const WOOTabViewControllerSwitchoverTabNotification = @"WOOTabViewCon
 
 
 #pragma mark - getting
-
-- (UIImageView *)topImageView {
-    if (!_topImageView) {
-        _topImageView = [[UIImageView alloc] init];
-        _topImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _topImageView.image = [UIImage imageNamed:@"bg_homepage_head"];
-    }
-    return _topImageView;
-}
-
-//- (UIImageView *)bottomImageView {
-//    if (!_bottomImageView) {
-//        UIImage *originImage = [UIImage imageNamed:@"mask_scrollscene_bottom"];
-//        originImage = [originImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)
-//                                                  resizingMode:UIImageResizingModeStretch];
-//        _bottomImageView = [[UIImageView alloc] init];
-//        _bottomImageView.contentMode = UIViewContentModeScaleToFill;
-//        _bottomImageView.clipsToBounds = YES;
-//        _bottomImageView.image = originImage;
-//    }
-//    return _bottomImageView;
-//}
 
 - (CGFloat)tabBarY {
     CGFloat tabBarHeight = 70;

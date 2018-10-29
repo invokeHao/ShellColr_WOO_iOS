@@ -20,6 +20,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [self loadCustomViewControllers];
     return YES;
 }
 
@@ -49,11 +50,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = WOOBackgroundColor;
     UIViewController *viewController = nil;
-    if ([WOOLoginManager needAuth] || [WOOLoginManager needBindPhone]) {
-        viewController = [[WOOLoginViewController alloc] init];
-    } else {
+//    if ([WOOLoginManager needAuth] || [WOOLoginManager needBindPhone]) {
+//        viewController = [[WOOLoginViewController alloc] init];
+//    } else {
         viewController = [[WOOTabBarViewController alloc] initWithTabViewControllerType:(WOOTabViewControllerTypeFind)];
-    }
+//    }
     WOOBaseNavigationController *navigationController = [[WOOBaseNavigationController alloc] initWithRootViewController:viewController];
     navigationController.navigationBarHidden = YES;
     self.window.rootViewController = navigationController;
