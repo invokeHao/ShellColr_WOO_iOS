@@ -35,6 +35,7 @@
 		67E931112182F6BC0042C39A /* WOOTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E931102182F6BC0042C39A /* WOOTabBarViewController.m */; };
 		67E931142182F9320042C39A /* WOOFlowListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E931132182F9320042C39A /* WOOFlowListVC.m */; };
 		67E9311B2182F9A70042C39A /* WOOMineHomePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9311A2182F9A70042C39A /* WOOMineHomePageVC.m */; };
+		67E9311F2186DADF0042C39A /* WOOInsJiuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9311E2186DADF0042C39A /* WOOInsJiuCell.m */; };
 		67E9F501218168D900FA7ECD /* wooDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9F500218168D900FA7ECD /* wooDemoTests.m */; };
 		67E9F50C218168D900FA7ECD /* wooDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9F50B218168D900FA7ECD /* wooDemoUITests.m */; };
 		67E9F52621816ABC00FA7ECD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67E9F51C21816ABC00FA7ECD /* Assets.xcassets */; };
@@ -172,6 +173,8 @@
 		67E931132182F9320042C39A /* WOOFlowListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOFlowListVC.m; sourceTree = "<group>"; };
 		67E931192182F9A70042C39A /* WOOMineHomePageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMineHomePageVC.h; sourceTree = "<group>"; };
 		67E9311A2182F9A70042C39A /* WOOMineHomePageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOMineHomePageVC.m; sourceTree = "<group>"; };
+		67E9311D2186DADF0042C39A /* WOOInsJiuCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOInsJiuCell.h; sourceTree = "<group>"; };
+		67E9311E2186DADF0042C39A /* WOOInsJiuCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOInsJiuCell.m; sourceTree = "<group>"; };
 		67E9F4E4218168D800FA7ECD /* wooDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wooDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E9F4FC218168D900FA7ECD /* wooDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wooDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E9F500218168D900FA7ECD /* wooDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wooDemoTests.m; sourceTree = "<group>"; };
@@ -346,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				67E930B32181C6410042C39A /* Reactor */,
+				67E931202186E1BF0042C39A /* SectionViewController */,
 				67E930B12181C6410042C39A /* ViewController */,
 				67E930B22181C6410042C39A /* Views */,
 			);
@@ -364,6 +368,8 @@
 		67E930B22181C6410042C39A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				67E9311D2186DADF0042C39A /* WOOInsJiuCell.h */,
+				67E9311E2186DADF0042C39A /* WOOInsJiuCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -555,6 +561,13 @@
 			children = (
 			);
 			path = Reactor;
+			sourceTree = "<group>";
+		};
+		67E931202186E1BF0042C39A /* SectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SectionViewController;
 			sourceTree = "<group>";
 		};
 		67E9F4DB218168D700FA7ECD = {
@@ -1278,6 +1291,7 @@
 				67E9F5B22181B42400FA7ECD /* UIPasteboard+CMSVerify.m in Sources */,
 				67E931112182F6BC0042C39A /* WOOTabBarViewController.m in Sources */,
 				67E9F5A72181B42400FA7ECD /* UILabel+WLAddition.m in Sources */,
+				67E9311F2186DADF0042C39A /* WOOInsJiuCell.m in Sources */,
 				67E9F5A52181B42400FA7ECD /* UIScrollView+RefreshAble.m in Sources */,
 				67E930EF2182C9F80042C39A /* WOOAuthToken.m in Sources */,
 				67E930FF2182E6100042C39A /* WOOValidCode.m in Sources */,

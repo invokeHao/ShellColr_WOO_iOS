@@ -31,6 +31,7 @@ def shared_pods
     pod 'PINCache'
     pod 'YPTabBarController','~> 2.4.6'
     pod 'GDPerformanceView', '~> 1.3.1'
+    pod 'IGListKit'
 end
 
 post_install do |installer|
