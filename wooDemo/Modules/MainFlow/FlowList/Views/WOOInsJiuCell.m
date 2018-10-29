@@ -8,7 +8,9 @@
 
 #import "WOOInsJiuCell.h"
 
-@interface WOOInsJiuCell ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
+@interface WOOInsJiuCell ()
+
+@property (strong, nonatomic)UILabel * titleLabel;
 
 @end
 
@@ -24,18 +26,19 @@
 
 - (void)setupView {
     [self.contentView addSubview:self.JiuCollectionView];
-    self.JiuCollectionView.delegate = self;
+    self.contentView.backgroundColor = WOOBackgroundColor;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat width = (VERTICAL_SCREEN_WIDTH -8)/3;
-    if (indexPath.item == 1) {
-        return CGSizeMake(2* width, 2*width);
-    }else{
-        return CGSizeMake(width, width);
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+}
+
+- (void)setModel:(WOOJIuDemoModel *)model {
+    if (model) {
+        self.titleLabel.text = model.title;
     }
 }
-
 
 - (WOOBaseCollectionView *)JiuCollectionView {
     if (!_JiuCollectionView) {
@@ -47,6 +50,13 @@
         [_JiuCollectionView setShowsHorizontalScrollIndicator:NO];
     }
     return _JiuCollectionView;
+}
+
+- (UILabel *)titleLabel {
+    if (!_titleLabel) {
+        _titleLabel = UILabel.label.WH_font(WOOFont(14)).WH_textColor([UIColor whiteColor]);
+    }
+    return _titleLabel;
 }
 
 @end
