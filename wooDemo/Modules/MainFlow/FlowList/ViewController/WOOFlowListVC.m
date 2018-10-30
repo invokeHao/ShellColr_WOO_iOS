@@ -8,6 +8,7 @@
 
 #import "WOOFlowListVC.h"
 #import "WOOInsJiuSectionController.h"
+#import "WOOInsJiuBottomSectionController.h"
 #import "WOOJIuDemoModel.h"
 #import "WOOJiuListDemoModel.h"
 
@@ -15,6 +16,7 @@
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray * dataList;
+@property (nonatomic, strong) NSMutableArray * bottomDataList;
 @end
 
 @implementation WOOFlowListVC
@@ -50,12 +52,27 @@
 #pragma mark - IGListAdapterDataSource
 
 - (NSArray<id<IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter {
-    NSArray * arr = [self.dataList copy];
-    return arr;
+    NSMutableArray * mutableArr = [NSMutableArray arrayWithCapacity:0];
+    for (WOOJiuListDemoModel * model in self.dataList) {
+        [mutableArr addObject: model];
+    }
+    
+//    for (WOOJiuListDemoModel * model in self.bottomDataList) {
+//        [mutableArr addObject:model];
+//    }
+    return [mutableArr copy];
 }
 
 - (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
-    return [[WOOInsJiuSectionController alloc]init];
+    IGListStackedSectionController *sc = [[IGListStackedSectionController alloc]
+                                          initWithSectionControllers:@[
+                                                                       [[WOOInsJiuSectionController alloc] init],
+                                                                       [[WOOInsJiuBottomSectionController alloc] init]
+                                                                       ]];
+    sc.inset = UIEdgeInsetsMake(3, 3, 10, 3);
+    sc.minimumLineSpacing = 3;
+    sc.minimumInteritemSpacing = 3;
+    return sc;
 }
 
 - (UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
@@ -79,19 +96,32 @@
     return _dataList;
 }
 
+- (NSMutableArray *)bottomDataList {
+    if (!_bottomDataList) {
+        _bottomDataList = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _bottomDataList;
+}
+
 - (void)setupData {
     NSArray * titleArr = @[@"资讯",@"视频",@"图片",@"商品",@"音乐"];
-    int index = arc4random() % 5;
     for (int j = 0; j < 3; j ++) {
         NSMutableArray * mutableArr = [NSMutableArray arrayWithCapacity:0];
+        NSMutableArray * bottomMArr = [NSMutableArray arrayWithCapacity:0];
         for (int i = 0; i< 6; i++) {
+            int index = arc4random() % 5;
             WOOJIuDemoModel * model = [[WOOJIuDemoModel alloc]init];
             model.title = titleArr[index];
             model.IDS = FORMAT(@"%d",i);
-            [mutableArr addObject:model];
+            if (i<3) {
+                [mutableArr addObject:model];
+            }else{
+                [bottomMArr addObject:model];
+            }
         }
         WOOJiuListDemoModel * listModel = [[WOOJiuListDemoModel alloc]init];
         listModel.dataArray = [mutableArr copy];
+        listModel.bottomArray = [bottomMArr copy];
         [self.dataList addObject:listModel];
     }
 }

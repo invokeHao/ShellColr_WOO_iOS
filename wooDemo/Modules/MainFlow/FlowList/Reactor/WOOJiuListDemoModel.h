@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)NSArray * dataArray;
 
+@property (nonatomic, copy)NSArray * bottomArray;
+
+@property (assign, nonatomic)BOOL isBottom;
+
 @end
 
 NS_ASSUME_NONNULL_END

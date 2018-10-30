@@ -26,17 +26,22 @@
 
 - (void)setupView {
     [self.contentView addSubview:self.JiuCollectionView];
-    self.contentView.backgroundColor = WOOBackgroundColor;
+    self.contentView.backgroundColor = [UIColor redColor];
+    [self.contentView addSubview:self.titleLabel];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(self.contentView);
+        make.height.mas_equalTo(20);
+    }];
     
 }
 
 - (void)setModel:(WOOJIuDemoModel *)model {
     if (model) {
-        self.titleLabel.text = model.title;
+        self.titleLabel.text = FORMAT(@"%@%@",model.title,model.IDS);
     }
 }
 

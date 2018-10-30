@@ -7,15 +7,15 @@
 //
 
 #import "WOOInsJiuSectionController.h"
+#import "WOOInsJiuSubSectionController.h"
 #import "WOOJiuListDemoModel.h"
 #import "WOOInsJiuLayoutCell.h"
-#import "WOOInsJiuSubSectionController.h"
 
 @interface WOOInsJiuSectionController ()<IGListAdapterDataSource>
 
-@property (nonatomic, strong) IGListAdapter *adapter;
-
 @property (nonatomic, strong) WOOJiuListDemoModel * listModel;
+
+@property (nonatomic, strong) IGListAdapter *adapter;
 
 @end
 
@@ -24,20 +24,27 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.inset = UIEdgeInsetsMake(0, 3, 3, 3);
+        self.inset = UIEdgeInsetsMake(3, 3, 3, 3);
         self.adapter = [[IGListAdapter alloc] initWithUpdater:[[IGListAdapterUpdater alloc] init] viewController:self.viewController];
-        self.adapter.dataSource = self;
+        [self.adapter setDataSource:self];
+
     }
     return self;
 }
 
+//- (NSInteger)numberOfItems {
+//    return self.listModel.dataArray.count;
+//}
+
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
-    CGFloat width = (VERTICAL_SCREEN_WIDTH -8)/3;
-    return CGSizeMake(VERTICAL_SCREEN_WIDTH -6, width * 4 + 12);
+    CGFloat width = self.collectionContext.containerSize.width;
+    CGFloat itemSize = floorf((width - 10)/3);
+    return CGSizeMake(width - 6 , itemSize*2 + 4);
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     WOOInsJiuLayoutCell *cell = [self.collectionContext dequeueReusableCellOfClass:[WOOInsJiuLayoutCell class] forSectionController:self atIndex:index];
+    self.adapter.collectionView = cell.collectionView;
     return cell;
 }
 
@@ -52,11 +59,13 @@
 }
 
 - (nonnull IGListSectionController *)listAdapter:(nonnull IGListAdapter *)listAdapter sectionControllerForObject:(nonnull id)object {
-    return [[WOOInsJiuSectionController alloc]init];
+    return [[WOOInsJiuSubSectionController alloc]init];
 }
 
 - (nonnull NSArray<id<IGListDiffable>> *)objectsForListAdapter:(nonnull IGListAdapter *)listAdapter {
-    return self.listModel.dataArray;
+    NSMutableArray * arr = [NSMutableArray arrayWithCapacity:0];
+    [arr addObject:self.listModel];
+    return [arr copy];
 }
 
 @end

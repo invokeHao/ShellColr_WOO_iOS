@@ -6,12 +6,12 @@
 //  Copyright © 2018 colr. All rights reserved.
 //
 
-#import "WOOBaseModel.h"
+#import "IGListSectionController.h"
 #import "WOOJIuDemoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WOOInsJiuSubSectionController : WOOBaseModel
+@interface WOOInsJiuSubSectionController : IGListSectionController
 
 @end
 

@@ -12,6 +12,7 @@
 		6709ADA9218717BC00A404B0 /* WOOJiuListDemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6709ADA8218717BC00A404B0 /* WOOJiuListDemoModel.m */; };
 		6709ADAC21871C1100A404B0 /* WOOInsJiuSubSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6709ADAB21871C1100A404B0 /* WOOInsJiuSubSectionController.m */; };
 		6709ADAF21871CE900A404B0 /* WOOInsJiuLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6709ADAE21871CE900A404B0 /* WOOInsJiuLayoutCell.m */; };
+		6709ADB52188498000A404B0 /* WOOInsJiuBottomSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6709ADB42188498000A404B0 /* WOOInsJiuBottomSectionController.m */; };
 		67E930C22182B73F0042C39A /* WOOResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930BD2182B73F0042C39A /* WOOResponseObject.m */; };
 		67E930C32182B73F0042C39A /* WOOPageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930BF2182B73F0042C39A /* WOOPageData.m */; };
 		67E930C42182B73F0042C39A /* WOOHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930C12182B73F0042C39A /* WOOHTTPManager.m */; };
@@ -131,6 +132,8 @@
 		6709ADAB21871C1100A404B0 /* WOOInsJiuSubSectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOInsJiuSubSectionController.m; sourceTree = "<group>"; };
 		6709ADAD21871CE900A404B0 /* WOOInsJiuLayoutCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOInsJiuLayoutCell.h; sourceTree = "<group>"; };
 		6709ADAE21871CE900A404B0 /* WOOInsJiuLayoutCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOInsJiuLayoutCell.m; sourceTree = "<group>"; };
+		6709ADB32188498000A404B0 /* WOOInsJiuBottomSectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOInsJiuBottomSectionController.h; sourceTree = "<group>"; };
+		6709ADB42188498000A404B0 /* WOOInsJiuBottomSectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOInsJiuBottomSectionController.m; sourceTree = "<group>"; };
 		67E930BA2181C6E60042C39A /* WOOThirdPartyConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOThirdPartyConstant.h; sourceTree = "<group>"; };
 		67E930BC2182B73F0042C39A /* WOOPageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOOPageData.h; sourceTree = "<group>"; };
 		67E930BD2182B73F0042C39A /* WOOResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOOResponseObject.m; sourceTree = "<group>"; };
@@ -591,6 +594,8 @@
 				6709ADA22186E7C100A404B0 /* WOOInsJiuSectionController.m */,
 				6709ADAA21871C1100A404B0 /* WOOInsJiuSubSectionController.h */,
 				6709ADAB21871C1100A404B0 /* WOOInsJiuSubSectionController.m */,
+				6709ADB32188498000A404B0 /* WOOInsJiuBottomSectionController.h */,
+				6709ADB42188498000A404B0 /* WOOInsJiuBottomSectionController.m */,
 			);
 			path = SectionViewController;
 			sourceTree = "<group>";
@@ -1349,6 +1354,7 @@
 				67E9F5BA2181B4DA00FA7ECD /* WOOHud.m in Sources */,
 				67E9F5A62181B42400FA7ECD /* UICollectionView+CMSAddition.m in Sources */,
 				67E9F5942181B42400FA7ECD /* NSNumber+CMSCalculator.m in Sources */,
+				6709ADB52188498000A404B0 /* WOOInsJiuBottomSectionController.m in Sources */,
 				67E9F5AF2181B42400FA7ECD /* UIView+Extension.m in Sources */,
 				67E9F5922181B42400FA7ECD /* UIResponder+CMSResponderRouter.m in Sources */,
 				67E9F5B32181B42400FA7ECD /* UITextView+Placeholder.m in Sources */,
