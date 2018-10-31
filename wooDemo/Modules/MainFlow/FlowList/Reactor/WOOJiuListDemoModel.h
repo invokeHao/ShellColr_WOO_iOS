@@ -7,16 +7,19 @@
 //
 
 #import "WOOBaseModel.h"
+#import "WOOJIuDemoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WOOJiuListDemoModel : WOOBaseModel
 
+@property (nonatomic, strong)WOOJIuDemoModel * firstModel;
+
 @property (nonatomic, copy)NSArray * dataArray;
 
 @property (nonatomic, copy)NSArray * bottomArray;
 
-@property (assign, nonatomic)BOOL isBottom;
+@property (nonatomic, strong)WOOJIuDemoModel * lastModel;
 
 @end
 

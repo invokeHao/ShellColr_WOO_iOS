@@ -9,6 +9,7 @@
 #import "WOOFlowListVC.h"
 #import "WOOInsJiuSectionController.h"
 #import "WOOInsJiuBottomSectionController.h"
+#import "WOOInsInformationSectionController.h"
 #import "WOOJIuDemoModel.h"
 #import "WOOJiuListDemoModel.h"
 
@@ -56,18 +57,16 @@
     for (WOOJiuListDemoModel * model in self.dataList) {
         [mutableArr addObject: model];
     }
-    
-//    for (WOOJiuListDemoModel * model in self.bottomDataList) {
-//        [mutableArr addObject:model];
-//    }
     return [mutableArr copy];
 }
 
 - (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     IGListStackedSectionController *sc = [[IGListStackedSectionController alloc]
                                           initWithSectionControllers:@[
+                                                                       [[WOOInsInformationSectionController alloc] init],
                                                                        [[WOOInsJiuSectionController alloc] init],
-                                                                       [[WOOInsJiuBottomSectionController alloc] init]
+                                                                       [[WOOInsJiuBottomSectionController alloc] init],
+                                                                       [[WOOInsInformationSectionController alloc] init]
                                                                        ]];
     sc.inset = UIEdgeInsetsMake(3, 3, 10, 3);
     sc.minimumLineSpacing = 3;
@@ -121,7 +120,9 @@
         }
         WOOJiuListDemoModel * listModel = [[WOOJiuListDemoModel alloc]init];
         listModel.dataArray = [mutableArr copy];
+        listModel.firstModel = [mutableArr firstObject];
         listModel.bottomArray = [bottomMArr copy];
+        listModel.lastModel = [bottomMArr lastObject];
         [self.dataList addObject:listModel];
     }
 }

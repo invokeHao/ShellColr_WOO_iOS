@@ -32,10 +32,6 @@
     return self;
 }
 
-//- (NSInteger)numberOfItems {
-//    return self.listModel.dataArray.count;
-//}
-
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
     CGFloat width = self.collectionContext.containerSize.width;
     CGFloat itemSize = floorf((width - 10)/3);

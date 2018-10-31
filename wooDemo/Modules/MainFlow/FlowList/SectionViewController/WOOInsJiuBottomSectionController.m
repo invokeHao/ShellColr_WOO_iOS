@@ -10,7 +10,7 @@
 #import "WOOJiuListDemoModel.h"
 #import "WOOInsJiuCell.h"
 
-@interface WOOInsJiuBottomSectionController()
+@interface WOOInsJiuBottomSectionController()<IGListDisplayDelegate>
 
 @property (nonatomic, strong)WOOJiuListDemoModel * listModel;
 
@@ -24,6 +24,7 @@
         self.inset = UIEdgeInsetsMake(3, 3, 3, 3);
         self.minimumInteritemSpacing = 2;
         self.minimumLineSpacing = 3;
+        self.displayDelegate = self;
     }
     return self;
 }
@@ -53,6 +54,27 @@
 
 - (nullable UIView *)emptyViewForListAdapter:(nonnull IGListAdapter *)listAdapter {
     return nil;
+}
+
+- (void)didSelectItemAtIndex:(NSInteger)index {
+    WOOJIuDemoModel * model = self.listModel.bottomArray[index];
+    [WOOHud showString:model.title];
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController *)sectionController {
+    NSLog(@"Will display section %ld", sectionController.section);
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController *)sectionController cell:(UICollectionViewCell *)cell atIndex:(NSInteger)index {
+    NSLog(@"Did will display cell %ld in section %ld", index, sectionController.section);
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController *)sectionController {
+    NSLog(@"Did end display section %ld", sectionController.section);
+}
+
+- (void)listAdapter:(IGListAdapter *)listAdapter didEndDisplayingSectionController:(IGListSectionController *)sectionController cell:(UICollectionViewCell *)cell atIndex:(NSInteger)index {
+    NSLog(@"Did end displaying cell %ld in section %ld", index, sectionController.section);
 }
 
 @end

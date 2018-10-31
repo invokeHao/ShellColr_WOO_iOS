@@ -11,6 +11,7 @@
 #import "WOOLoginViewController.h"
 #import "WOOTabBarViewController.h"
 #import "WOOBaseNavigationController.h"
+#import "WOOUserDeviceModel.h"
 
 @interface AppDelegate ()
 
@@ -63,6 +64,10 @@
 //        CMSBindPhoneViewController *bindPhoneViewController = [[CMSBindPhoneViewController alloc] init];
 //        [navigationController setViewControllers:@[viewController, bindPhoneViewController]];
 //    }
+    
+    WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
+    NSDictionary * dic = [model toDictionary];
+    NSLog(@"%@",dic);
     [self.window makeKeyAndVisible];
 }
 

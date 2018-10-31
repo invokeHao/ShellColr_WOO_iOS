@@ -55,4 +55,9 @@
     }
 }
 
+-(void)didSelectItemAtIndex:(NSInteger)index {
+    WOOJIuDemoModel * model = self.listModel.dataArray[index];
+    [WOOHud showString:model.title];
+}
+
 @end
