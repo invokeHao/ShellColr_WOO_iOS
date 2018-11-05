@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WOOJiuListDemoModel : WOOBaseModel
+@interface WOOJiuListDemoModel : WOOBaseModel<IGListDiffable>
 
 @property (nonatomic, strong)WOOJIuDemoModel * firstModel;
 

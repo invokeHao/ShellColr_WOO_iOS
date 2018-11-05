@@ -13,9 +13,14 @@
 
 @interface WOOInsInformationSectionController ()<ASSectionController>
 
-@property (nonatomic, strong)WOOJiuListDemoModel * listModel;
+@property (nonatomic, strong)WOOJiuListDemoModel <IGListDiffable>* listModel;
 
 @property (nonatomic, strong, readonly) dispatch_queue_t diffingQueue;
+
+@property (nonatomic, copy) WOOJiuListDemoModel <IGListDiffable>* pendingModel;
+
+@property (nonatomic) BOOL initialItemsRead;
+
 @end
 
 @implementation WOOInsInformationSectionController
@@ -28,6 +33,10 @@
         self.inset = UIEdgeInsetsMake(3, 3, 3, 3);
     }
     return self;
+}
+
+- (NSInteger)numberOfItems {
+    return 1;
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
@@ -46,25 +55,29 @@
 
 - (void)didUpdateToObject:(id)object {
     if ([object isKindOfClass:[WOOJiuListDemoModel class]]) {
-        self.listModel = object;
+        
         dispatch_async(self.diffingQueue, ^{
-            id listObj = self.listModel;
-            IGListIndexSetResult * result = IGListDiff(@[listObj], @[object], IGListDiffPointerPersonality);
+            IGListIndexSetResult * result = IGListDiff(@[self.pendingModel], @[object], IGListDiffPointerPersonality);
             dispatch_async(dispatch_get_main_queue(), ^{
                 id<IGListCollectionContext> ctx = self.collectionContext;
                 [ctx performBatchAnimated:YES updates:^(id<IGListBatchContext>  _Nonnull batchContext) {
                     [batchContext insertInSectionController:(id)self atIndexes:result.inserts];
                     [batchContext deleteInSectionController:(id)self atIndexes:result.deletes];
-                    
+                    self.listModel = object;
                 } completion:^(BOOL finished) {
-                    
+
                 }];
             });
         });
     }
 }
 
-
+- (WOOJiuListDemoModel<IGListDiffable> *)pendingModel {
+    if (!_pendingModel) {
+        _pendingModel = [[WOOJiuListDemoModel alloc]init];
+    }
+    return _pendingModel;
+}
 
 - (dispatch_queue_t)diffingQueue
 {
@@ -81,6 +94,14 @@
 - (void)didSelectItemAtIndex:(NSInteger)index {
     WOOJIuDemoModel * model = self.listModel.firstModel;
     [WOOHud showString:model.title];
+}
+
+-(void)beginBatchFetchWithContext:(ASBatchContext *)context {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.listModel) {
+            
+        }
+    });
 }
 
 - (nonnull ASCellNodeBlock)nodeBlockForItemAtIndex:(NSInteger)index {

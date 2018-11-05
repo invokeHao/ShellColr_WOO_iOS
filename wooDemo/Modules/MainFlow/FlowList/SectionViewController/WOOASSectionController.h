@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WOOASSectionController : IGListSectionController
 
-@property (nonatomic, copy) WOOJiuListDemoModel * pendingModel;
-
 @end
 
 NS_ASSUME_NONNULL_END
