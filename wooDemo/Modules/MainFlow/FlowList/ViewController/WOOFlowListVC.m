@@ -15,39 +15,52 @@
 
 @interface WOOFlowListVC ()<IGListAdapterDataSource>
 @property (nonatomic, strong) IGListAdapter *adapter;
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) ASCollectionNode *collectionNode;
 @property (nonatomic, strong) NSMutableArray * dataList;
 @property (nonatomic, strong) NSMutableArray * bottomDataList;
 @end
 
 @implementation WOOFlowListVC
 
+- (instancetype)init {
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    ASCollectionNode * collectionNode = [[ASCollectionNode alloc]initWithCollectionViewLayout:layout];
+    if (self = [super initWithNode:collectionNode]) {
+        IGListAdapterUpdater *updater = [[IGListAdapterUpdater alloc] init];
+        _adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:self];
+        _adapter.dataSource = self;
+        [_adapter setASDKCollectionNode:self.collectionNode];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupData];
     [self setupUI];
+    [self.adapter reloadDataWithCompletion:NULL];
 }
 
 - (void)setupUI {
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.collectionView];
-    
-    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(0);
-        make.leading.trailing.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-HOME_INDICATOR_HEIGHT);
-    }];
+    self.collectionNode.view.alwaysBounceVertical = YES;
 
-    if (@available(iOS 11.0, *)) {
-        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
+//    [self.collectionNode mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(0);
+//        make.leading.trailing.equalTo(self.view);
+//        make.bottom.equalTo(self.view).offset(-HOME_INDICATOR_HEIGHT);
+//    }];
+
+//    if (@available(iOS 11.0, *)) {
+//        self.collectionNode.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//    } else {
+//        self.automaticallyAdjustsScrollViewInsets = NO;
+//    }
     
-    IGListAdapterUpdater *updater = [[IGListAdapterUpdater alloc] init];
-    self.adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:self];
-    self.adapter.dataSource = self;
-    self.adapter.collectionView = self.collectionView;
+//    IGListAdapterUpdater *updater = [[IGListAdapterUpdater alloc] init];
+//    self.adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:self];
+//    self.adapter.dataSource = self;
+//    self.adapter.collectionView = self.collectionView;
+//    [self.adapter setASDKCollectionNode:self.collectionNode];
 }
 
 #pragma mark - IGListAdapterDataSource
@@ -61,17 +74,23 @@
 }
 
 - (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
-    IGListStackedSectionController *sc = [[IGListStackedSectionController alloc]
-                                          initWithSectionControllers:@[
-                                                                       [[WOOInsInformationSectionController alloc] init],
-                                                                       [[WOOInsJiuSectionController alloc] init],
-                                                                       [[WOOInsJiuBottomSectionController alloc] init],
-                                                                       [[WOOInsInformationSectionController alloc] init]
-                                                                       ]];
-    sc.inset = UIEdgeInsetsMake(3, 3, 10, 3);
-    sc.minimumLineSpacing = 3;
-    sc.minimumInteritemSpacing = 3;
-    return sc;
+    
+    if ([object isKindOfClass:[WOOJiuListDemoModel class]]) {
+        return [[WOOInsInformationSectionController alloc]init];
+    }else{
+        return nil;
+    }
+//    IGListStackedSectionController *sc = [[IGListStackedSectionController alloc]
+//                                          initWithSectionControllers:@[
+//                                                                       [[WOOInsInformationSectionController alloc] init],
+//                                                                       [[WOOInsJiuSectionController alloc] init],
+//                                                                       [[WOOInsJiuBottomSectionController alloc] init],
+//                                                                       [[WOOInsInformationSectionController alloc] init]
+//                                                                       ]];
+//    sc.inset = UIEdgeInsetsMake(3, 3, 10, 3);
+//    sc.minimumLineSpacing = 3;
+//    sc.minimumInteritemSpacing = 3;
+//    return sc;
 }
 
 - (UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
@@ -79,13 +98,17 @@
 }
 
 
-- (UICollectionView *)collectionView {
-    if (!_collectionView) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-        [_collectionView setBackgroundColor:[UIColor clearColor]];
-    }
-    return _collectionView;
+//- (UICollectionView *)collectionView {
+//    if (!_collectionView) {
+//        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+//        [_collectionView setBackgroundColor:[UIColor clearColor]];
+//    }
+//    return _collectionView;
+//}
+
+- (ASCollectionNode *)collectionNode {
+    return self.node;
 }
 
 - (NSArray *)dataList {

@@ -28,10 +28,10 @@ def shared_pods
     pod 'UMCPush'
     pod 'UMCSecurityPlugins'
     pod 'UMCAnalytics'
-    pod 'PINCache'
     pod 'YPTabBarController','~> 2.4.6'
     pod 'GDPerformanceView', '~> 1.3.1'
     pod 'IGListKit'
+    pod 'Texture'
 end
 
 post_install do |installer|

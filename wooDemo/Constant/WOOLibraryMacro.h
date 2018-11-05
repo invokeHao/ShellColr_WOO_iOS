@@ -18,4 +18,5 @@
 #import <MJRefresh.h>
 #import <PINCache.h>
 #import <IGListKit.h>
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
 #endif /* WOOLibraryMacro_h */
