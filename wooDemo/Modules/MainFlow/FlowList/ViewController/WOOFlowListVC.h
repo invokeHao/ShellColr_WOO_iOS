@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WOOFlowListVC : ASViewController
+@interface WOOFlowListVC : WOOBaseViewController
 
 @end
 

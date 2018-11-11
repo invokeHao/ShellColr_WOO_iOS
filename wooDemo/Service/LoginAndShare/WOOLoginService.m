@@ -7,6 +7,7 @@
 //
 
 #import "WOOLoginService.h"
+#import "WOOUserDeviceModel.h"
 
 @implementation WOOLoginService
 
@@ -114,5 +115,32 @@
                                      [WOOHud hideActivityView];
                                  }];
 }
+
++ (void)initNewUserWithDictionary:(NSDictionary *)deviceDic completion:(void (^)(NSError * _Nonnull error))completion {
+    WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
+    NSDictionary * dic = [model toDictionary];
+    NSString * path = FORMAT(@"http://47.104.253.57/service/init/");
+    NSLog(@"%@",dic);
+    [[WOOHTTPManager sharedManager] POST:path parameters:dic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
+        completion(nil);
+        NSLog(@"%@",responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completion(error);
+        NSLog(@"%@",error);
+    }];
+}
+
++ (void)getTheSteamServiceListWithDictionary:(NSDictionary*)dic completion:(nonnull void (^)(NSError * _Nonnull))completion {
+    WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
+    NSDictionary * pramDic = [model streamListDictionary];
+    NSString * path = FORMAT(@"http://47.104.253.57/service/settings/stream/");
+    NSLog(@"%@",pramDic);
+    [[WOOHTTPManager sharedManager] POST:path parameters:pramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
 
 @end

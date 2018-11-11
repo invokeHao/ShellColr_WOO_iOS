@@ -27,6 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
                       pwd:(NSString *)pwd
                completion:(void (^)(WOOLoginModel *, NSError *))completion;
 
+#pragma mark- 初始化用户
++ (void)initNewUserWithDictionary:(NSDictionary*)deviceDic
+                       completion:(void (^)(NSError * error))completion;
+
++ (void)getTheSteamServiceListWithDictionary:(NSDictionary*)dic
+                                  completion:(void (^)(NSError * error))completion;
+
 @end
 
 NS_ASSUME_NONNULL_END
