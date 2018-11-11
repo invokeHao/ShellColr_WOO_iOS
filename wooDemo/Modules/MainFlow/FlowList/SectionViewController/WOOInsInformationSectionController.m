@@ -11,7 +11,7 @@
 #import "WOOInsJiuCell.h"
 #import "WOOJiuCellNode.h"
 
-@interface WOOInsInformationSectionController ()<ASSectionController>
+@interface WOOInsInformationSectionController ()
 
 @property (nonatomic, strong)WOOJiuListDemoModel <IGListDiffable>* listModel;
 
@@ -40,37 +40,18 @@
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
-//    CGFloat width = self.collectionContext.containerSize.width;
-//    return CGSizeMake(width - 6 , 88);
+    CGFloat width = self.collectionContext.containerSize.width;
+    return CGSizeMake(width - 6 , 88);
     return [ASIGListSectionControllerMethods sizeForItemAtIndex:index];
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
-//    WOOInsJiuCell *cell = [self.collectionContext dequeueReusableCellOfClass:[WOOInsJiuCell class] forSectionController:self atIndex:index];
-//    WOOJIuDemoModel * model = self.listModel.firstModel;
-//    [cell setModel:model];
-//    return cell;
-    return [ASIGListSectionControllerMethods cellForItemAtIndex:index sectionController:self];
+    WOOInsJiuCell *cell = [self.collectionContext dequeueReusableCellOfClass:[WOOInsJiuCell class] forSectionController:self atIndex:index];
+    WOOJIuDemoModel * model = self.listModel.firstModel;
+    [cell setModel:model];
+    return cell;
 }
 
-- (void)didUpdateToObject:(id)object {
-    if ([object isKindOfClass:[WOOJiuListDemoModel class]]) {
-        
-        dispatch_async(self.diffingQueue, ^{
-            IGListIndexSetResult * result = IGListDiff(@[self.pendingModel], @[object], IGListDiffPointerPersonality);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                id<IGListCollectionContext> ctx = self.collectionContext;
-                [ctx performBatchAnimated:YES updates:^(id<IGListBatchContext>  _Nonnull batchContext) {
-                    [batchContext insertInSectionController:(id)self atIndexes:result.inserts];
-                    [batchContext deleteInSectionController:(id)self atIndexes:result.deletes];
-                    self.listModel = object;
-                } completion:^(BOOL finished) {
-
-                }];
-            });
-        });
-    }
-}
 
 - (WOOJiuListDemoModel<IGListDiffable> *)pendingModel {
     if (!_pendingModel) {
@@ -94,23 +75,6 @@
 - (void)didSelectItemAtIndex:(NSInteger)index {
     WOOJIuDemoModel * model = self.listModel.firstModel;
     [WOOHud showString:model.title];
-}
-
--(void)beginBatchFetchWithContext:(ASBatchContext *)context {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.listModel) {
-            
-        }
-    });
-}
-
-- (nonnull ASCellNodeBlock)nodeBlockForItemAtIndex:(NSInteger)index {
-    ASCellNode *(^nodeBlock)() = ^{
-        WOOJiuCellNode *cellNode = [[WOOJiuCellNode alloc] init];
-        [cellNode setModel:self.listModel.firstModel];
-        return cellNode;
-    };
-    return nodeBlock;
 }
 
 @end
