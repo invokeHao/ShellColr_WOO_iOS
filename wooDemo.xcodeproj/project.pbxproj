@@ -21,6 +21,8 @@
 		67318D662199210100B527F9 /* WOOMainFlowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D652199210100B527F9 /* WOOMainFlowModel.m */; };
 		67318D692199223B00B527F9 /* WOOTipsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D682199223B00B527F9 /* WOOTipsModel.m */; };
 		67318D6C2199230C00B527F9 /* WOOArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D6B2199230C00B527F9 /* WOOArticleModel.m */; };
+		67318D6F2199631000B527F9 /* WOOApiHostModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D6E2199631000B527F9 /* WOOApiHostModel.m */; };
+		67318D73219974B000B527F9 /* WOOMainFlowListApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D72219974B000B527F9 /* WOOMainFlowListApi.m */; };
 		67E930C22182B73F0042C39A /* WOOResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930BD2182B73F0042C39A /* WOOResponseObject.m */; };
 		67E930C32182B73F0042C39A /* WOOPageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930BF2182B73F0042C39A /* WOOPageData.m */; };
 		67E930C42182B73F0042C39A /* WOOHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930C12182B73F0042C39A /* WOOHTTPManager.m */; };
@@ -158,6 +160,10 @@
 		67318D682199223B00B527F9 /* WOOTipsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOTipsModel.m; sourceTree = "<group>"; };
 		67318D6A2199230C00B527F9 /* WOOArticleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOArticleModel.h; sourceTree = "<group>"; };
 		67318D6B2199230C00B527F9 /* WOOArticleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOArticleModel.m; sourceTree = "<group>"; };
+		67318D6D2199631000B527F9 /* WOOApiHostModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOApiHostModel.h; sourceTree = "<group>"; };
+		67318D6E2199631000B527F9 /* WOOApiHostModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOApiHostModel.m; sourceTree = "<group>"; };
+		67318D71219974B000B527F9 /* WOOMainFlowListApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMainFlowListApi.h; sourceTree = "<group>"; };
+		67318D72219974B000B527F9 /* WOOMainFlowListApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOMainFlowListApi.m; sourceTree = "<group>"; };
 		67E930BA2181C6E60042C39A /* WOOThirdPartyConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOThirdPartyConstant.h; sourceTree = "<group>"; };
 		67E930BC2182B73F0042C39A /* WOOPageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOOPageData.h; sourceTree = "<group>"; };
 		67E930BD2182B73F0042C39A /* WOOResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOOResponseObject.m; sourceTree = "<group>"; };
@@ -370,6 +376,15 @@
 			path = SectionViewController;
 			sourceTree = "<group>";
 		};
+		67318D702199743700B527F9 /* MainFlow */ = {
+			isa = PBXGroup;
+			children = (
+				67318D71219974B000B527F9 /* WOOMainFlowListApi.h */,
+				67318D72219974B000B527F9 /* WOOMainFlowListApi.m */,
+			);
+			path = MainFlow;
+			sourceTree = "<group>";
+		};
 		67E930AD2181C6410042C39A /* RegistAndLogin */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,6 +588,8 @@
 				67E930FE2182E6100042C39A /* WOOValidCode.m */,
 				6709ADBC2189869400A404B0 /* WOOUserDeviceModel.h */,
 				6709ADBD2189869400A404B0 /* WOOUserDeviceModel.m */,
+				67318D6D2199631000B527F9 /* WOOApiHostModel.h */,
+				67318D6E2199631000B527F9 /* WOOApiHostModel.m */,
 			);
 			path = LoginAndShare;
 			sourceTree = "<group>";
@@ -764,6 +781,7 @@
 		67E9F52321816ABC00FA7ECD /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				67318D702199743700B527F9 /* MainFlow */,
 				67E930F92182E1490042C39A /* LoginAndShare */,
 				67E930C52182BA4E0042C39A /* config */,
 				67E930BB2182B73F0042C39A /* Network */,
@@ -1370,6 +1388,7 @@
 				67E9F59B2181B42400FA7ECD /* AppDelegate+CMSVersonControl.m in Sources */,
 				67E9F5D12181B89E00FA7ECD /* KSYYImageManager.m in Sources */,
 				67E930FC2182E1760042C39A /* WOOLoginService.m in Sources */,
+				67318D6F2199631000B527F9 /* WOOApiHostModel.m in Sources */,
 				67E9F5B22181B42400FA7ECD /* UIPasteboard+CMSVerify.m in Sources */,
 				67E931112182F6BC0042C39A /* WOOTabBarViewController.m in Sources */,
 				67E9F5A72181B42400FA7ECD /* UILabel+WLAddition.m in Sources */,
@@ -1402,6 +1421,7 @@
 				67E9F5AD2181B42400FA7ECD /* UIView+WHChain.m in Sources */,
 				67E930F82182DB060042C39A /* WOOProfile.m in Sources */,
 				67E9F5D72181BADC00FA7ECD /* WOORouter.m in Sources */,
+				67318D73219974B000B527F9 /* WOOMainFlowListApi.m in Sources */,
 				67E9F5952181B42400FA7ECD /* NSNotificationCenter+CMSExtension.m in Sources */,
 				67E9F5AE2181B42400FA7ECD /* UIView+WLAddition.m in Sources */,
 				67E9F5BA2181B4DA00FA7ECD /* WOOHud.m in Sources */,

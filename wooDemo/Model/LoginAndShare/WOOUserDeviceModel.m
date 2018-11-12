@@ -29,6 +29,7 @@
 - (void)configTheData {
     self.resolution = [self getScreenPix];
     self.os = @"Ios";
+    self.os_api = @"11";
     self.carrier = [self getDeviceNetName];
     self.os_version = [self getDeviceSystemVersion];
     self.mc = [self getMacAddress];
@@ -92,6 +93,12 @@
     }
     if (self.os) {
         [dic setObject:self.os forKey:@"os"];
+    }
+    if (self.os_api) {
+        [dic setObject:self.os_api forKey:@"os_api"];
+    }
+    if (self.os_version.length > 0) {
+        [dic setObject:self.os_version forKey:@"os_version"];
     }
     if (self.mc.length > 0) {
         [dic setObject:self.mc forKey:@"mc"];

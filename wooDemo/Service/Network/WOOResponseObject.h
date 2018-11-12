@@ -7,8 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WOOApiHostModel.h"
+#import "WOOMainFlowModel.h"
 
 @interface WOOResponseObject : NSObject
+
+@property (nonatomic, strong) NSString * message;
+@property (nonatomic, strong) NSArray <WOOApiHostModel *>* api_report;
+@property (nonatomic, strong) WOOMainFlowModel * mainFlowModel;
 
 @property (nonatomic, assign) NSInteger code;
 @property (nonatomic, strong) NSString * errorDesc;

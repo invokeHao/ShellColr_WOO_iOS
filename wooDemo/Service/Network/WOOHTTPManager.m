@@ -62,7 +62,7 @@ static dispatch_once_t onceToken;
                                   progress:nil
                                    success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                           WOOResponseObject *cmsResponse = [WOOResponseObject yy_modelWithJSON:responseObject];
+                                           WOOResponseObject *cmsResponse = [[WOOResponseObject alloc]initWithDictionary:responseObject];
                                            if (cmsResponse.errorId == 0) {
                                                success(task, cmsResponse);
                                            } else {
@@ -84,7 +84,7 @@ static dispatch_once_t onceToken;
                     parameters:(id)parameters
                        success:(void (^)(NSURLSessionDataTask *task, WOOResponseObject *responseObject))success
                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
-//    [self cms_configHttpHeaderField];
+    [self cms_configHttpHeaderField];
     NSURLSessionDataTask *task = [self POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             WOOResponseObject *cmsResponse = [[WOOResponseObject alloc]initWithDictionary:responseObject];
@@ -203,10 +203,10 @@ static dispatch_once_t onceToken;
 }
 
 - (void)cms_configHttpHeaderField {
-    [[self requestSerializer] setValue:[WOOLoginManager token] forHTTPHeaderField:@"x-token"];
-    [[self requestSerializer] setValue:@"ecypc8htcxr8lq7a" forHTTPHeaderField:@"x-app-id"];
-    [[self requestSerializer] setValue:@"colr.ios.phone" forHTTPHeaderField:@"x-site-code"];
-    [[self requestSerializer] setValue:@"appstore" forHTTPHeaderField:@"x-channel"];
+//    [[self requestSerializer] setValue:[WOOLoginManager token] forHTTPHeaderField:@"x-token"];
+//    [[self requestSerializer] setValue:@"ecypc8htcxr8lq7a" forHTTPHeaderField:@"x-app-id"];
+//    [[self requestSerializer] setValue:@"colr.ios.phone" forHTTPHeaderField:@"x-site-code"];
+//    [[self requestSerializer] setValue:@"appstore" forHTTPHeaderField:@"x-channel"];
 }
 
 @end
