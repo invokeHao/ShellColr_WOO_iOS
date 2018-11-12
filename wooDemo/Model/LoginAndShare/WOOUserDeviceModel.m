@@ -13,7 +13,8 @@
 #import <sys/ioctl.h>
 #import <net/if.h>
 #import <net/if_dl.h>
-
+#import <CommonCrypto/CommonDigest.h>
+#import "OpenUDID.h"
 
 @implementation WOOUserDeviceModel
 
@@ -28,6 +29,7 @@
 - (void)configTheData {
     self.resolution = [self getScreenPix];
     self.os = @"Ios";
+    self.os_api = @"11";
     self.carrier = [self getDeviceNetName];
     self.os_version = [self getDeviceSystemVersion];
     self.mc = [self getMacAddress];
@@ -36,40 +38,109 @@
     self.language = [self getLocalLanguage];
     self.timezone = [self getTimezone];
     self.udid = [self getUUID];
+    self.Openuuid = [OpenUDID value];
+    NSString * hashStr = @"";
+    if (self.resolution.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"resolution:%@,",self.resolution)];
+    }
+    if (self.os) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"os:%@,",self.os)];
+    }
+    if (self.carrier.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"carrier:%@,",self.carrier)];
+    }
+    if (self.os_version.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"os_version:%@,",self.os_version)];
+    }
+    if (self.mc.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"mc:%@,",self.mc)];
+    }
+    if (self.device_brand.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"device_brand:%@,",self.device_brand)];
+    }
+    if (self.device_model.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"device_model:%@,",self.device_model)];
+    }
+    if (self.language.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"language:%@,",self.language)];
+    }
+    if (self.timezone.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"timezone:%@,",self.timezone)];
+    }
+    if (self.udid.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"udid:%@,",self.udid)];
+    }
+    if (self.Openuuid.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"Openuuid:%@,",self.Openuuid)];
+    }
+    NSString * salt = @"ca1344b92801137aef458beb25248edd";
+    hashStr = [hashStr stringByAppendingString:FORMAT(@"SALT:%@",salt)];
+    
+    hashStr = [self md5:hashStr];
+    self.sig_hash = hashStr;
 }
 
 - (NSDictionary *)toDictionary {
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
-    if (self.resolution) {
+    if (self.resolution.length > 0) {
         [dic setObject:self.resolution forKey:@"resolution"];
     }
-    if (self.display_density) {
+    if (self.display_density.length > 0) {
         [dic setObject:self.display_density forKey:@"display_density"];
     }
-    if (self.carrier) {
+    if (self.carrier.length > 0) {
         [dic setObject:self.carrier forKey:@"carrier"];
     }
     if (self.os) {
         [dic setObject:self.os forKey:@"os"];
     }
-    if (self.mc) {
+    if (self.os_api) {
+        [dic setObject:self.os_api forKey:@"os_api"];
+    }
+    if (self.os_version.length > 0) {
+        [dic setObject:self.os_version forKey:@"os_version"];
+    }
+    if (self.mc.length > 0) {
         [dic setObject:self.mc forKey:@"mc"];
     }
-    if (self.device_brand) {
+    if (self.device_brand.length > 0) {
         [dic setObject:self.device_brand forKey:@"device_brand"];
     }
-    if (self.device_model) {
+    if (self.device_model.length > 0) {
         [dic setObject:self.device_model forKey:@"device_model"];
     }
-    if (self.timezone) {
+    if (self.timezone.length > 0) {
         [dic setObject:self.timezone forKey:@"timezone"];
     }
-    if (self.language) {
+    if (self.language.length > 0) {
         [dic setObject:self.language forKey:@"language"];
     }
-    if (self.udid) {
+    if (self.udid.length > 0) {
         [dic setObject:self.udid forKey:@"udid"];
     }
+    if (self.sig_hash.length > 0) {
+        [dic setObject:self.sig_hash forKey:@"sig_hash"];
+    }
+    if (self.Openuuid.length > 0) {
+        [dic setObject:self.Openuuid forKey:@"Openuuid"];
+    }
+    return [dic copy];
+}
+
+- (NSDictionary *)streamListDictionary {
+    NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
+    if (self.udid.length > 0) {
+        [dic setObject:self.udid forKey:@"udid"];
+    }
+    if (self.Openuuid.length > 0) {
+        [dic setObject:self.Openuuid forKey:@"Openuuid"];
+    }
+    self.device_id = @"7564326355";
+    self.app_name = @"WOO";
+    self.version_code = @"100";
+    [dic setObject:self.device_id forKey:@"device_id"];
+    [dic setObject:self.app_name forKey:@"app_name"];
+    [dic setObject:self.version_code forKey:@"version_code"];
     return [dic copy];
 }
 
@@ -175,6 +246,19 @@
     NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:@"[a-zA-Z]" options:0 error:nil];
     strZoneAbbreviation = [regularExpression stringByReplacingMatchesInString:strZoneAbbreviation options:0 range:NSMakeRange(0, strZoneAbbreviation.length) withTemplate:@""];
     return strZoneAbbreviation;
+}
+
+- (NSString *)md5:(NSString *)str
+{
+    const char *cStr = [str UTF8String];
+    unsigned char result[16];
+    CC_MD5( cStr, (CC_LONG)strlen(cStr), result );
+    return [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
 }
 
 @end

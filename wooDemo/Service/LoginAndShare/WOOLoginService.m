@@ -7,6 +7,7 @@
 //
 
 #import "WOOLoginService.h"
+#import "WOOUserDeviceModel.h"
 
 @implementation WOOLoginService
 
@@ -114,5 +115,48 @@
                                      [WOOHud hideActivityView];
                                  }];
 }
+
++ (void)initNewUserWithDictionary:(NSDictionary *)deviceDic
+                       completion:(void (^)(BOOL isSuccess,NSError *error))completion {
+    WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
+    NSDictionary * dic = [model toDictionary];
+    NSString * path = FORMAT(@"http:/47.104.253.57/service/init/");
+    [[WOOHTTPManager sharedManager] POST:path parameters:dic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
+        if ([responseObject.message isEqualToString:@"success"]) {
+            completion(YES,nil);
+        }else{
+            NSError *error = [NSError errorWithDomain:@"初始化失败"
+                                                 code:1
+                                             userInfo:nil];
+            completion(NO,error);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completion(NO,error);
+        NSLog(@"%@",error);
+    }];
+}
+
++ (void)getTheSteamServiceListWithDictionary:(NSDictionary*)dic
+                                  completion:(nonnull void (^)(NSArray<WOOApiHostModel *>* apiModelArr ,NSError * error))completion {
+    WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
+    NSDictionary * pramDic = [model streamListDictionary];
+    NSString * path = FORMAT(@"http:/47.104.253.57/service/settings/stream/");
+    NSLog(@"%@",pramDic);
+    [[WOOHTTPManager sharedManager] POST:path parameters:pramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
+        if ([responseObject.message isEqualToString:@"success"]) {
+            completion(responseObject.api_report,nil);
+        }else{
+            NSError *error = [NSError errorWithDomain:@"获取api列表失败"
+                                                 code:1
+                                             userInfo:nil];
+            completion(nil,error);
+        }
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completion(nil,error);
+        NSLog(@"%@",error);
+    }];
+}
+
 
 @end

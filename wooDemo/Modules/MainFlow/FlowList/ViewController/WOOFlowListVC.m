@@ -12,27 +12,18 @@
 #import "WOOInsInformationSectionController.h"
 #import "WOOJIuDemoModel.h"
 #import "WOOJiuListDemoModel.h"
+#import "WOOLoginService.h"
+#import "WOOMainFlowListApi.h"
 
 @interface WOOFlowListVC ()<IGListAdapterDataSource>
 @property (nonatomic, strong) IGListAdapter *adapter;
-@property (nonatomic, strong) ASCollectionNode *collectionNode;
+@property (nonatomic, strong) IGListCollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray * dataList;
 @property (nonatomic, strong) NSMutableArray * bottomDataList;
 @end
 
 @implementation WOOFlowListVC
 
-- (instancetype)init {
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    ASCollectionNode * collectionNode = [[ASCollectionNode alloc]initWithCollectionViewLayout:layout];
-    if (self = [super initWithNode:collectionNode]) {
-        IGListAdapterUpdater *updater = [[IGListAdapterUpdater alloc] init];
-        _adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:self];
-        _adapter.dataSource = self;
-        [_adapter setASDKCollectionNode:self.collectionNode];
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,25 +33,23 @@
 }
 
 - (void)setupUI {
-    self.collectionNode.view.alwaysBounceVertical = YES;
+    [self.view addSubview:self.collectionView];
+    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(0);
+        make.leading.trailing.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-HOME_INDICATOR_HEIGHT);
+    }];
 
-//    [self.collectionNode mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(0);
-//        make.leading.trailing.equalTo(self.view);
-//        make.bottom.equalTo(self.view).offset(-HOME_INDICATOR_HEIGHT);
-//    }];
-
-//    if (@available(iOS 11.0, *)) {
-//        self.collectionNode.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//    } else {
-//        self.automaticallyAdjustsScrollViewInsets = NO;
-//    }
+    if (@available(iOS 11.0, *)) {
+        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     
-//    IGListAdapterUpdater *updater = [[IGListAdapterUpdater alloc] init];
-//    self.adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:self];
-//    self.adapter.dataSource = self;
-//    self.adapter.collectionView = self.collectionView;
-//    [self.adapter setASDKCollectionNode:self.collectionNode];
+    IGListAdapterUpdater *updater = [[IGListAdapterUpdater alloc] init];
+    self.adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:self];
+    self.adapter.dataSource = self;
+    self.adapter.collectionView = self.collectionView;
 }
 
 #pragma mark - IGListAdapterDataSource
@@ -74,23 +63,17 @@
 }
 
 - (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
-    
-    if ([object isKindOfClass:[WOOJiuListDemoModel class]]) {
-        return [[WOOInsInformationSectionController alloc]init];
-    }else{
-        return nil;
-    }
-//    IGListStackedSectionController *sc = [[IGListStackedSectionController alloc]
-//                                          initWithSectionControllers:@[
-//                                                                       [[WOOInsInformationSectionController alloc] init],
-//                                                                       [[WOOInsJiuSectionController alloc] init],
-//                                                                       [[WOOInsJiuBottomSectionController alloc] init],
-//                                                                       [[WOOInsInformationSectionController alloc] init]
-//                                                                       ]];
-//    sc.inset = UIEdgeInsetsMake(3, 3, 10, 3);
-//    sc.minimumLineSpacing = 3;
-//    sc.minimumInteritemSpacing = 3;
-//    return sc;
+        IGListStackedSectionController *sc = [[IGListStackedSectionController alloc]
+                                          initWithSectionControllers:@[
+                                                                       [[WOOInsInformationSectionController alloc] init],
+                                                                       [[WOOInsJiuSectionController alloc] init],
+                                                                       [[WOOInsJiuBottomSectionController alloc] init],
+                                                                       [[WOOInsInformationSectionController alloc] init]
+                                                                       ]];
+    sc.inset = UIEdgeInsetsMake(3, 3, 10, 3);
+    sc.minimumLineSpacing = 3;
+    sc.minimumInteritemSpacing = 3;
+    return sc;
 }
 
 - (UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
@@ -99,18 +82,15 @@
 
 
 
-//- (UICollectionView *)collectionView {
-//    if (!_collectionView) {
-//        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-//        [_collectionView setBackgroundColor:[UIColor clearColor]];
-//    }
-//    return _collectionView;
-//}
-
-- (ASCollectionNode *)collectionNode {
-    return self.node;
+- (IGListCollectionView *)collectionView {
+    if (!_collectionView) {
+        IGListCollectionViewLayout *layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:NO topContentInset:0 stretchToEdge:NO];
+        _collectionView = [[IGListCollectionView alloc]initWithFrame:CGRectZero listCollectionViewLayout:layout];
+        [_collectionView setBackgroundColor:[UIColor clearColor]];
+    }
+    return _collectionView;
 }
+
 
 - (NSArray *)dataList {
     if (!_dataList) {
@@ -149,6 +129,19 @@
         listModel.lastModel = [bottomMArr lastObject];
         [self.dataList addObject:listModel];
     }
+    NSDictionary * dic = [NSDictionary dictionary];
+    [WOOLoginService initNewUserWithDictionary:dic completion:^(BOOL isSuccess,NSError *error) {
+        if (isSuccess) {
+            [WOOLoginService getTheSteamServiceListWithDictionary:dic completion:^(NSArray<WOOApiHostModel *> * apiModelArr, NSError * error) {
+                if (!error) {
+                    NSLog(@"%@",apiModelArr);
+                }
+            }];
+        }
+    }];
+    [WOOMainFlowListApi getTheMainFlowListWithDictionary:dic completion:^(WOOMainFlowModel * _Nonnull model, NSError * _Nonnull error) {
+        NSLog(@"%@",model);
+    }];
 }
 
 

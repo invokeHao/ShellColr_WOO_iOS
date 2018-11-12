@@ -11,6 +11,7 @@
 #import "WOOThirdAuthResponse.h"
 #import "WOOValidCode.h"
 #import "WOOThirdPartyConstant.h"
+#import "WOOApiHostModel.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -26,6 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)loginWithUserName:(NSString *)userName
                       pwd:(NSString *)pwd
                completion:(void (^)(WOOLoginModel *, NSError *))completion;
+
+#pragma mark- 初始化用户
++ (void)initNewUserWithDictionary:(NSDictionary*)deviceDic
+                       completion:(void (^)(BOOL isSuccess, NSError * error))completion;
+
++ (void)getTheSteamServiceListWithDictionary:(NSDictionary*)dic
+                                  completion:(void (^)(NSArray<WOOApiHostModel *>* apiModelArr, NSError * error))completion;
 
 @end
 

@@ -64,10 +64,7 @@
 //        CMSBindPhoneViewController *bindPhoneViewController = [[CMSBindPhoneViewController alloc] init];
 //        [navigationController setViewControllers:@[viewController, bindPhoneViewController]];
 //    }
-    
-    WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
-    NSDictionary * dic = [model toDictionary];
-    NSLog(@"%@",dic);
+
     [self.window makeKeyAndVisible];
 }
 
