@@ -119,7 +119,7 @@
 + (void)initNewUserWithDictionary:(NSDictionary *)deviceDic completion:(void (^)(NSError * _Nonnull error))completion {
     WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
     NSDictionary * dic = [model toDictionary];
-    NSString * path = FORMAT(@"http://47.104.253.57/service/init/");
+    NSString * path = FORMAT(@"http://is.snssdk.com/service/init/");
     NSLog(@"%@",dic);
     [[WOOHTTPManager sharedManager] POST:path parameters:dic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
         completion(nil);
@@ -133,7 +133,7 @@
 + (void)getTheSteamServiceListWithDictionary:(NSDictionary*)dic completion:(nonnull void (^)(NSError * _Nonnull))completion {
     WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
     NSDictionary * pramDic = [model streamListDictionary];
-    NSString * path = FORMAT(@"http://47.104.253.57/service/settings/stream/");
+    NSString * path = FORMAT(@"http://is.snssdk.com/service/settings/stream/");
     NSLog(@"%@",pramDic);
     [[WOOHTTPManager sharedManager] POST:path parameters:pramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
         NSLog(@"%@",responseObject);
