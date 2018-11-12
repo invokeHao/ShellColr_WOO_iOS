@@ -13,6 +13,7 @@
 #import "WOOJIuDemoModel.h"
 #import "WOOJiuListDemoModel.h"
 #import "WOOLoginService.h"
+#import "WOOMainFlowListApi.h"
 
 @interface WOOFlowListVC ()<IGListAdapterDataSource>
 @property (nonatomic, strong) IGListAdapter *adapter;
@@ -129,10 +130,17 @@
         [self.dataList addObject:listModel];
     }
     NSDictionary * dic = [NSDictionary dictionary];
-    [WOOLoginService initNewUserWithDictionary:dic completion:^(NSError * _Nonnull error) {
-        [WOOLoginService getTheSteamServiceListWithDictionary:dic completion:^(NSError * _Nonnull error) {
-            
-        }];
+    [WOOLoginService initNewUserWithDictionary:dic completion:^(BOOL isSuccess,NSError *error) {
+        if (isSuccess) {
+            [WOOLoginService getTheSteamServiceListWithDictionary:dic completion:^(NSArray<WOOApiHostModel *> * apiModelArr, NSError * error) {
+                if (!error) {
+                    NSLog(@"%@",apiModelArr);
+                }
+            }];
+        }
+    }];
+    [WOOMainFlowListApi getTheMainFlowListWithDictionary:dic completion:^(WOOMainFlowModel * _Nonnull model, NSError * _Nonnull error) {
+        NSLog(@"%@",model);
     }];
 }
 
