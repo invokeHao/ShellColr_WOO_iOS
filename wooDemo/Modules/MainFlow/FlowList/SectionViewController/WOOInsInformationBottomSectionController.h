@@ -1,8 +1,8 @@
 //
-//  WOOInsInformationSectionController.h
+//  WOOInsInformationBottomSectionController.h
 //  wooDemo
 //
-//  Created by colr on 2018/10/30.
+//  Created by colr on 2018/11/13.
 //  Copyright © 2018 colr. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WOOInsInformationSectionController : IGListSectionController
+@interface WOOInsInformationBottomSectionController : IGListSectionController
 
 @end
 

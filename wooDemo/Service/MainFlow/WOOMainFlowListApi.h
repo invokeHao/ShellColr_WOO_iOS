@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WOOMainFlowListApi : NSObject
 
-+ (void)getTheMainFlowListWithDictionary:(NSDictionary*)paramDic
++ (void)getTheMainFlowListWithPath:(NSString *)path
+                        Dictionary:(NSDictionary*)paramDic
                        completion:(void (^)(WOOMainFlowModel *model, NSError * error))completion;
 
 @end
