@@ -8,17 +8,16 @@
 
 #import "WOOBaseCollectionViewCell.h"
 #import "WOOBaseCollectionView.h"
-#import "WOOJIuDemoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WOOInsJiuCell : WOOBaseCollectionViewCell
 
-@property (strong, nonatomic)WOOJIuDemoModel * model;
+@property (strong, nonatomic)WOOArticleModel * model;
 
 @property (strong, nonatomic)WOOBaseCollectionView * JiuCollectionView;
 
-- (void)setModel:(WOOJIuDemoModel * _Nonnull)model;
+- (void)setModel:(WOOArticleModel * _Nonnull)model;
 
 @end
 

@@ -10,7 +10,9 @@
 
 @interface WOOInsJiuCell ()
 
-@property (strong, nonatomic)UILabel * titleLabel;
+@property (strong, nonatomic)YYAnimatedImageView * coverImageV;
+
+@property (strong, nonatomic)UIImageView * iconView;
 
 @end
 
@@ -26,22 +28,28 @@
 
 - (void)setupView {
     [self.contentView addSubview:self.JiuCollectionView];
-    self.contentView.backgroundColor = [UIColor redColor];
-    [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.coverImageV];
+    [self.contentView addSubview:self.iconView];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.mas_equalTo(self.contentView);
-        make.height.mas_equalTo(20);
+    [self.coverImageV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(0);
     }];
     
+    [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(4);
+        make.right.mas_equalTo(-4);
+        make.size.mas_equalTo(CGSizeMake(10, 10));
+    }];
+    self.contentView.layer.cornerRadius = 6;
+    self.contentView.clipsToBounds = YES;
 }
 
-- (void)setModel:(WOOJIuDemoModel *)model {
+- (void)setModel:(WOOArticleModel *)model {
     if (model) {
-        self.titleLabel.text = FORMAT(@"%@%@",model.title,model.IDS);
+        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:model.middle_image] options:YYWebImageOptionProgressive];
     }
 }
 
@@ -57,11 +65,20 @@
     return _JiuCollectionView;
 }
 
-- (UILabel *)titleLabel {
-    if (!_titleLabel) {
-        _titleLabel = UILabel.label.WH_font(WOOFont(14)).WH_textColor([UIColor whiteColor]);
+- (YYAnimatedImageView *)coverImageV {
+    if (!_coverImageV) {
+        _coverImageV = [[YYAnimatedImageView alloc]init];
+        _coverImageV.contentMode = UIViewContentModeScaleAspectFill;
+        _coverImageV.backgroundColor = woo_colorWithHexString(@"D8D8D8");
     }
-    return _titleLabel;
+    return _coverImageV;
+}
+
+- (UIImageView *)iconView {
+    if (!_iconView) {
+        _iconView = UIImageView.imageView;
+    }
+    return _iconView;
 }
 
 @end
