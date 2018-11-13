@@ -14,31 +14,31 @@
 static char *OnRefreshSubjectKey = "OnRefreshSubjectKey";
 static char *OnRefreshType = "OnRefreshType";
 
-@interface UIScrollView(RefreshAble)
+@interface UIScrollView()
 
 @property (nonatomic, strong, readonly) MJRefreshNormalHeader *headerRefresher;
 @property (nonatomic, strong, readonly) MJRefreshBackGifFooter *footerRefresher;
-@property (nonatomic, assign) CMSRefreshType refreshType;
+@property (nonatomic, assign) WOORefreshType refreshType;
 
 @end
 
 @implementation UIScrollView (RefreshAble)
 
-- (void)openRefreshWithRefreshType:(CMSRefreshType)refreshType {
+- (void)openRefreshWithRefreshType:(WOORefreshType)refreshType {
     self.refreshType = refreshType;
     self.onRefreshSubject = [RACSubject subject];
     switch (refreshType) {
-        case CMSRefreshTypeAll:
-            self.headerRefresher;
-            self.footerRefresher;
+        case WOORefreshTypeAll:
+            [self headerRefresher];
+            [self footerRefresher];
             break;
-        case CMSRefreshTypeHeader:
-            self.headerRefresher;
+        case WOORefreshTypeHeader:
+            [self headerRefresher];
             break;
-        case CMSRefreshTypeFooter:
-            self.headerRefresher;
+        case WOORefreshTypeFooter:
+            [self headerRefresher];
             break;
-        case CMSRefreshTypeNone:
+        case WOORefreshTypeNone:
             break;
         default:
             break;
@@ -56,7 +56,7 @@ static char *OnRefreshType = "OnRefreshType";
 
 - (void)stopRefresh {
     switch (self.refreshType) {
-        case CMSRefreshTypeAll:
+        case WOORefreshTypeAll:
             if (self.headerRefresher.isRefreshing) {
                 [self.headerRefresher endRefreshing];
             }
@@ -64,18 +64,18 @@ static char *OnRefreshType = "OnRefreshType";
                 [self.footerRefresher endRefreshing];
             }
             break;
-        case CMSRefreshTypeHeader:
+        case WOORefreshTypeHeader:
             if (self.headerRefresher.isRefreshing) {
                 [self.headerRefresher endRefreshing];
             }
             break;
-        case CMSRefreshTypeFooter:
-            self.headerRefresher;
+        case WOORefreshTypeFooter:
+            [self headerRefresher];
             if (self.footerRefresher.isRefreshing) {
                 [self.footerRefresher endRefreshing];
             }
             break;
-        case CMSRefreshTypeNone:
+        case WOORefreshTypeNone:
             break;
         default:
             break;
@@ -83,11 +83,11 @@ static char *OnRefreshType = "OnRefreshType";
 }
 
 - (void)onHeaderRefresh {
-    [self.onRefreshSubject sendNext:@(CMSRefreshTypeHeader)];
+    [self.onRefreshSubject sendNext:@(WOORefreshTypeHeader)];
 }
 
 - (void)onFooterRefresh {
-    [self.onRefreshSubject sendNext:@(CMSRefreshTypeFooter)];
+    [self.onRefreshSubject sendNext:@(WOORefreshTypeFooter)];
 }
 
 - (void)beginHeaderRefreshing {
@@ -95,13 +95,13 @@ static char *OnRefreshType = "OnRefreshType";
 }
 
 - (void)resetNoMoreData {
-    if (self.refreshType == CMSRefreshTypeAll || self.refreshType == CMSRefreshTypeFooter) {
+    if (self.refreshType == WOORefreshTypeAll || self.refreshType == WOORefreshTypeFooter) {
         [self.footerRefresher resetNoMoreData];
     }
 }
 
 - (void)onNoMoreData {
-    if (self.refreshType == CMSRefreshTypeAll || self.refreshType == CMSRefreshTypeFooter) {
+    if (self.refreshType == WOORefreshTypeAll || self.refreshType == WOORefreshTypeFooter) {
         [self.footerRefresher endRefreshingWithNoMoreData];
     }
 }
@@ -109,7 +109,7 @@ static char *OnRefreshType = "OnRefreshType";
 // MARK: - event response
 
 - (void)headerRefreshEvent {
-    if (self.refreshType == CMSRefreshTypeAll || self.refreshType == CMSRefreshTypeFooter) {
+    if (self.refreshType == WOORefreshTypeAll || self.refreshType == WOORefreshTypeFooter) {
         if (self.footerRefresher.isRefreshing) {
             [self.headerRefresher endRefreshing];
             return;
@@ -119,7 +119,7 @@ static char *OnRefreshType = "OnRefreshType";
 }
 
 - (void)footerRefreshEvent {
-    if (self.refreshType == CMSRefreshTypeAll || self.refreshType == CMSRefreshTypeHeader) {
+    if (self.refreshType == WOORefreshTypeAll || self.refreshType == WOORefreshTypeHeader) {
         if (self.headerRefresher.isRefreshing) {
             [self.footerRefresher endRefreshing];
             return;
@@ -147,7 +147,7 @@ static char *OnRefreshType = "OnRefreshType";
 
 - (MJRefreshNormalHeader *)headerRefresher {
     if (self.mj_header != nil) {
-        return self.mj_header;
+        return (MJRefreshNormalHeader *)self.mj_header;
     }
     MJRefreshNormalHeader *refresher = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshEvent)];
     refresher.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
@@ -159,7 +159,7 @@ static char *OnRefreshType = "OnRefreshType";
 
 - (MJRefreshBackGifFooter *)footerRefresher {
     if (self.mj_footer != nil) {
-        return self.mj_footer;
+        return (MJRefreshBackGifFooter *)self.mj_footer;
     }
     MJRefreshBackGifFooter *refresher = [MJRefreshBackGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshEvent)];
     [refresher setTitle:@"--没有更多内容了--" forState:(MJRefreshStateNoMoreData)];
@@ -175,12 +175,12 @@ static char *OnRefreshType = "OnRefreshType";
     objc_setAssociatedObject(self, &OnRefreshSubjectKey, onRefreshSubject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (CMSRefreshType)refreshType {
+- (WOORefreshType)refreshType {
     NSNumber *newDataCountNumber = objc_getAssociatedObject(self, &OnRefreshType);
     return [newDataCountNumber integerValue];
 }
 
-- (void)setRefreshType:(CMSRefreshType)refreshType {
+- (void)setRefreshType:(WOORefreshType)refreshType {
     objc_setAssociatedObject(self, &OnRefreshType, @(refreshType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

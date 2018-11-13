@@ -25,7 +25,6 @@
 
 - (void)setupView {
     [self.contentView addSubview:self.collectionView];
-    self.contentView.backgroundColor = [UIColor yellowColor];
 }
 
 - (void)layoutSubviews {

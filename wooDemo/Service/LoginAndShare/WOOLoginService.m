@@ -8,6 +8,7 @@
 
 #import "WOOLoginService.h"
 #import "WOOUserDeviceModel.h"
+#import "WOOServiceGlobalConfig.h"
 
 @implementation WOOLoginService
 

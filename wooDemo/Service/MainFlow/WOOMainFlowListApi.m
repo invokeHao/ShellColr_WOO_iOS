@@ -10,8 +10,9 @@
 
 @implementation WOOMainFlowListApi
 
-+ (void)getTheMainFlowListWithDictionary:(NSDictionary *)paramDic completion:(void (^)(WOOMainFlowModel * , NSError *))completion {
-    NSString * path = @"http://47.104.253.57/service/1/article/v1/stream/";
++ (void)getTheMainFlowListWithPath:(NSString *)path
+                        Dictionary:(NSDictionary *)paramDic
+                        completion:(void (^)(WOOMainFlowModel * , NSError *))completion {
     [[WOOHTTPManager manager] GET:path parameters:paramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *cmsResponse) {
         if ([cmsResponse.message isEqualToString:@"success"]) {
             completion(cmsResponse.mainFlowModel,nil);

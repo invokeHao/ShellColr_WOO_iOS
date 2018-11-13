@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-typedef NS_ENUM(NSInteger, CMSRefreshType) {
-    CMSRefreshTypeNone = 0,
-    CMSRefreshTypeHeader = 1,
-    CMSRefreshTypeFooter = 2,
-    CMSRefreshTypeAll = 3
+typedef NS_ENUM(NSInteger, WOORefreshType) {
+    WOORefreshTypeNone = 0,
+    WOORefreshTypeHeader = 1,
+    WOORefreshTypeFooter = 2,
+    WOORefreshTypeAll = 3
 };
 
 @interface UIScrollView (RefreshAble)
@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, CMSRefreshType) {
 
  @param refreshType 需要刷新的类型
  */
-- (void)openRefreshWithRefreshType:(CMSRefreshType)refreshType;
+- (void)openRefreshWithRefreshType:(WOORefreshType)refreshType;
 
 /**
  停止刷新

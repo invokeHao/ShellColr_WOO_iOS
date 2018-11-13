@@ -8,7 +8,7 @@
 
 #import "WOOInsJiuSubSectionController.h"
 #import "WOOInsJiuCell.h"
-#import "WOOJIuDemoModel.h"
+#import "WOOArticleModel.h"
 #import "WOOJiuListDemoModel.h"
 
 @interface WOOInsJiuSubSectionController ()
@@ -44,7 +44,7 @@
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     WOOInsJiuCell *cell = [self.collectionContext dequeueReusableCellOfClass:[WOOInsJiuCell class] forSectionController:self atIndex:index];
-    WOOJIuDemoModel * model = self.listModel.dataArray[index];
+    WOOArticleModel * model = self.listModel.dataArray[index];
     [cell setModel:model];
     return cell;
 }
@@ -56,7 +56,7 @@
 }
 
 -(void)didSelectItemAtIndex:(NSInteger)index {
-    WOOJIuDemoModel * model = self.listModel.dataArray[index];
+    WOOArticleModel * model = self.listModel.dataArray[index];
     [WOOHud showString:model.title];
 }
 

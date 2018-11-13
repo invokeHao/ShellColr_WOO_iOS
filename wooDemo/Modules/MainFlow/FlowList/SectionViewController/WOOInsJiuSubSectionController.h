@@ -7,7 +7,6 @@
 //
 
 #import "IGListSectionController.h"
-#import "WOOJIuDemoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,22 +1,22 @@
 //
-//  WOOInsInformationSectionController.m
+//  WOOInsInformationBottomSectionController.m
 //  wooDemo
 //
-//  Created by colr on 2018/10/30.
+//  Created by colr on 2018/11/13.
 //  Copyright © 2018 colr. All rights reserved.
 //
 
-#import "WOOInsInformationSectionController.h"
+#import "WOOInsInformationBottomSectionController.h"
 #import "WOOJiuListDemoModel.h"
 #import "WOOInsJiuInfoCell.h"
 
-@interface WOOInsInformationSectionController ()
+@interface WOOInsInformationBottomSectionController ()
 
 @property (nonatomic, strong)WOOJiuListDemoModel * listModel;
 
 @end
 
-@implementation WOOInsInformationSectionController
+@implementation WOOInsInformationBottomSectionController
 
 - (instancetype)init {
     self = [super init];
@@ -33,7 +33,7 @@
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     WOOInsJiuInfoCell *cell = [self.collectionContext dequeueReusableCellOfClass:[WOOInsJiuInfoCell class] forSectionController:self atIndex:index];
-    WOOArticleModel * model = self.listModel.firstModel;
+    WOOArticleModel * model = self.listModel.lastModel;
     [cell setModel:model];
     return cell;
 }
@@ -49,8 +49,7 @@
 }
 
 - (void)didSelectItemAtIndex:(NSInteger)index {
-    WOOArticleModel * model = self.listModel.firstModel;
+    WOOArticleModel * model = self.listModel.lastModel;
     [WOOHud showString:model.title];
 }
-
 @end

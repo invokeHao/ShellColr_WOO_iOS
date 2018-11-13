@@ -10,16 +10,16 @@
 #import "WOOInsJiuSectionController.h"
 #import "WOOInsJiuBottomSectionController.h"
 #import "WOOInsInformationSectionController.h"
-#import "WOOJIuDemoModel.h"
+#import "WOOInsInformationBottomSectionController.h"
 #import "WOOJiuListDemoModel.h"
-#import "WOOLoginService.h"
-#import "WOOMainFlowListApi.h"
+#import "WOOJiuListViewModel.h"
 
 @interface WOOFlowListVC ()<IGListAdapterDataSource>
 @property (nonatomic, strong) IGListAdapter *adapter;
 @property (nonatomic, strong) IGListCollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray * dataList;
 @property (nonatomic, strong) NSMutableArray * bottomDataList;
+@property (nonatomic, strong) WOOJiuListViewModel * jiuViewModel;
 @end
 
 @implementation WOOFlowListVC
@@ -27,9 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self bindingData];
     [self setupData];
     [self setupUI];
-    [self.adapter reloadDataWithCompletion:NULL];
 }
 
 - (void)setupUI {
@@ -65,10 +65,13 @@
 - (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
         IGListStackedSectionController *sc = [[IGListStackedSectionController alloc]
                                           initWithSectionControllers:@[
-                                                                       [[WOOInsInformationSectionController alloc] init],
-                                                                       [[WOOInsJiuSectionController alloc] init],
-                                                                       [[WOOInsJiuBottomSectionController alloc] init],
-                                                                       [[WOOInsInformationSectionController alloc] init]
+                                            [[WOOInsInformationSectionController alloc] init],
+                                                                    
+                                            [[WOOInsJiuSectionController alloc] init],
+                                                                    
+                                            [[WOOInsJiuBottomSectionController alloc] init],
+                                                                    
+                                            [[WOOInsInformationBottomSectionController alloc] init]
                                                                        ]];
     sc.inset = UIEdgeInsetsMake(3, 3, 10, 3);
     sc.minimumLineSpacing = 3;
@@ -79,8 +82,6 @@
 - (UIView *)emptyViewForListAdapter:(IGListAdapter *)listAdapter {
     return nil;
 }
-
-
 
 - (IGListCollectionView *)collectionView {
     if (!_collectionView) {
@@ -107,42 +108,65 @@
 }
 
 - (void)setupData {
-    NSArray * titleArr = @[@"资讯",@"视频",@"图片",@"商品",@"音乐"];
-    for (int j = 0; j < 3; j ++) {
-        NSMutableArray * mutableArr = [NSMutableArray arrayWithCapacity:0];
-        NSMutableArray * bottomMArr = [NSMutableArray arrayWithCapacity:0];
-        for (int i = 0; i< 6; i++) {
-            int index = arc4random() % 5;
-            WOOJIuDemoModel * model = [[WOOJIuDemoModel alloc]init];
-            model.title = titleArr[index];
-            model.IDS = FORMAT(@"%d",i);
-            if (i<3) {
-                [mutableArr addObject:model];
-            }else{
-                [bottomMArr addObject:model];
-            }
-        }
-        WOOJiuListDemoModel * listModel = [[WOOJiuListDemoModel alloc]init];
-        listModel.dataArray = [mutableArr copy];
-        listModel.firstModel = [mutableArr firstObject];
-        listModel.bottomArray = [bottomMArr copy];
-        listModel.lastModel = [bottomMArr lastObject];
-        [self.dataList addObject:listModel];
-    }
-    NSDictionary * dic = [NSDictionary dictionary];
-    [WOOLoginService initNewUserWithDictionary:dic completion:^(BOOL isSuccess,NSError *error) {
-        if (isSuccess) {
-            [WOOLoginService getTheSteamServiceListWithDictionary:dic completion:^(NSArray<WOOApiHostModel *> * apiModelArr, NSError * error) {
-                if (!error) {
-                    NSLog(@"%@",apiModelArr);
-                }
-            }];
-        }
-    }];
-    [WOOMainFlowListApi getTheMainFlowListWithDictionary:dic completion:^(WOOMainFlowModel * _Nonnull model, NSError * _Nonnull error) {
-        NSLog(@"%@",model);
-    }];
+//    NSArray * titleArr = @[@"资讯",@"视频",@"图片",@"商品",@"音乐"];
+//    for (int j = 0; j < 3; j ++) {
+//        NSMutableArray * mutableArr = [NSMutableArray arrayWithCapacity:0];
+//        NSMutableArray * bottomMArr = [NSMutableArray arrayWithCapacity:0];
+//        for (int i = 0; i< 6; i++) {
+//            int index = arc4random() % 5;
+//            WOOJIuDemoModel * model = [[WOOJIuDemoModel alloc]init];
+//            model.title = titleArr[index];
+//            model.IDS = FORMAT(@"%d",i);
+//            if (i<3) {
+//                [mutableArr addObject:model];
+//            }else{
+//                [bottomMArr addObject:model];
+//            }
+//        }
+//        WOOJiuListDemoModel * listModel = [[WOOJiuListDemoModel alloc]init];
+//        listModel.dataArray = [mutableArr copy];
+//        listModel.firstModel = [mutableArr firstObject];
+//        listModel.bottomArray = [bottomMArr copy];
+//        listModel.lastModel = [bottomMArr lastObject];
+//        [self.dataList addObject:listModel];
+//    }
+    self.jiuViewModel = [[WOOJiuListViewModel alloc]init];
 }
 
+- (void)bindingData{
+    @weakify(self);
+    [[RACObserve(self, jiuViewModel.dataList) skip:1] subscribeNext:^(NSArray *articleArr) {
+        @strongify(self);
+        NSLog(@"%@",articleArr);
+        NSInteger x = articleArr.count / 8;
+        for (int i = 0; i < x; i++) {
+            WOOJiuListDemoModel * listModel = [[WOOJiuListDemoModel alloc]init];
+            NSMutableArray * mutableArr = [NSMutableArray arrayWithCapacity:0];
+            NSMutableArray * bottomMArr = [NSMutableArray arrayWithCapacity:0];
+            for (int j = 0; j < 8; j++) {
+                int index = i * 8 + j;
+                if (index < articleArr.count) {
+                    WOOArticleModel * model = articleArr[index];
+                    if (j == 0) {
+                        listModel.firstModel = model;
+                    }
+                    if (j > 0 && j < 4) {
+                        [mutableArr addObject:model];
+                    }else if(j > 3 && j < 7){
+                        [bottomMArr addObject:model];
+                    }
+                    if (j == 7) {
+                        listModel.lastModel = model;
+                    }
+                }
+            }
+            listModel.dataArray = mutableArr;
+            listModel.bottomArray = bottomMArr;
+            [self.dataList addObject:listModel];
+        }
+        [self.adapter reloadDataWithCompletion:NULL];
+    }];
+
+}
 
 @end

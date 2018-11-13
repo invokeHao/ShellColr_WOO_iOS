@@ -41,7 +41,7 @@
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
     WOOInsJiuCell *cell = [self.collectionContext dequeueReusableCellOfClass:[WOOInsJiuCell class] forSectionController:self atIndex:index];
-    WOOJIuDemoModel * model = self.listModel.bottomArray[index];
+    WOOArticleModel * model = self.listModel.bottomArray[index];
     [cell setModel:model];
     return cell;
 }
@@ -57,7 +57,7 @@
 }
 
 - (void)didSelectItemAtIndex:(NSInteger)index {
-    WOOJIuDemoModel * model = self.listModel.bottomArray[index];
+    WOOArticleModel * model = self.listModel.bottomArray[index];
     [WOOHud showString:model.title];
 }
 
