@@ -15,6 +15,13 @@
 		6709ADB821885F4400A404B0 /* WOOInsInformationSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6709ADB721885F4400A404B0 /* WOOInsInformationSectionController.m */; };
 		6709ADBE2189869400A404B0 /* WOOUserDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6709ADBD2189869400A404B0 /* WOOUserDeviceModel.m */; };
 		6709ADC2218AE32700A404B0 /* WOOMineSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6709ADC1218AE32700A404B0 /* WOOMineSectionController.m */; };
+		671412FB21A425CF00AA26F8 /* WOOFlowDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 671412FA21A425CF00AA26F8 /* WOOFlowDetailVC.m */; };
+		6714130621A54F1000AA26F8 /* WOOUUIDWithKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6714130521A54F1000AA26F8 /* WOOUUIDWithKeyChain.m */; };
+		6719349321ABBA9B00C95A42 /* WOOGoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6719349221ABBA9B00C95A42 /* WOOGoodsModel.m */; };
+		6719349621ABCB8B00C95A42 /* WOOGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6719349521ABCB8B00C95A42 /* WOOGoodsCell.m */; };
+		6719349921ABD02A00C95A42 /* WOOGoodsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6719349821ABD02A00C95A42 /* WOOGoodsDetailVC.m */; };
+		6719349C21ABD88F00C95A42 /* WOOGoodsDetailTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6719349B21ABD88F00C95A42 /* WOOGoodsDetailTopView.m */; };
+		6719349F21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6719349E21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.m */; };
 		67318D6321981A6700B527F9 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D6221981A6700B527F9 /* OpenUDID.m */; };
 		67318D662199210100B527F9 /* WOOMainFlowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D652199210100B527F9 /* WOOMainFlowModel.m */; };
 		67318D692199223B00B527F9 /* WOOTipsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D682199223B00B527F9 /* WOOTipsModel.m */; };
@@ -24,6 +31,10 @@
 		67318D76219A715B00B527F9 /* WOOJiuListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D75219A715B00B527F9 /* WOOJiuListViewModel.m */; };
 		67318D79219AAB0400B527F9 /* WOOInsJiuInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D78219AAB0400B527F9 /* WOOInsJiuInfoCell.m */; };
 		67318D7C219AB9F700B527F9 /* WOOInsInformationBottomSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D7B219AB9F700B527F9 /* WOOInsInformationBottomSectionController.m */; };
+		679C37AC21A57CC9003C6DDF /* WOOFeedbackApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 679C37AB21A57CC9003C6DDF /* WOOFeedbackApi.m */; };
+		679C37B021A69B79003C6DDF /* WOOMainVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 679C37AF21A69B79003C6DDF /* WOOMainVideoModel.m */; };
+		679C37B321A69E17003C6DDF /* WOOVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 679C37B221A69E17003C6DDF /* WOOVideoModel.m */; };
+		679C37B621A6CACE003C6DDF /* WOOFlowDetailVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 679C37B521A6CACE003C6DDF /* WOOFlowDetailVideoVC.m */; };
 		67E930C22182B73F0042C39A /* WOOResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930BD2182B73F0042C39A /* WOOResponseObject.m */; };
 		67E930C32182B73F0042C39A /* WOOPageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930BF2182B73F0042C39A /* WOOPageData.m */; };
 		67E930C42182B73F0042C39A /* WOOHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930C12182B73F0042C39A /* WOOHTTPManager.m */; };
@@ -149,6 +160,21 @@
 		6709ADBD2189869400A404B0 /* WOOUserDeviceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOUserDeviceModel.m; sourceTree = "<group>"; };
 		6709ADC0218AE32700A404B0 /* WOOMineSectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMineSectionController.h; sourceTree = "<group>"; };
 		6709ADC1218AE32700A404B0 /* WOOMineSectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOMineSectionController.m; sourceTree = "<group>"; };
+		671412F921A425CF00AA26F8 /* WOOFlowDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOFlowDetailVC.h; sourceTree = "<group>"; };
+		671412FA21A425CF00AA26F8 /* WOOFlowDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOFlowDetailVC.m; sourceTree = "<group>"; };
+		6714130421A54F1000AA26F8 /* WOOUUIDWithKeyChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOUUIDWithKeyChain.h; sourceTree = "<group>"; };
+		6714130521A54F1000AA26F8 /* WOOUUIDWithKeyChain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOUUIDWithKeyChain.m; sourceTree = "<group>"; };
+		6714130721A551C900AA26F8 /* wooDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = wooDemo.entitlements; sourceTree = "<group>"; };
+		6719349121ABBA9B00C95A42 /* WOOGoodsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOGoodsModel.h; sourceTree = "<group>"; };
+		6719349221ABBA9B00C95A42 /* WOOGoodsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOGoodsModel.m; sourceTree = "<group>"; };
+		6719349421ABCB8B00C95A42 /* WOOGoodsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOGoodsCell.h; sourceTree = "<group>"; };
+		6719349521ABCB8B00C95A42 /* WOOGoodsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOGoodsCell.m; sourceTree = "<group>"; };
+		6719349721ABD02A00C95A42 /* WOOGoodsDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOGoodsDetailVC.h; sourceTree = "<group>"; };
+		6719349821ABD02A00C95A42 /* WOOGoodsDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOGoodsDetailVC.m; sourceTree = "<group>"; };
+		6719349A21ABD88F00C95A42 /* WOOGoodsDetailTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOGoodsDetailTopView.h; sourceTree = "<group>"; };
+		6719349B21ABD88F00C95A42 /* WOOGoodsDetailTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOGoodsDetailTopView.m; sourceTree = "<group>"; };
+		6719349D21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOGoodsDetailCashBackView.h; sourceTree = "<group>"; };
+		6719349E21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOGoodsDetailCashBackView.m; sourceTree = "<group>"; };
 		67318D6121981A6700B527F9 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		67318D6221981A6700B527F9 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		67318D642199210100B527F9 /* WOOMainFlowModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMainFlowModel.h; sourceTree = "<group>"; };
@@ -167,6 +193,14 @@
 		67318D78219AAB0400B527F9 /* WOOInsJiuInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOInsJiuInfoCell.m; sourceTree = "<group>"; };
 		67318D7A219AB9F700B527F9 /* WOOInsInformationBottomSectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOInsInformationBottomSectionController.h; sourceTree = "<group>"; };
 		67318D7B219AB9F700B527F9 /* WOOInsInformationBottomSectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOInsInformationBottomSectionController.m; sourceTree = "<group>"; };
+		679C37AA21A57CC9003C6DDF /* WOOFeedbackApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOFeedbackApi.h; sourceTree = "<group>"; };
+		679C37AB21A57CC9003C6DDF /* WOOFeedbackApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOFeedbackApi.m; sourceTree = "<group>"; };
+		679C37AE21A69B79003C6DDF /* WOOMainVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMainVideoModel.h; sourceTree = "<group>"; };
+		679C37AF21A69B79003C6DDF /* WOOMainVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOMainVideoModel.m; sourceTree = "<group>"; };
+		679C37B121A69E17003C6DDF /* WOOVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOVideoModel.h; sourceTree = "<group>"; };
+		679C37B221A69E17003C6DDF /* WOOVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOVideoModel.m; sourceTree = "<group>"; };
+		679C37B421A6CACE003C6DDF /* WOOFlowDetailVideoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOFlowDetailVideoVC.h; sourceTree = "<group>"; };
+		679C37B521A6CACE003C6DDF /* WOOFlowDetailVideoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOFlowDetailVideoVC.m; sourceTree = "<group>"; };
 		67E930BA2181C6E60042C39A /* WOOThirdPartyConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOThirdPartyConstant.h; sourceTree = "<group>"; };
 		67E930BC2182B73F0042C39A /* WOOPageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOOPageData.h; sourceTree = "<group>"; };
 		67E930BD2182B73F0042C39A /* WOOResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOOResponseObject.m; sourceTree = "<group>"; };
@@ -379,13 +413,35 @@
 			path = SectionViewController;
 			sourceTree = "<group>";
 		};
+		6719349021ABBA7F00C95A42 /* GoodsModel */ = {
+			isa = PBXGroup;
+			children = (
+				6719349121ABBA9B00C95A42 /* WOOGoodsModel.h */,
+				6719349221ABBA9B00C95A42 /* WOOGoodsModel.m */,
+			);
+			path = GoodsModel;
+			sourceTree = "<group>";
+		};
 		67318D702199743700B527F9 /* MainFlow */ = {
 			isa = PBXGroup;
 			children = (
 				67318D71219974B000B527F9 /* WOOMainFlowListApi.h */,
 				67318D72219974B000B527F9 /* WOOMainFlowListApi.m */,
+				679C37AA21A57CC9003C6DDF /* WOOFeedbackApi.h */,
+				679C37AB21A57CC9003C6DDF /* WOOFeedbackApi.m */,
 			);
 			path = MainFlow;
+			sourceTree = "<group>";
+		};
+		679C37AD21A69B53003C6DDF /* FlowVideoModel */ = {
+			isa = PBXGroup;
+			children = (
+				679C37AE21A69B79003C6DDF /* WOOMainVideoModel.h */,
+				679C37AF21A69B79003C6DDF /* WOOMainVideoModel.m */,
+				679C37B121A69E17003C6DDF /* WOOVideoModel.h */,
+				679C37B221A69E17003C6DDF /* WOOVideoModel.m */,
+			);
+			path = FlowVideoModel;
 			sourceTree = "<group>";
 		};
 		67E930AD2181C6410042C39A /* RegistAndLogin */ = {
@@ -443,6 +499,8 @@
 				6709ADAE21871CE900A404B0 /* WOOInsJiuLayoutCell.m */,
 				67318D77219AAB0400B527F9 /* WOOInsJiuInfoCell.h */,
 				67318D78219AAB0400B527F9 /* WOOInsJiuInfoCell.m */,
+				6719349421ABCB8B00C95A42 /* WOOGoodsCell.h */,
+				6719349521ABCB8B00C95A42 /* WOOGoodsCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -471,6 +529,12 @@
 		67E930B52181C6410042C39A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				671412F921A425CF00AA26F8 /* WOOFlowDetailVC.h */,
+				671412FA21A425CF00AA26F8 /* WOOFlowDetailVC.m */,
+				679C37B421A6CACE003C6DDF /* WOOFlowDetailVideoVC.h */,
+				679C37B521A6CACE003C6DDF /* WOOFlowDetailVideoVC.m */,
+				6719349721ABD02A00C95A42 /* WOOGoodsDetailVC.h */,
+				6719349821ABD02A00C95A42 /* WOOGoodsDetailVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -478,6 +542,10 @@
 		67E930B62181C6410042C39A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6719349A21ABD88F00C95A42 /* WOOGoodsDetailTopView.h */,
+				6719349B21ABD88F00C95A42 /* WOOGoodsDetailTopView.m */,
+				6719349D21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.h */,
+				6719349E21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -570,6 +638,8 @@
 				67318D6221981A6700B527F9 /* OpenUDID.m */,
 				67E930DF2182C0CD0042C39A /* WOODevice.h */,
 				67E930E02182C0CD0042C39A /* WOODevice.m */,
+				6714130421A54F1000AA26F8 /* WOOUUIDWithKeyChain.h */,
+				6714130521A54F1000AA26F8 /* WOOUUIDWithKeyChain.m */,
 			);
 			path = Unit;
 			sourceTree = "<group>";
@@ -695,6 +765,7 @@
 		67E9F4E6218168D800FA7ECD /* wooDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6714130721A551C900AA26F8 /* wooDemo.entitlements */,
 				67E9F52421816ABC00FA7ECD /* Base */,
 				67E9F51D21816ABC00FA7ECD /* Bootstrap */,
 				67E9F52221816ABC00FA7ECD /* Categroy */,
@@ -814,6 +885,8 @@
 		67E9F52521816ABC00FA7ECD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6719349021ABBA7F00C95A42 /* GoodsModel */,
+				679C37AD21A69B53003C6DDF /* FlowVideoModel */,
 				67E930E52182C9570042C39A /* LoginAndShare */,
 				67E930E62182C9570042C39A /* MainFlow */,
 			);
@@ -1197,6 +1270,11 @@
 				TargetAttributes = {
 					67E9F4E3218168D800FA7ECD = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					67E9F4FB218168D900FA7ECD = {
 						CreatedOnToolsVersion = 10.0;
@@ -1287,6 +1365,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-wooDemo/Pods-wooDemo-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/SuperPlayer/SuperPlayer/Resource/SuperPlayer.bundle",
 				"${PODS_ROOT}/Weibo_SDK/libWeiboSDK/WeiboSDK.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -1295,6 +1374,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SuperPlayer.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WeiboSDK.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1385,15 +1465,19 @@
 				67E9F5D22181B89E00FA7ECD /* KSProgressLayer.m in Sources */,
 				67E9F5CF2181B89E00FA7ECD /* ZYNetworkAccessibity.m in Sources */,
 				6709ADAF21871CE900A404B0 /* WOOInsJiuLayoutCell.m in Sources */,
+				6719349C21ABD88F00C95A42 /* WOOGoodsDetailTopView.m in Sources */,
 				67E930F52182CBFF0042C39A /* WOOMobileAuth.m in Sources */,
 				67E930C22182B73F0042C39A /* WOOResponseObject.m in Sources */,
+				6719349321ABBA9B00C95A42 /* WOOGoodsModel.m in Sources */,
 				67E9F5D42181B89E00FA7ECD /* KSPhotoBrowser.m in Sources */,
 				67E930E92182C9950042C39A /* WOOBaseModel.m in Sources */,
 				67E9F59B2181B42400FA7ECD /* AppDelegate+CMSVersonControl.m in Sources */,
 				67E9F5D12181B89E00FA7ECD /* KSYYImageManager.m in Sources */,
+				6719349621ABCB8B00C95A42 /* WOOGoodsCell.m in Sources */,
 				67E930FC2182E1760042C39A /* WOOLoginService.m in Sources */,
 				67318D6F2199631000B527F9 /* WOOApiHostModel.m in Sources */,
 				67E9F5B22181B42400FA7ECD /* UIPasteboard+CMSVerify.m in Sources */,
+				671412FB21A425CF00AA26F8 /* WOOFlowDetailVC.m in Sources */,
 				67E931112182F6BC0042C39A /* WOOTabBarViewController.m in Sources */,
 				67E9F5A72181B42400FA7ECD /* UILabel+WLAddition.m in Sources */,
 				67318D79219AAB0400B527F9 /* WOOInsJiuInfoCell.m in Sources */,
@@ -1423,6 +1507,7 @@
 				67E9F5A12181B42400FA7ECD /* NSObject+CMSRefresh.m in Sources */,
 				6709ADA9218717BC00A404B0 /* WOOJiuListDemoModel.m in Sources */,
 				67E930E12182C0CD0042C39A /* WOODevice.m in Sources */,
+				679C37B021A69B79003C6DDF /* WOOMainVideoModel.m in Sources */,
 				67318D662199210100B527F9 /* WOOMainFlowModel.m in Sources */,
 				67E9F5AD2181B42400FA7ECD /* UIView+WHChain.m in Sources */,
 				67E930F82182DB060042C39A /* WOOProfile.m in Sources */,
@@ -1435,6 +1520,7 @@
 				67E9F5942181B42400FA7ECD /* NSNumber+CMSCalculator.m in Sources */,
 				6709ADB52188498000A404B0 /* WOOInsJiuBottomSectionController.m in Sources */,
 				67E9F5AF2181B42400FA7ECD /* UIView+Extension.m in Sources */,
+				679C37B621A6CACE003C6DDF /* WOOFlowDetailVideoVC.m in Sources */,
 				67E9F5922181B42400FA7ECD /* UIResponder+CMSResponderRouter.m in Sources */,
 				67E9F5B32181B42400FA7ECD /* UITextView+Placeholder.m in Sources */,
 				6709ADC2218AE32700A404B0 /* WOOMineSectionController.m in Sources */,
@@ -1449,21 +1535,26 @@
 				67E930DD2182BDF40042C39A /* CMSRefreshAnimationView.m in Sources */,
 				67E9F5AA2181B42400FA7ECD /* UIView+CMSGradient.m in Sources */,
 				67E9F5A42181B42400FA7ECD /* UIScrollView+AllowPanGestureEventPass.m in Sources */,
+				6714130621A54F1000AA26F8 /* WOOUUIDWithKeyChain.m in Sources */,
 				67E9310E2182F2B60042C39A /* WOOBaseCollectionViewCell.m in Sources */,
 				6709ADAC21871C1100A404B0 /* WOOInsJiuSubSectionController.m in Sources */,
 				67E9F59A2181B42400FA7ECD /* NSString+CMSQiniuParam.m in Sources */,
 				67E9F5982181B42400FA7ECD /* NSString+CMSAttributedString.m in Sources */,
 				67E930DB2182BDF40042C39A /* CMSRefreshNormalHeader.m in Sources */,
 				67E930CB2182BA4F0042C39A /* WOOServiceGlobalConfig.m in Sources */,
+				6719349921ABD02A00C95A42 /* WOOGoodsDetailVC.m in Sources */,
 				67E9F5B42181B42400FA7ECD /* UIImageView+WLAddition.m in Sources */,
 				67E930D92182BDF40042C39A /* WOOAlertTool.m in Sources */,
+				6719349F21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.m in Sources */,
 				67E9F5A22181B42400FA7ECD /* UIImage+CMSDrawCircle.m in Sources */,
 				6709ADB821885F4400A404B0 /* WOOInsInformationSectionController.m in Sources */,
 				67E9F5D32181B89E00FA7ECD /* KSPhotoItem.m in Sources */,
 				67E9311B2182F9A70042C39A /* WOOMineHomePageVC.m in Sources */,
+				679C37B321A69E17003C6DDF /* WOOVideoModel.m in Sources */,
 				67E9F5A02181B42400FA7ECD /* AppDelegate+CMSInstaBugConfig.m in Sources */,
 				67E9F59C2181B42400FA7ECD /* AppDelegate+CMSConfigRouter.m in Sources */,
 				67318D76219A715B00B527F9 /* WOOJiuListViewModel.m in Sources */,
+				679C37AC21A57CC9003C6DDF /* WOOFeedbackApi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1616,8 +1707,11 @@
 			baseConfigurationReference = C21CC6565CE4EDBDA088F635 /* Pods-wooDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = wooDemo/wooDemo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2NES7Z2EL5;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/wooDemo/Vendors/TencentOpenAPI",
@@ -1632,6 +1726,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = moboo.woo.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = (
 					"${SRCROOT}",
@@ -1645,8 +1740,11 @@
 			baseConfigurationReference = 04517F4B9B1D76C0E42013F9 /* Pods-wooDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = wooDemo/wooDemo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2NES7Z2EL5;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/wooDemo/Vendors/TencentOpenAPI",
@@ -1661,6 +1759,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = moboo.woo.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = (
 					"${SRCROOT}",

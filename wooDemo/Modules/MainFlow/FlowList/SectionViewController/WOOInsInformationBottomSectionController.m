@@ -9,6 +9,8 @@
 #import "WOOInsInformationBottomSectionController.h"
 #import "WOOJiuListDemoModel.h"
 #import "WOOInsJiuInfoCell.h"
+#import "WOOFlowDetailVC.h"
+#import "WOOFlowDetailVideoVC.h"
 
 @interface WOOInsInformationBottomSectionController ()
 
@@ -21,14 +23,14 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.inset = UIEdgeInsetsMake(3, 3, 3, 3);
+        self.inset = UIEdgeInsetsMake(0, 20, 0, 20);
     }
     return self;
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
     CGFloat width = self.collectionContext.containerSize.width;
-    return CGSizeMake(width - 6 , 108);
+    return CGSizeMake(width - 48 , 104);
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
@@ -50,6 +52,17 @@
 
 - (void)didSelectItemAtIndex:(NSInteger)index {
     WOOArticleModel * model = self.listModel.lastModel;
-    [WOOHud showString:model.title];
+    if (model.video_id && model.has_video) {
+        WOOFlowDetailVideoVC * videoDetailVC = [[WOOFlowDetailVideoVC alloc]init];
+        videoDetailVC.video_id = model.video_id;
+        videoDetailVC.itemId = model.group_id;
+        videoDetailVC.titleStr = model.abstract;
+        [self.viewController.navigationController pushViewController:videoDetailVC animated:YES];
+    }else{
+        WOOFlowDetailVC * detailVC = [[WOOFlowDetailVC alloc]init];
+        detailVC.itemId = model.group_id;
+        detailVC.videoId = model.video_id;
+        [self.viewController.navigationController pushViewController:detailVC animated:YES];
+    }
 }
 @end

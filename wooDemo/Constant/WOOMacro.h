@@ -46,9 +46,9 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 } while(0)
 
 // 判断是否是iPhone X
-//#define IS_IPHONEX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define IS_IPHONEX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
-#define IS_IPHONEX [[[UIApplication sharedApplication] delegate] window].safeAreaInsets.bottom > 0.0
+//#define IS_IPHONEX [[[UIApplication sharedApplication] delegate] window].safeAreaInsets.bottom > 0.0
 // 状态栏高度
 #define STATUS_BAR_HEIGHT (IS_IPHONEX ? 44.f : 20.f)
 // 导航栏高度
@@ -82,6 +82,8 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 
 // 环境设置
 #define WOODebugMode @"WOODebugMode"
+
+#define KUserUUIDKeyChainKey @"com.shellcolr.WOO.usernamepassword"
 
 
 #endif /* WOOMacro_h */

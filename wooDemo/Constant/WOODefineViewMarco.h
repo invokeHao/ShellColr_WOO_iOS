@@ -11,6 +11,9 @@
 
 //categroy
 
+#import "UIView+CMSGradient.h"
+#import "NSString+CMSAttributedString.h"
+#import "NSString+Extention.h"
 
 //defineView
 #import "WOOAlertTool.h"

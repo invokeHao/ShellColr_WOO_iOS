@@ -121,6 +121,7 @@
                        completion:(void (^)(BOOL isSuccess,NSError *error))completion {
     WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
     NSDictionary * dic = [model toDictionary];
+    NSLog(@"%@",dic);
     NSString * path = FORMAT(@"http:/47.104.253.57/service/init/");
     [[WOOHTTPManager sharedManager] POST:path parameters:dic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
         if ([responseObject.message isEqualToString:@"success"]) {
@@ -142,7 +143,6 @@
     WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
     NSDictionary * pramDic = [model streamListDictionary];
     NSString * path = FORMAT(@"http:/47.104.253.57/service/settings/stream/");
-    NSLog(@"%@",pramDic);
     [[WOOHTTPManager sharedManager] POST:path parameters:pramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
         if ([responseObject.message isEqualToString:@"success"]) {
             completion(responseObject.api_report,nil);

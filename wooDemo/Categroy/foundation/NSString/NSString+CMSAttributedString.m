@@ -10,14 +10,13 @@
 
 @implementation NSString (CMSAttributedString)
 
-- (NSAttributedString *)attributedStringWithLineSpace:(CGFloat)lineSpace font:(UIFont *)font textColor:(UIColor *)color {
+- (NSAttributedString *)attributedStringWithLineSpace:(CGFloat)lineSpace fontSpace:(CGFloat)fontSpace{
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
 //    style.minimumLineHeight = lineSpace;
 //    style.maximumLineHeight = lineSpace;
     style.lineSpacing = lineSpace;
     return [[NSAttributedString alloc] initWithString:self attributes:@{NSParagraphStyleAttributeName: style,
-                                                                        NSForegroundColorAttributeName: color,
-                                                                        NSFontAttributeName: font
+                                                 NSKernAttributeName : @(fontSpace)
                                                                         }];
 }
 
