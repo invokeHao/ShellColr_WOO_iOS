@@ -7,19 +7,22 @@
 //
 
 #import "WOOBaseModel.h"
-#import "WOOJIuDemoModel.h"
+#import "WOOArticleModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WOOJiuListDemoModel : WOOBaseModel<IGListDiffable>
+@interface WOOJiuListDemoModel : WOOBaseModel
 
-@property (nonatomic, strong)WOOJIuDemoModel * firstModel;
+@property (nonatomic, strong)WOOArticleModel * firstModel;
 
 @property (nonatomic, copy)NSArray * dataArray;
 
 @property (nonatomic, copy)NSArray * bottomArray;
 
-@property (nonatomic, strong)WOOJIuDemoModel * lastModel;
+@property (nonatomic, strong)WOOArticleModel * lastModel;
+
+//业务字段
+@property (nonatomic, assign)BOOL isRight; //大的在左边还是右边
 
 @end
 

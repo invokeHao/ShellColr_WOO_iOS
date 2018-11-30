@@ -8,64 +8,42 @@
 
 #import "WOOInsInformationSectionController.h"
 #import "WOOJiuListDemoModel.h"
-#import "WOOInsJiuCell.h"
-#import "WOOJiuCellNode.h"
+#import "WOOInsJiuInfoCell.h"
+#import "WOOFlowDetailVC.h"
+#import "WOOFlowDetailVideoVC.h"
 
 @interface WOOInsInformationSectionController ()
 
-@property (nonatomic, strong)WOOJiuListDemoModel <IGListDiffable>* listModel;
-
-@property (nonatomic, strong, readonly) dispatch_queue_t diffingQueue;
-
-@property (nonatomic, copy) WOOJiuListDemoModel <IGListDiffable>* pendingModel;
-
-@property (nonatomic) BOOL initialItemsRead;
+@property (nonatomic, strong)WOOJiuListDemoModel * listModel;
 
 @end
 
 @implementation WOOInsInformationSectionController
 
-@synthesize diffingQueue = _diffingQueue;
-
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.inset = UIEdgeInsetsMake(3, 3, 3, 3);
+        self.inset = UIEdgeInsetsMake(0, 0, 4, 0);
     }
     return self;
 }
 
-- (NSInteger)numberOfItems {
-    return 1;
-}
-
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
     CGFloat width = self.collectionContext.containerSize.width;
-    return CGSizeMake(width - 6 , 88);
-    return [ASIGListSectionControllerMethods sizeForItemAtIndex:index];
+    return CGSizeMake(width - 48 , 104);
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
-    WOOInsJiuCell *cell = [self.collectionContext dequeueReusableCellOfClass:[WOOInsJiuCell class] forSectionController:self atIndex:index];
-    WOOJIuDemoModel * model = self.listModel.firstModel;
+    WOOInsJiuInfoCell *cell = [self.collectionContext dequeueReusableCellOfClass:[WOOInsJiuInfoCell class] forSectionController:self atIndex:index];
+    WOOArticleModel * model = self.listModel.firstModel;
     [cell setModel:model];
     return cell;
 }
 
-
-- (WOOJiuListDemoModel<IGListDiffable> *)pendingModel {
-    if (!_pendingModel) {
-        _pendingModel = [[WOOJiuListDemoModel alloc]init];
+- (void)didUpdateToObject:(id)object {
+    if ([object isKindOfClass:[WOOJiuListDemoModel class]]) {
+        self.listModel = object;
     }
-    return _pendingModel;
-}
-
-- (dispatch_queue_t)diffingQueue
-{
-    if (_diffingQueue == nil) {
-        _diffingQueue = dispatch_queue_create("ASCollectionSectionController.diffingQueue", DISPATCH_QUEUE_SERIAL);
-    }
-    return _diffingQueue;
 }
 
 - (nullable UIView *)emptyViewForListAdapter:(nonnull IGListAdapter *)listAdapter {
@@ -73,8 +51,19 @@
 }
 
 - (void)didSelectItemAtIndex:(NSInteger)index {
-    WOOJIuDemoModel * model = self.listModel.firstModel;
-    [WOOHud showString:model.title];
+    WOOArticleModel * model = self.listModel.firstModel;
+    if (model.video_id && model.has_video) {
+        WOOFlowDetailVideoVC * videoDetailVC = [[WOOFlowDetailVideoVC alloc]init];
+        videoDetailVC.video_id = model.video_id;
+        videoDetailVC.itemId = model.group_id;
+        videoDetailVC.titleStr = model.abstract;
+        [self.viewController.navigationController pushViewController:videoDetailVC animated:YES];
+    }else{
+        WOOFlowDetailVC * detailVC = [[WOOFlowDetailVC alloc]init];
+        detailVC.itemId = model.group_id;
+        detailVC.videoId = model.video_id;
+        [self.viewController.navigationController pushViewController:detailVC animated:YES];
+    }
 }
 
 @end

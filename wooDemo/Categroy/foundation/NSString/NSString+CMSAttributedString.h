@@ -11,7 +11,5 @@
 @interface NSString (CMSAttributedString)
 
 - (NSAttributedString *)attributedStringWithLineSpace:(CGFloat)lineSpace
-                                                 font:(UIFont *)font
-                                            textColor:(UIColor *)color;
-
+                                            fontSpace:(CGFloat)fontSpace;
 @end

@@ -80,6 +80,6 @@ UIColor *woo_colorWithHexString(NSString *str) {
     return [UIColor woo_colorWithHexString:str];
 }
 
-UIColor *mb_colorWithHexAndAlpha(NSString *str, CGFloat alpha) {
+UIColor *woo_colorWithHexAndAlpha(NSString *str, CGFloat alpha) {
     return [UIColor woo_colorWithHexString:str alpha:alpha];
 }

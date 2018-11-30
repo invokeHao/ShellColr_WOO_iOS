@@ -7,31 +7,33 @@
 //
 
 #import "WOOFlowListVC.h"
+#import "WOOBaseCollectionView.h"
 #import "WOOInsJiuSectionController.h"
 #import "WOOInsJiuBottomSectionController.h"
 #import "WOOInsInformationSectionController.h"
-#import "WOOJIuDemoModel.h"
+#import "WOOInsInformationBottomSectionController.h"
 #import "WOOJiuListDemoModel.h"
-#import "WOOLoginService.h"
+#import "WOOJiuListViewModel.h"
 
 @interface WOOFlowListVC ()<IGListAdapterDataSource>
 @property (nonatomic, strong) IGListAdapter *adapter;
-@property (nonatomic, strong) IGListCollectionView *collectionView;
-@property (nonatomic, strong) NSMutableArray * dataList;
+@property (nonatomic, strong) WOOBaseCollectionView * collectionView;
 @property (nonatomic, strong) NSMutableArray * bottomDataList;
+@property (nonatomic, strong) WOOJiuListViewModel * jiuViewModel;
 @end
 
 @implementation WOOFlowListVC
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self bindingData];
     [self setupData];
     [self setupUI];
-    [self.adapter reloadDataWithCompletion:NULL];
 }
 
 - (void)setupUI {
+    self.view.backgroundColor = woo_colorWithHexString(@"F2F2F2");
+    self.navBar.hidden = YES;
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
@@ -55,7 +57,7 @@
 
 - (NSArray<id<IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter {
     NSMutableArray * mutableArr = [NSMutableArray arrayWithCapacity:0];
-    for (WOOJiuListDemoModel * model in self.dataList) {
+    for (WOOJiuListDemoModel * model in self.jiuViewModel.dataList) {
         [mutableArr addObject: model];
     }
     return [mutableArr copy];
@@ -64,14 +66,16 @@
 - (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
         IGListStackedSectionController *sc = [[IGListStackedSectionController alloc]
                                           initWithSectionControllers:@[
-                                                                       [[WOOInsInformationSectionController alloc] init],
-                                                                       [[WOOInsJiuSectionController alloc] init],
-                                                                       [[WOOInsJiuBottomSectionController alloc] init],
-                                                                       [[WOOInsInformationSectionController alloc] init]
+                                            [[WOOInsInformationSectionController alloc] init],
+                                                                    
+                                            [[WOOInsJiuSectionController alloc] init],
+                                                                    
+                                            [[WOOInsJiuBottomSectionController alloc] init],
+                                                                    
+                                            [[WOOInsInformationBottomSectionController alloc] init]
                                                                        ]];
-    sc.inset = UIEdgeInsetsMake(3, 3, 10, 3);
-    sc.minimumLineSpacing = 3;
-    sc.minimumInteritemSpacing = 3;
+    sc.inset = UIEdgeInsetsMake(20, 24, 0, 24);
+    sc.minimumLineSpacing = 20;
     return sc;
 }
 
@@ -79,24 +83,15 @@
     return nil;
 }
 
-
-
-- (IGListCollectionView *)collectionView {
+- (WOOBaseCollectionView *)collectionView {
     if (!_collectionView) {
-        IGListCollectionViewLayout *layout = [[IGListCollectionViewLayout alloc] initWithStickyHeaders:NO topContentInset:0 stretchToEdge:NO];
-        _collectionView = [[IGListCollectionView alloc]initWithFrame:CGRectZero listCollectionViewLayout:layout];
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        _collectionView = [[WOOBaseCollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         [_collectionView setBackgroundColor:[UIColor clearColor]];
     }
     return _collectionView;
 }
 
-
-- (NSArray *)dataList {
-    if (!_dataList) {
-        _dataList = [NSMutableArray arrayWithCapacity:0];
-    }
-    return _dataList;
-}
 
 - (NSMutableArray *)bottomDataList {
     if (!_bottomDataList) {
@@ -106,35 +101,39 @@
 }
 
 - (void)setupData {
-    NSArray * titleArr = @[@"资讯",@"视频",@"图片",@"商品",@"音乐"];
-    for (int j = 0; j < 3; j ++) {
-        NSMutableArray * mutableArr = [NSMutableArray arrayWithCapacity:0];
-        NSMutableArray * bottomMArr = [NSMutableArray arrayWithCapacity:0];
-        for (int i = 0; i< 6; i++) {
-            int index = arc4random() % 5;
-            WOOJIuDemoModel * model = [[WOOJIuDemoModel alloc]init];
-            model.title = titleArr[index];
-            model.IDS = FORMAT(@"%d",i);
-            if (i<3) {
-                [mutableArr addObject:model];
-            }else{
-                [bottomMArr addObject:model];
-            }
-        }
-        WOOJiuListDemoModel * listModel = [[WOOJiuListDemoModel alloc]init];
-        listModel.dataArray = [mutableArr copy];
-        listModel.firstModel = [mutableArr firstObject];
-        listModel.bottomArray = [bottomMArr copy];
-        listModel.lastModel = [bottomMArr lastObject];
-        [self.dataList addObject:listModel];
-    }
-    NSDictionary * dic = [NSDictionary dictionary];
-    [WOOLoginService initNewUserWithDictionary:dic completion:^(NSError * _Nonnull error) {
-        [WOOLoginService getTheSteamServiceListWithDictionary:dic completion:^(NSError * _Nonnull error) {
-            
-        }];
+    self.jiuViewModel = [[WOOJiuListViewModel alloc]init];
+    @weakify(self)
+    [self.collectionView setHeaderRefreshingBlock:^{
+        @strongify(self)
+        [self.jiuViewModel fetchMainFlowListWithRefreshType:WOORefreshTypeHeader];
+    }];
+    [self.collectionView setFooterRefreshingBlock:^{
+        @strongify(self)
+        [self.jiuViewModel fetchMainFlowListWithRefreshType:WOORefreshTypeFooter];
+    }];
+    
+    [self.jiuViewModel.errorSubject subscribeNext:^(id x) {
+        @strongify(self);
+        [self.collectionView.mj_header endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
+        NSLog(@"%@",x);
     }];
 }
 
+- (void)refreshTheFlowData {
+    [self.collectionView.mj_header beginRefreshing];
+}
+
+- (void)bindingData{
+    @weakify(self);
+    [[RACObserve(self, jiuViewModel.dataList) skip:1] subscribeNext:^(NSArray *articleArr) {
+        @strongify(self);
+        [self.collectionView.mj_header endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
+        if (articleArr.count > 0) {
+            [self.adapter reloadDataWithCompletion:NULL];
+        }
+    }];
+}
 
 @end

@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WOOInsInformationSectionController : IGListSectionController
 
-- (NSInteger)numberOfItems;
-
 @end
 
 NS_ASSUME_NONNULL_END

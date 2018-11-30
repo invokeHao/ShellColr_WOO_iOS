@@ -15,6 +15,7 @@
 #import <net/if_dl.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "OpenUDID.h"
+#import "WOOUUIDWithKeyChain.h"
 
 @implementation WOOUserDeviceModel
 
@@ -29,6 +30,7 @@
 - (void)configTheData {
     self.resolution = [self getScreenPix];
     self.os = @"Ios";
+    self.os_api = @"11";
     self.carrier = [self getDeviceNetName];
     self.os_version = [self getDeviceSystemVersion];
     self.mc = [self getMacAddress];
@@ -38,6 +40,9 @@
     self.timezone = [self getTimezone];
     self.udid = [self getUUID];
     self.Openuuid = [OpenUDID value];
+#warning 根据需求截短数据
+//    self.uuid = [self.uuid substringToIndex:15];
+    self.Openuuid = [self.Openuuid substringToIndex:16];
     NSString * hashStr = @"";
     if (self.resolution.length > 0) {
         hashStr = [hashStr stringByAppendingString:FORMAT(@"resolution:%@,",self.resolution)];
@@ -93,6 +98,12 @@
     if (self.os) {
         [dic setObject:self.os forKey:@"os"];
     }
+    if (self.os_api) {
+        [dic setObject:self.os_api forKey:@"os_api"];
+    }
+    if (self.os_version.length > 0) {
+        [dic setObject:self.os_version forKey:@"os_version"];
+    }
     if (self.mc.length > 0) {
         [dic setObject:self.mc forKey:@"mc"];
     }
@@ -137,6 +148,24 @@
     return [dic copy];
 }
 
+- (NSDictionary *)streamListDictionary {
+    NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
+    if (self.uuid.length > 0) {
+        [dic setObject:self.uuid forKey:@"uuid"];
+    }
+    if (self.Openuuid.length > 0) {
+        [dic setObject:self.Openuuid forKey:@"Openuuid"];
+    }
+    self.device_id = @"7564326355";
+    self.app_name = @"WOO";
+    self.version_code = @"100";
+    [dic setObject:self.device_id forKey:@"device_id"];
+    [dic setObject:self.app_name forKey:@"app_name"];
+    [dic setObject:self.version_code forKey:@"version_code"];
+    [dic setObject:@(8) forKey:@"count"];
+    return [dic copy];
+}
+
 - (NSString *)getScreenPix{
     NSString *screenPix = @"";
     CGRect rect = [[UIScreen mainScreen] bounds];
@@ -150,17 +179,7 @@
 }
 
 - (NSString *)getUUID {
-    CFUUIDRef puuid = CFUUIDCreate(nil);
-    CFStringRef uuidString = CFUUIDCreateString(nil, puuid);
-    NSString *result = (NSString *)CFBridgingRelease(CFStringCreateCopy(NULL, uuidString));
-    NSMutableString *tmpResult = result.mutableCopy;
-    // 去除“-”
-    NSRange range = [tmpResult rangeOfString:@"-"];
-    while (range.location != NSNotFound) {
-        [tmpResult deleteCharactersInRange:range];
-        range = [tmpResult rangeOfString:@"-"];
-    }
-    return tmpResult;
+    return [WOOUUIDWithKeyChain getUUID];
 }
 
 - (NSString*)getDeviceSystemVersion {

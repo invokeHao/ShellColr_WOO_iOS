@@ -41,6 +41,9 @@ static dispatch_once_t onceToken;
         NSMutableSet *acceptTypes = [reponseSerializer.acceptableContentTypes mutableCopy];
         [acceptTypes addObject:@"text/html"];
         [acceptTypes addObject:@"text/plain"];
+//        [acceptTypes addObject:@"application/json"];
+//        [acceptTypes addObject:@"text/json"];
+
         reponseSerializer.acceptableContentTypes = acceptTypes;
 #ifdef DEBUG
         AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
@@ -50,6 +53,33 @@ static dispatch_once_t onceToken;
 #endif
     }
     return self;
+}
+
+#pragma mark- 不封装返回数据
+
+- (NSURLSessionDataTask *)EasyGET:(NSString *)URLString
+                    parameters:(id)parameters
+                       success:(void (^)(NSURLSessionDataTask * task, id responseObjc))success
+                       failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure {
+    [self cms_configHttpHeaderField];
+    NSURLSessionDataTask *task = [self GET:URLString
+                                parameters:parameters
+                                  progress:nil
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           if (responseObject) {
+                                               success(task, responseObject);
+                                           } else {
+                                               NSError * error = [NSError errorWithCode:1 desc:@"请求错误"];
+                                               failure(task, error);
+                                           }
+                                       });
+                                   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           failure(task, error);
+                                       });
+                                   }];
+    return task;
 }
 
 - (NSURLSessionDataTask *)GET:(NSString *)URLString
@@ -62,7 +92,7 @@ static dispatch_once_t onceToken;
                                   progress:nil
                                    success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                           WOOResponseObject *cmsResponse = [WOOResponseObject yy_modelWithJSON:responseObject];
+                                           WOOResponseObject *cmsResponse = [[WOOResponseObject alloc]initWithDictionary:responseObject];
                                            if (cmsResponse.errorId == 0) {
                                                success(task, cmsResponse);
                                            } else {
@@ -84,7 +114,7 @@ static dispatch_once_t onceToken;
                     parameters:(id)parameters
                        success:(void (^)(NSURLSessionDataTask *task, WOOResponseObject *responseObject))success
                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
-//    [self cms_configHttpHeaderField];
+    [self cms_configHttpHeaderField];
     NSURLSessionDataTask *task = [self POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             WOOResponseObject *cmsResponse = [[WOOResponseObject alloc]initWithDictionary:responseObject];
@@ -202,11 +232,38 @@ static dispatch_once_t onceToken;
     return task;
 }
 
+#pragma mark- POST Body
+- (NSURLSessionDataTask *)Post:(NSString *)URLString
+                      HTTPBody:(NSDictionary *)bodyDic
+                       success:(void (^) (id responseObject))success
+                       failure:(void (^)(id responseObject))failure {
+    [self cms_configHttpHeaderField];
+    NSMutableDictionary * mDic = [NSMutableDictionary dictionaryWithCapacity:0];
+    [mDic setObject:@"application/json" forKey:@"Content-Type"];
+    [mDic setObject:@"application/json" forKey:@"Accept"];
+    [mDic setObject:@"xxxxx" forKey:@"x-token"];
+    NSError *error;
+    NSData *Data = [NSJSONSerialization dataWithJSONObject:bodyDic options:0 error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:Data encoding:NSUTF8StringEncoding];
+    NSData * jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURLSessionDataTask * task = [self POST:URLString parameters:bodyDic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+       [formData appendPartWithHeaders:mDic body:jsonData];
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+        });
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+    return task;
+}
+
 - (void)cms_configHttpHeaderField {
-    [[self requestSerializer] setValue:[WOOLoginManager token] forHTTPHeaderField:@"x-token"];
-    [[self requestSerializer] setValue:@"ecypc8htcxr8lq7a" forHTTPHeaderField:@"x-app-id"];
-    [[self requestSerializer] setValue:@"colr.ios.phone" forHTTPHeaderField:@"x-site-code"];
-    [[self requestSerializer] setValue:@"appstore" forHTTPHeaderField:@"x-channel"];
+//    [[self requestSerializer] setValue:[WOOLoginManager token] forHTTPHeaderField:@"x-token"];
+//    [[self requestSerializer] setValue:@"ecypc8htcxr8lq7a" forHTTPHeaderField:@"x-app-id"];
+//    [[self requestSerializer] setValue:@"colr.ios.phone" forHTTPHeaderField:@"x-site-code"];
+//    [[self requestSerializer] setValue:@"appstore" forHTTPHeaderField:@"x-channel"];
 }
 
 @end

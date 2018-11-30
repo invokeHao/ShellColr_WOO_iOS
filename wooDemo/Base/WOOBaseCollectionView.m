@@ -35,7 +35,7 @@
 - (void)setHeaderRefreshingBlock:(MJRefreshComponentRefreshingBlock)headerRefreshingBlock {
     _headerRefreshingBlock = headerRefreshingBlock;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:headerRefreshingBlock];
-    header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    header.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     header.stateLabel.hidden = YES;
     header.lastUpdatedTimeLabel.hidden = YES;
     self.mj_header= header;
