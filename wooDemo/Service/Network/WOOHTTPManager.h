@@ -45,4 +45,10 @@
                        success:(void (^)(WOOResponseObject *responseObject))success
                        failure:(void (^)(NSError *error))failure;
 
+
+
+- (NSURLSessionDataTask *)EasyGET:(NSString *)URLString
+                       parameters:(id)parameters
+                          success:(void (^)(NSURLSessionDataTask * task, id responseObjc))success
+                          failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure;
 @end

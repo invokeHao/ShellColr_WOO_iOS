@@ -24,18 +24,16 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.inset = UIEdgeInsetsMake(3, 3, 3, 3);
         self.adapter = [[IGListAdapter alloc] initWithUpdater:[[IGListAdapterUpdater alloc] init] viewController:self.viewController];
         [self.adapter setDataSource:self];
-
     }
     return self;
 }
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
     CGFloat width = self.collectionContext.containerSize.width;
-    CGFloat itemSize = floorf((width - 10)/3);
-    return CGSizeMake(width - 6 , itemSize*2 + 4);
+    CGFloat itemSize = floorf((width - 88)/3);
+    return CGSizeMake(width - 48 , itemSize*2 + 20 + 4);
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {

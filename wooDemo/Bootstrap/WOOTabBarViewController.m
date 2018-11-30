@@ -15,6 +15,7 @@ NSString * const WOOTabViewControllerSwitchoverTabNotification = @"WOOTabViewCon
 
 @interface WOOTabBarViewController ()
 
+@property (nonatomic, assign) BOOL formFirstVC;
 @property (nonatomic, assign) WOOTabViewControllerType type;
 @property (nonatomic, assign) CGFloat tabBarY;
 
@@ -136,6 +137,17 @@ NSString * const WOOTabViewControllerSwitchoverTabNotification = @"WOOTabViewCon
     self.view.height = VERTICAL_SCREEN_HEIGHT - STATUSBAR_HEIGHT + STATUS_BAR_HEIGHT;
 }
 
+- (void)didSelectViewControllerAtIndex:(NSUInteger)index {
+    if (index == 0) {
+        if (self.formFirstVC) {
+            WOOFlowListVC * listVC = (WOOFlowListVC *)[self.viewControllers firstObject];
+            [listVC refreshTheFlowData];
+        }
+        self.formFirstVC = YES;
+    }else{
+        self.formFirstVC = NO;
+    }
+}
 
 #pragma mark - getting
 

@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)NSArray * image_list;
 
+//业务字段
+@property (nonatomic, assign)BOOL isBigCell;
+
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 
 - (NSDictionary *)toDictionary;

@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)NSString * os_api; //API
 @property (nonatomic, copy)NSString * timezone; //时区
 @property (nonatomic, copy)NSString * language; //语言
-@property (nonatomic, copy)NSString * udid; //UUID
+@property (nonatomic, copy)NSString * uuid; //UUID
 @property (nonatomic, copy)NSString * sig_hash; //上面所有数据的hash加密
 @property (nonatomic, copy)NSString * Openuuid;
 

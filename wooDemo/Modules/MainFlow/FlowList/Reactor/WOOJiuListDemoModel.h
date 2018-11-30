@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)WOOArticleModel * lastModel;
 
+//业务字段
+@property (nonatomic, assign)BOOL isRight; //大的在左边还是右边
+
 @end
 
 NS_ASSUME_NONNULL_END

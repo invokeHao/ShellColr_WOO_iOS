@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WOOJiuListViewModel : NSObject
 
-@property (strong, nonatomic, readonly)NSArray<WOOArticleModel *> * dataList;
+@property (strong, nonatomic, readonly)NSArray<WOOJiuListDemoModel *> * dataList;
+
+@property (strong, nonatomic, readonly)RACSubject *errorSubject;
 
 - (void)fetchMainFlowListWithRefreshType:(WOORefreshType)refreshType;
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WOOMainFlowModel.h"
+#import "WOOMainVideoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getTheMainFlowListWithPath:(NSString *)path
                         Dictionary:(NSDictionary*)paramDic
                        completion:(void (^)(WOOMainFlowModel *model, NSError * error))completion;
+
++ (void)getTheDetailDataWithItemID:(NSString *)ItemId
+                        completion:(void (^)(NSString *htmlStr, NSError *error))completion;
+
++ (void)getTheDetailVideoUrlWithVideoId:(NSString *)videoId
+                             completion:(void (^)(WOOMainVideoModel * model, NSError * error))completion;
 
 @end
 
