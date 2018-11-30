@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WOOFlowListVC : WOOBaseViewController
 
+//刷新数据
+- (void)refreshTheFlowData;
+
 @end
 
 NS_ASSUME_NONNULL_END

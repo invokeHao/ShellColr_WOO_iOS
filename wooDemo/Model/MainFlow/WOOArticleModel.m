@@ -13,6 +13,7 @@ NSString *const kWOOArticleTitle = @"title";
 NSString *const kWOOArticleHasVideo = @"has_video";
 NSString *const kWOOArticleDisplayUrl = @"display_url";
 NSString *const kWOOArticleGroupId = @"group_id";
+NSString *const kWOOArticleVideoId = @"video_id";
 NSString *const kWOOArticleSource = @"source";
 NSString *const kWOOArticleMiddleImage = @"middle_image";
 NSString *const kWOOArticleImageList = @"image_list";
@@ -46,6 +47,14 @@ NSString *const kWOOArticleImageList = @"image_list";
     if(![dictionary[kWOOArticleSource] isKindOfClass:[NSNull class]]){
         self.source = dictionary[kWOOArticleSource];
     }
+    if(![dictionary[kWOOArticleVideoId] isKindOfClass:[NSNull class]]){
+        self.video_id = dictionary[kWOOArticleVideoId];
+    }
+
+    if(![dictionary[kWOOArticleSource] isKindOfClass:[NSNull class]]){
+        self.source = dictionary[kWOOArticleSource];
+    }
+    
     if(![dictionary[kWOOArticleMiddleImage] isKindOfClass:[NSNull class]]){
         self.middle_image = dictionary[kWOOArticleMiddleImage];
     }
@@ -74,6 +83,9 @@ NSString *const kWOOArticleImageList = @"image_list";
     }
     if(self.group_id != nil){
         dictionary[kWOOArticleGroupId] = self.group_id;
+    }
+    if (self.video_id != nil) {
+        dictionary[kWOOArticleVideoId] = self.video_id;
     }
     if(self.source != nil){
         dictionary[kWOOArticleSource] = self.source;
