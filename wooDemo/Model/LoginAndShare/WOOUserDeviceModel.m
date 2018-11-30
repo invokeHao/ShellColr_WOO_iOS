@@ -38,7 +38,7 @@
     self.device_model = [WOODevice iphoneType];
     self.language = [self getLocalLanguage];
     self.timezone = [self getTimezone];
-    self.udid = [self getUUID];
+    self.uuid = [self getUUID];
     self.Openuuid = [OpenUDID value];
 #warning 根据需求截短数据
 //    self.uuid = [self.uuid substringToIndex:15];
@@ -71,8 +71,8 @@
     if (self.timezone.length > 0) {
         hashStr = [hashStr stringByAppendingString:FORMAT(@"timezone:%@,",self.timezone)];
     }
-    if (self.udid.length > 0) {
-        hashStr = [hashStr stringByAppendingString:FORMAT(@"udid:%@,",self.udid)];
+    if (self.uuid.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"udid:%@,",self.uuid)];
     }
     if (self.Openuuid.length > 0) {
         hashStr = [hashStr stringByAppendingString:FORMAT(@"Openuuid:%@,",self.Openuuid)];
@@ -119,8 +119,8 @@
     if (self.language.length > 0) {
         [dic setObject:self.language forKey:@"language"];
     }
-    if (self.udid.length > 0) {
-        [dic setObject:self.udid forKey:@"udid"];
+    if (self.uuid.length > 0) {
+        [dic setObject:self.uuid forKey:@"udid"];
     }
     if (self.sig_hash.length > 0) {
         [dic setObject:self.sig_hash forKey:@"sig_hash"];
@@ -128,23 +128,6 @@
     if (self.Openuuid.length > 0) {
         [dic setObject:self.Openuuid forKey:@"Openuuid"];
     }
-    return [dic copy];
-}
-
-- (NSDictionary *)streamListDictionary {
-    NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:0];
-    if (self.udid.length > 0) {
-        [dic setObject:self.udid forKey:@"udid"];
-    }
-    if (self.Openuuid.length > 0) {
-        [dic setObject:self.Openuuid forKey:@"Openuuid"];
-    }
-    self.device_id = @"7564326355";
-    self.app_name = @"WOO";
-    self.version_code = @"100";
-    [dic setObject:self.device_id forKey:@"device_id"];
-    [dic setObject:self.app_name forKey:@"app_name"];
-    [dic setObject:self.version_code forKey:@"version_code"];
     return [dic copy];
 }
 

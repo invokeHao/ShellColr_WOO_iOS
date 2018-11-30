@@ -155,7 +155,7 @@
     if (!_titleLabel) {
         _titleLabel = UILabel.label.WH_font(WOOFont(13)).WH_textColor([UIColor whiteColor]).WH_numberOfLines(2);
     }
-    return _iconView;
+    return _titleLabel;
 }
 
 @end
