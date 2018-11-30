@@ -396,6 +396,7 @@ tabBarStopOnTopHeight:(CGFloat)tabBarStopOnTopHeight {
 
 - (void)yp_tabBar:(YPTabBar *)tabBar didSelectedItemAtIndex:(NSUInteger)index {
     if (index == self.selectedControllerIndex) {
+        [self didSelectViewControllerAtIndex:_selectedControllerIndex];
         return;
     }
     UIViewController *oldController = nil;

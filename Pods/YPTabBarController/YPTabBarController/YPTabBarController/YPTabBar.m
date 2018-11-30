@@ -286,8 +286,13 @@
 }
 
 - (void)setSelectedItemIndex:(NSUInteger)selectedItemIndex {
-    if (selectedItemIndex == _selectedItemIndex ||
-        selectedItemIndex >= self.items.count ||
+    if (selectedItemIndex == _selectedItemIndex) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(yp_tabBar:didSelectedItemAtIndex:)]) {
+            [self.delegate yp_tabBar:self didSelectedItemAtIndex:selectedItemIndex];
+        }
+    }
+
+    if (selectedItemIndex >= self.items.count ||
         self.items.count == 0) {
         return;
     }
