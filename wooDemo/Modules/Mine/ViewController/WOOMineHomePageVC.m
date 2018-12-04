@@ -32,7 +32,6 @@
     [self.apdapter setASDKCollectionNode:self.collectionNode];
 }
 
-
 - (nullable UIView *)emptyViewForListAdapter:(nonnull IGListAdapter *)listAdapter {
     return nil;
 }
@@ -43,6 +42,15 @@
 
 - (nonnull NSArray<id<IGListDiffable>> *)objectsForListAdapter:(nonnull IGListAdapter *)listAdapter {
     return nil;
+}
+
+- (ASCollectionNode *)collectionNode {
+    if (!_collectionNode) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        _collectionNode = [[ASCollectionNode alloc] initWithCollectionViewLayout:layout];
+        [_collectionNode setBackgroundColor:woo_colorWithHexString(@"F2F2F2")];
+    }
+    return _collectionNode;
 }
 
 
