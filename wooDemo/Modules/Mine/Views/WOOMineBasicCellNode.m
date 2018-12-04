@@ -9,8 +9,6 @@
 #import "WOOMineBasicCellNode.h"
 @interface WOOMineBasicCellNode ()
 
-@property (nonatomic, strong)
-
 @end
 
 @implementation WOOMineBasicCellNode
