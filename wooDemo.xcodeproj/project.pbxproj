@@ -22,6 +22,8 @@
 		6719349921ABD02A00C95A42 /* WOOGoodsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6719349821ABD02A00C95A42 /* WOOGoodsDetailVC.m */; };
 		6719349C21ABD88F00C95A42 /* WOOGoodsDetailTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6719349B21ABD88F00C95A42 /* WOOGoodsDetailTopView.m */; };
 		6719349F21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6719349E21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.m */; };
+		671934A721B23B3100C95A42 /* WOOMineBasicCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 671934A621B23B3100C95A42 /* WOOMineBasicCellNode.m */; };
+		671934AA21B23C2100C95A42 /* WOOMineBasicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 671934A921B23C2100C95A42 /* WOOMineBasicModel.m */; };
 		67318D6321981A6700B527F9 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D6221981A6700B527F9 /* OpenUDID.m */; };
 		67318D662199210100B527F9 /* WOOMainFlowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D652199210100B527F9 /* WOOMainFlowModel.m */; };
 		67318D692199223B00B527F9 /* WOOTipsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D682199223B00B527F9 /* WOOTipsModel.m */; };
@@ -175,6 +177,10 @@
 		6719349B21ABD88F00C95A42 /* WOOGoodsDetailTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOGoodsDetailTopView.m; sourceTree = "<group>"; };
 		6719349D21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOGoodsDetailCashBackView.h; sourceTree = "<group>"; };
 		6719349E21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOGoodsDetailCashBackView.m; sourceTree = "<group>"; };
+		671934A521B23B3100C95A42 /* WOOMineBasicCellNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMineBasicCellNode.h; sourceTree = "<group>"; };
+		671934A621B23B3100C95A42 /* WOOMineBasicCellNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOMineBasicCellNode.m; sourceTree = "<group>"; };
+		671934A821B23C2100C95A42 /* WOOMineBasicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMineBasicModel.h; sourceTree = "<group>"; };
+		671934A921B23C2100C95A42 /* WOOMineBasicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOMineBasicModel.m; sourceTree = "<group>"; };
 		67318D6121981A6700B527F9 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		67318D6221981A6700B527F9 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		67318D642199210100B527F9 /* WOOMainFlowModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMainFlowModel.h; sourceTree = "<group>"; };
@@ -420,6 +426,15 @@
 				6719349221ABBA9B00C95A42 /* WOOGoodsModel.m */,
 			);
 			path = GoodsModel;
+			sourceTree = "<group>";
+		};
+		671934A121B239E300C95A42 /* MineModel */ = {
+			isa = PBXGroup;
+			children = (
+				671934A821B23C2100C95A42 /* WOOMineBasicModel.h */,
+				671934A921B23C2100C95A42 /* WOOMineBasicModel.m */,
+			);
+			path = MineModel;
 			sourceTree = "<group>";
 		};
 		67318D702199743700B527F9 /* MainFlow */ = {
@@ -712,6 +727,8 @@
 		67E931172182F9740042C39A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				671934A521B23B3100C95A42 /* WOOMineBasicCellNode.h */,
+				671934A621B23B3100C95A42 /* WOOMineBasicCellNode.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -889,6 +906,7 @@
 				679C37AD21A69B53003C6DDF /* FlowVideoModel */,
 				67E930E52182C9570042C39A /* LoginAndShare */,
 				67E930E62182C9570042C39A /* MainFlow */,
+				671934A121B239E300C95A42 /* MineModel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1504,6 +1522,7 @@
 				67E9F5962181B42400FA7ECD /* NSUserDefaults+CMSData.m in Sources */,
 				67E9F5992181B42400FA7ECD /* NSString+Extention.m in Sources */,
 				67E9F5BB2181B4DA00FA7ECD /* UIView+WOOHud.m in Sources */,
+				671934AA21B23C2100C95A42 /* WOOMineBasicModel.m in Sources */,
 				67E9F5A12181B42400FA7ECD /* NSObject+CMSRefresh.m in Sources */,
 				6709ADA9218717BC00A404B0 /* WOOJiuListDemoModel.m in Sources */,
 				67E930E12182C0CD0042C39A /* WOODevice.m in Sources */,
@@ -1527,6 +1546,7 @@
 				6709ADA32186E7C100A404B0 /* WOOInsJiuSectionController.m in Sources */,
 				67E9F5902181B42400FA7ECD /* NSDictionary+CMSAttributes.m in Sources */,
 				67E9F5D02181B89E00FA7ECD /* KSPhotoView.m in Sources */,
+				671934A721B23B3100C95A42 /* WOOMineBasicCellNode.m in Sources */,
 				67E9F52821816ABC00FA7ECD /* AppDelegate.m in Sources */,
 				67E931142182F9320042C39A /* WOOFlowListVC.m in Sources */,
 				67E931082182F1290042C39A /* WOOBaseNavigationController.m in Sources */,

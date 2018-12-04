@@ -26,12 +26,16 @@
     return [ASIGListSectionControllerMethods cellForItemAtIndex:index sectionController:self];
 }
 
+
+- (void)didSelectItemAtIndex:(NSInteger)index {
+    NSLog(@"didSelect");
+}
+
 - (ASCellNodeBlock)nodeBlockForItemAtIndex:(NSInteger)index {
     return nil;
 }
 
 - (void)beginBatchFetchWithContext:(ASBatchContext *)context{
-    
 }
 
 @end
