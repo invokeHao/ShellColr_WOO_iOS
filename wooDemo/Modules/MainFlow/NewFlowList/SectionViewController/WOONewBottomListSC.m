@@ -8,6 +8,7 @@
 
 #import "WOONewBottomListSC.h"
 #import "WOOBottomImagListCell.h"
+#import "WOOBottomTextOnlyCell.h"
 #import "WOONewListModel.h"
 #import "WOOFlowDetailVC.h"
 #import "WOOFlowDetailVideoVC.h"
@@ -39,14 +40,30 @@
     CGFloat width = self.collectionContext.containerSize.width;
     CGFloat height = KTopCellH;
     width = width - 30;
-    return CGSizeMake(width, height);
+    if (!self.listModel) {
+        return CGSizeMake(width, height);
+    }else{
+        WOOArticleModel * model = self.listModel.BottomArray[index];
+        if (model.modelType == WOOArticleModelBottomTextOnlyType) {
+            CGFloat kTextH = 115 * VERTICAL_SCREEN_WIDTH / 375;
+            return CGSizeMake(width, kTextH);
+        }else{
+            return CGSizeMake(width, height);
+        }
+    }
 }
 
 - (UICollectionViewCell *)cellForItemAtIndex:(NSInteger)index {
-    WOOBottomImagListCell *cell = [self.collectionContext dequeueReusableCellOfClass:[WOOBottomImagListCell class] forSectionController:self atIndex:index];
     WOOArticleModel * model = self.listModel.BottomArray[index];
-    [cell setModel:model];
-    return cell;
+    if (model.modelType == WOOArticleModelBottomTextOnlyType) {
+        WOOBottomTextOnlyCell * cell = [self.collectionContext dequeueReusableCellOfClass:[WOOBottomTextOnlyCell class] forSectionController:self atIndex:index];
+        [cell setModel:model];
+        return cell;
+    }else{
+        WOOBottomImagListCell *cell = [self.collectionContext dequeueReusableCellOfClass:[WOOBottomImagListCell class] forSectionController:self atIndex:index];
+        [cell setModel:model];
+        return cell;
+    }
 }
 
 - (void)didUpdateToObject:(id)object {

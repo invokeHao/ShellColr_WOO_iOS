@@ -54,13 +54,11 @@
         make.right.mas_equalTo(-4);
         make.size.mas_equalTo(CGSizeMake(22, 22));
     }];
-    
     [self configTheLayer];
 }
 
 - (void)setModel:(WOOArticleModel *)model {
     if (model) {
-        NSLog(@"%@",model.title);
         self.titleLabel.attributedText = [model.title attributedStringWithLineSpace:2 fontSpace:1.5f];
         self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         if (model.has_video) {
@@ -100,8 +98,16 @@
 }
 
 - (void)configTheLayer {
-//    [self.imageBackView roundCorner:UIRectCornerTopLeft|UIRectCornerTopRight radius:10];
-
+    [self.imageBackView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[YYAnimatedImageView class]]) {
+            YYAnimatedImageView * imageV = obj;
+            if (idx == 0) {
+                [imageV roundCorner:UIRectCornerTopLeft radius:10];
+            }else if (idx == 2){
+                [imageV roundCorner:UIRectCornerTopRight radius:10];
+            }
+        }
+    }];
     self.layer.cornerRadius = 10;
     self.layer.shadowOffset = CGSizeMake(0, 2);
     self.layer.shadowColor = woo_colorWithHexAndAlpha(@"000000", 0.1).CGColor;

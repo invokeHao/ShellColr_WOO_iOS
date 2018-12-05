@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WOOBottomTextOnlyCell : WOOBaseCollectionViewCell
 
+@property (strong, nonatomic)WOOArticleModel * model;
+
 @end
 
 NS_ASSUME_NONNULL_END
