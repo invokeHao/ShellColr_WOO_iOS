@@ -39,10 +39,10 @@
     self.language = [self getLocalLanguage];
     self.timezone = [self getTimezone];
     self.uuid = [self getUUID];
-    self.Openuuid = [OpenUDID value];
+    self.Openudid = [OpenUDID value];
 #warning 根据需求截短数据
 //    self.uuid = [self.uuid substringToIndex:15];
-    self.Openuuid = [self.Openuuid substringToIndex:16];
+    self.Openudid = [self.Openudid substringToIndex:16];
     NSString * hashStr = @"";
     if (self.resolution.length > 0) {
         hashStr = [hashStr stringByAppendingString:FORMAT(@"resolution:%@,",self.resolution)];
@@ -72,10 +72,10 @@
         hashStr = [hashStr stringByAppendingString:FORMAT(@"timezone:%@,",self.timezone)];
     }
     if (self.uuid.length > 0) {
-        hashStr = [hashStr stringByAppendingString:FORMAT(@"udid:%@,",self.uuid)];
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"uuid:%@,",self.uuid)];
     }
-    if (self.Openuuid.length > 0) {
-        hashStr = [hashStr stringByAppendingString:FORMAT(@"Openuuid:%@,",self.Openuuid)];
+    if (self.Openudid.length > 0) {
+        hashStr = [hashStr stringByAppendingString:FORMAT(@"Openudid:%@,",self.Openudid)];
     }
     NSString * salt = @"ca1344b92801137aef458beb25248edd";
     hashStr = [hashStr stringByAppendingString:FORMAT(@"SALT:%@",salt)];
@@ -120,13 +120,13 @@
         [dic setObject:self.language forKey:@"language"];
     }
     if (self.uuid.length > 0) {
-        [dic setObject:self.uuid forKey:@"udid"];
+        [dic setObject:self.uuid forKey:@"uuid"];
     }
     if (self.sig_hash.length > 0) {
         [dic setObject:self.sig_hash forKey:@"sig_hash"];
     }
-    if (self.Openuuid.length > 0) {
-        [dic setObject:self.Openuuid forKey:@"Openuuid"];
+    if (self.Openudid.length > 0) {
+        [dic setObject:self.Openudid forKey:@"Openudid"];
     }
     return [dic copy];
 }
@@ -136,8 +136,8 @@
     if (self.uuid.length > 0) {
         [dic setObject:self.uuid forKey:@"uuid"];
     }
-    if (self.Openuuid.length > 0) {
-        [dic setObject:self.Openuuid forKey:@"Openuuid"];
+    if (self.Openudid.length > 0) {
+        [dic setObject:self.Openudid forKey:@"Openudid"];
     }
     self.device_id = @"7564326355";
     self.app_name = @"WOO";
