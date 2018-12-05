@@ -6,6 +6,14 @@
 //  Copyright © 2018 colr. All rights reserved.
 //
 
+typedef NS_ENUM(NSUInteger, WOOArticleModelType) {
+    WOOArticleModelTopSamllType,
+    WOOArticleModelHotVideoType,
+    WOOArticleModelBottomImagesType,
+    WOOArticleModelBottomTextOnlyType,
+    WOOArticleModelUnknowType
+};
+
 #import "WOOBaseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -31,7 +39,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong)NSArray * image_list;
 
 //业务字段
-@property (nonatomic, assign)BOOL isBigCell;
+
+@property (nonatomic, assign)WOOArticleModelType modelType;
+
+@property (nonatomic, assign)BOOL isBigCell; //Ins的大cell
+
+@property (nonatomic, assign)BOOL isTopSamCell;
+
+@property (nonatomic, assign)BOOL isHotVideo;//热门视频
+
+@property (nonatomic, assign)BOOL isTextOnly; //纯文本
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 

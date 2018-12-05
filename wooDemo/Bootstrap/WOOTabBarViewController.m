@@ -9,7 +9,7 @@
 #import "WOOTabBarViewController.h"
 #import <GDPerformanceMonitor.h>
 #import "WOOMineHomePageVC.h"
-#import "WOOFlowListVC.h"
+#import "WOONewFlowListVC.h"
 
 NSString * const WOOTabViewControllerSwitchoverTabNotification = @"WOOTabViewControllerSwitchoverTabNotification";
 
@@ -69,7 +69,7 @@ NSString * const WOOTabViewControllerSwitchoverTabNotification = @"WOOTabViewCon
 
 - (void)initViewControllers {
     
-    WOOFlowListVC *flow = [[WOOFlowListVC alloc] init];
+    WOONewFlowListVC *flow = [[WOONewFlowListVC alloc] init];
     flow.yp_tabItemImage = [UIImage imageNamed:@"ico_explore_unselected"];
     flow.yp_tabItemSelectedImage = [UIImage imageNamed:@"ico_explore_selected"];
     flow.yp_tabItemTitle = @"内容流";
@@ -140,7 +140,7 @@ NSString * const WOOTabViewControllerSwitchoverTabNotification = @"WOOTabViewCon
 - (void)didSelectViewControllerAtIndex:(NSUInteger)index {
     if (index == 0) {
         if (self.formFirstVC) {
-            WOOFlowListVC * listVC = (WOOFlowListVC *)[self.viewControllers firstObject];
+            WOONewFlowListVC * listVC = (WOONewFlowListVC *)[self.viewControllers firstObject];
             [listVC refreshTheFlowData];
         }
         self.formFirstVC = YES;

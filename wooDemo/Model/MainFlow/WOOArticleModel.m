@@ -168,4 +168,22 @@ NSString *const kWOOArticleImageList = @"image_list";
     return copy;
 }
 
+- (WOOArticleModelType)modelType {
+    if (self.isHotVideo) {
+        return WOOArticleModelHotVideoType;
+    }
+    if (self.isTopSamCell) {
+        return WOOArticleModelTopSamllType;
+    }
+    if (self.isTextOnly) {
+        return WOOArticleModelBottomTextOnlyType;
+    }
+    if (self.image_list.count > 0) {
+        return WOOArticleModelBottomImagesType;
+    }
+    else{
+        return WOOArticleModelUnknowType;
+    }
+}
+
 @end

@@ -150,7 +150,7 @@
             }else{
                 resultStr = FORMAT(@"%@,您未观看全部",timeStr);
             }
-            [WOOHud showString:resultStr];
+//            [WOOHud showString:resultStr];
         }else{
             NSLog(@"%@",error);
         }

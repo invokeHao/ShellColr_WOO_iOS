@@ -223,7 +223,7 @@
             }else{
                 resultStr = FORMAT(@"%@,您未阅读到底部",timeStr);
             }
-            [WOOHud showString:resultStr];
+//            [WOOHud showString:resultStr];
 
         }else{
             NSLog(@"%@",error);
