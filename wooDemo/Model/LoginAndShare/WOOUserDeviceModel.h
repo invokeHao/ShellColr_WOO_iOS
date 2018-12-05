@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)NSString * language; //语言
 @property (nonatomic, copy)NSString * uuid; //UUID
 @property (nonatomic, copy)NSString * sig_hash; //上面所有数据的hash加密
-@property (nonatomic, copy)NSString * Openuuid;
+@property (nonatomic, copy)NSString * Openudid;
 
 @property (nonatomic, copy)NSString * app_name;
 @property (nonatomic, copy)NSString * version_code;
