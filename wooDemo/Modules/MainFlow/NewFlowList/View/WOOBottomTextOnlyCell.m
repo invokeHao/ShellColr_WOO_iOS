@@ -44,6 +44,7 @@
         make.left.right.mas_equalTo(self.titleLabel);
         make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(6);
     }];
+    [self configTheLayer];
 }
 
 - (void)setModel:(WOOArticleModel *)model {
@@ -54,6 +55,15 @@
         self.abstractLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     }
 }
+
+- (void)configTheLayer {
+    self.layer.cornerRadius = 10;
+    self.layer.shadowOffset = CGSizeMake(0, 2);
+    self.layer.shadowColor = woo_colorWithHexAndAlpha(@"000000", 0.2).CGColor;
+    self.layer.shadowOpacity = 0.5;
+    self.layer.shadowRadius = 2;
+}
+
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {

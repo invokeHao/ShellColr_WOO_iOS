@@ -13,6 +13,8 @@
 + (void)getTheMainFlowListWithPath:(NSString *)path
                         Dictionary:(NSDictionary *)paramDic
                         completion:(void (^)(WOOMainFlowModel * , NSError *))completion {
+//    NSLog(@"%@",path);
+//    NSLog(@"%@",paramDic);
     [[WOOHTTPManager manager] GET:path parameters:paramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *cmsResponse) {
         if ([cmsResponse.message isEqualToString:@"success"]) {
             completion(cmsResponse.mainFlowModel,nil);

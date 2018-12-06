@@ -131,8 +131,8 @@
             }
         }
     }
-    while (goodsArr.count < 2) {
-        [goodsArr addObject:[self createAGoodsModel]];
+    for (WOOGoodsModel * model in [self createAGoodsModel]) {
+        [goodsArr addObject:model];
     }
     
     listModel.TopArray = [resultArr copy];
@@ -153,17 +153,30 @@
     }
 }
 
-- (WOOGoodsModel *)createAGoodsModel {
+- (NSArray *)createAGoodsModel {
+    NSMutableArray * modelArr = [NSMutableArray arrayWithCapacity:0];
+    
     NSMutableDictionary * dic = [NSMutableDictionary dictionary];
     [dic setValue:@"10023" forKey:@"goodsId"];
     [dic setValue:@"https://img13.360buyimg.com/babel/s320x320_jfs/t25333/286/1148627644/132468/e935cde5/5b8df4e1Nfdcae39e.jpg" forKey:@"goodsCoverUrl"];
     [dic setValue:@"索尼（SONY）ILCE-7RM3全画幅微单数码相机 SEL24240镜头套装" forKey:@"goodsName"];
     [dic setValue:@"约4240万有效像素4K视频5轴防抖 a7RM3/a7r3" forKey:@"goodsDesc"];
-    [dic setValue:@"2299" forKey:@"goodsPrice"];
+    [dic setValue:@"2299.00" forKey:@"goodsPrice"];
     [dic setValue:@"300" forKey:@"cashBack"];
-    
     WOOGoodsModel * model = [[WOOGoodsModel alloc]initWithDictionary:dic];
-    return model;
+    [modelArr addObject:model];
+    
+    NSMutableDictionary * psDic = [NSMutableDictionary dictionary];
+    [psDic setValue:@"10024" forKey:@"goodsId"];
+    [psDic setValue:@"https://img11.360buyimg.com/n1/s450x450_jfs/t1/1799/10/15434/151015/5bde80fdEed74055b/1d6aa3ae4688e06e.jpg" forKey:@"goodsCoverUrl"];
+    [psDic setValue:@"索尼（SONY）【PS4 国行游戏机】" forKey:@"goodsName"];
+    [psDic setValue:@"PlayStation 4 电脑娱乐游戏主机 500G（黑色）2018版" forKey:@"goodsDesc"];
+    [psDic setValue:@"1998.00" forKey:@"goodsPrice"];
+    [psDic setValue:@"200" forKey:@"cashBack"];
+    WOOGoodsModel * psModel = [[WOOGoodsModel alloc]initWithDictionary:psDic];
+    [modelArr addObject:psModel];
+
+    return [modelArr copy];
 }
 
 @end
