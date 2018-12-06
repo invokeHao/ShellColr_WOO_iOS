@@ -117,7 +117,7 @@
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = UILabel.label.WH_font(WOOFont(15)).WH_textColor(woo_colorWithHexString(@"#171F24")).WH_numberOfLines(2);
+        _titleLabel = UILabel.label.WH_font(WOOFont(16)).WH_textColor(woo_colorWithHexString(@"#171F24")).WH_numberOfLines(2);
     }
     return _titleLabel;
 }

@@ -26,7 +26,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.minimumInteritemSpacing = 15;
+        self.minimumLineSpacing = 15;
     }
     return self;
 }
@@ -45,10 +45,9 @@
     }else{
         WOOArticleModel * model = self.listModel.BottomArray[index];
         if (model.modelType == WOOArticleModelBottomTextOnlyType) {
-            CGFloat kTextH = 115 * VERTICAL_SCREEN_WIDTH / 375;
-            return CGSizeMake(width, kTextH);
+            return CGSizeMake(width, [model bottomTextOnlySCHeight]);
         }else{
-            return CGSizeMake(width, height);
+            return CGSizeMake(width, [model bottomImageListSCHeight]);
         }
     }
 }

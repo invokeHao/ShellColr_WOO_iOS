@@ -54,6 +54,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary *)toDictionary;
 
+//bottomSC专用
+- (CGFloat)bottomImageListSCHeight;
+
+- (CGFloat)bottomTextOnlySCHeight;
+
 @end
 
 NS_ASSUME_NONNULL_END

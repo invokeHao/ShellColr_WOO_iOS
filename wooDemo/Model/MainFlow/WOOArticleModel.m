@@ -186,4 +186,43 @@ NSString *const kWOOArticleImageList = @"image_list";
     }
 }
 
+- (CGFloat)bottomImageListSCHeight {
+    CGFloat kimageH = 97 * VERTICAL_SCREEN_WIDTH / 375;
+    [self.title sizeWithFont:WOOFont(16) maxSize:CGSizeZero];
+    
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 2;
+    NSDictionary *attrs = @{NSFontAttributeName : WOOFont(16),
+                            NSParagraphStyleAttributeName: style,
+                            NSKernAttributeName : @(1.5f)
+                            };
+    CGFloat textH = [self.title boundingRectWithSize:CGSizeMake(VERTICAL_SCREEN_WIDTH - 60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
+    if (textH > 46) {
+        textH = 46;
+    }
+    return kimageH + textH + 30;
+}
+
+- (CGFloat)bottomTextOnlySCHeight {
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 2;
+    NSDictionary *attrs = @{NSFontAttributeName : WOOFont(16),
+                            NSParagraphStyleAttributeName: style,
+                            NSKernAttributeName : @(1.5f)
+                            };
+    CGFloat textH = [self.title boundingRectWithSize:CGSizeMake(VERTICAL_SCREEN_WIDTH - 60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
+
+    NSDictionary *descAttrs = @{NSFontAttributeName : WOOFont(12),
+                            NSParagraphStyleAttributeName: style,
+                            NSKernAttributeName : @(1.5f)
+                            };
+    CGFloat descH = [self.abstract boundingRectWithSize:CGSizeMake(VERTICAL_SCREEN_WIDTH - 60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:descAttrs context:nil].size.height;
+
+    CGFloat totalH = 12 + textH + descH + 15;
+    if (totalH > 120) {
+        totalH = 120;
+    }
+    return totalH;
+}
+
 @end

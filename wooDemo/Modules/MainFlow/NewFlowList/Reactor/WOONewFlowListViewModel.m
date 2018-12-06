@@ -20,6 +20,10 @@
 
 @property (strong, nonatomic)RACSubject *errorSubject;
 
+@property (nonatomic, assign)BOOL firstPullRefresh;
+
+@property (nonatomic, assign)BOOL isShow;
+
 @end
 
 @implementation WOONewFlowListViewModel
@@ -124,11 +128,9 @@
     while (bottomArr.count < 4 && ArticleArr.count > 0) {
         NSArray * arr = [NSArray arrayWithArray:ArticleArr];
         for (WOOArticleModel * article in arr) {
-            if (!article.has_video) {
                 article.isTextOnly = YES;
                 [bottomArr addObject:article];
                 [ArticleArr removeObject:article];
-            }
         }
     }
     for (WOOGoodsModel * model in [self createAGoodsModel]) {
@@ -149,6 +151,12 @@
     if (type == WOORefreshTypeFooter) {
        self.dataList =  [self.dataList arrayByAddingObjectsFromArray:[modelArray copy]];
     }else{
+        listModel.isTop = YES;
+        if (!self.firstPullRefresh && !self.isShow) {
+            listModel.showTheDate = YES;
+            self.isShow = YES;
+            self.firstPullRefresh = YES;
+        }
         self.dataList = [modelArray copy];
     }
 }
