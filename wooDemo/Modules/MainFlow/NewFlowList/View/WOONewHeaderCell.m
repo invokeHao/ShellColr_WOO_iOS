@@ -10,8 +10,6 @@
 
 @interface WOONewHeaderCell ()
 
-@property (nonatomic, strong)UILabel * findLabel;
-
 @end
 
 @implementation WOONewHeaderCell

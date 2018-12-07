@@ -41,6 +41,7 @@
     }else{
         [cell hidenTheDate];
     }
+    cell.findLabel.hidden = !self.listModel.isTop;
     return cell;
 }
 

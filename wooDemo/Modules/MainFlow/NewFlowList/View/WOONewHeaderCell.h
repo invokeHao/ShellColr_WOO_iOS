@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)UILabel * dateLabel;
 
+@property (nonatomic, strong)UILabel * findLabel;
+
 - (void)showTheDate;
 
 - (void)hidenTheDate;
