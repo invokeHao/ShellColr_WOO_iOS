@@ -62,7 +62,7 @@
                                  }];
 }
 
-+ (void)postForBindPhoneNumber:(NSString *)phoneNumber code:(NSString *)code completion:(void (^)(WOOMobileAuth *, NSError *))completion {
++ (void)loginWithPhoneNumber:(NSString *)phoneNumber code:(NSString *)code completion:(void (^)(WOOLoginModel *, NSError *))completion {
     NSString *path = @"/self/auth/self/bind";
     NSDictionary *dict = @{@"avti": @(CMSAvtiTypeMobile),
                            @"authvalue": phoneNumber ? phoneNumber : @"",
@@ -73,8 +73,9 @@
                                  success:^(NSURLSessionDataTask *task, id responseObject) {
                                      WOOResponseObject *resp = responseObject;
                                      if (resp.code == 1) {
-                                         WOOMobileAuth *mobileAuth = [[WOOMobileAuth alloc] initWithDictionary:resp.result];
-                                         completion(mobileAuth, nil);
+                                         WOOLoginModel *model = [[WOOLoginModel alloc] initWithDictionary:resp.result];
+                                         completion(model, nil);
+
                                      } else {
                                          completion(nil, [NSError errorWithCode:resp.errorId desc:resp.errorDesc]);
                                      }

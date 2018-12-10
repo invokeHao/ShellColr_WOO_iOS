@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)postForCodeToPhoneNumber:(NSString *)phoneNumber completion:(void (^)(WOOValidCode *validCode, NSError *error))completion;
 
-+ (void)postForBindPhoneNumber:(NSString *)phoneNumber code:(NSString *)code completion:(void (^)(WOOMobileAuth *mobileAuth, NSError *error))completion;
++ (void)loginWithPhoneNumber:(NSString *)phoneNumber code:(NSString *)code completion:(void (^)(WOOLoginModel *loginModel, NSError *error))completion;
 
 + (void)loginWithUserName:(NSString *)userName
                       pwd:(NSString *)pwd

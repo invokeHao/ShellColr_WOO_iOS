@@ -12,6 +12,7 @@
 #import "WOOTabBarViewController.h"
 #import "WOOBaseNavigationController.h"
 #import "WOOUserDeviceModel.h"
+#import <IQKeyboardManager.h>
 
 @interface AppDelegate ()
 
@@ -22,6 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self loadCustomViewControllers];
+    [self setupIQKeyboardManager];
     return YES;
 }
 
@@ -68,6 +70,11 @@
     [self.window makeKeyAndVisible];
 }
 
+- (void)setupIQKeyboardManager {
+    [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+}
 
 
 @end

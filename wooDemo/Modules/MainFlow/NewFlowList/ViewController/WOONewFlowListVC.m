@@ -42,7 +42,7 @@
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
         make.leading.trailing.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-HOME_INDICATOR_HEIGHT);
+        make.bottom.equalTo(self.view).offset(0);
     }];
     
     if (@available(iOS 11.0, *)) {

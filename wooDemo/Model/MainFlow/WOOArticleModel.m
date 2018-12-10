@@ -206,10 +206,9 @@ NSString *const kWOOArticleImageList = @"image_list";
     [self.title sizeWithFont:WOOFont(16) maxSize:CGSizeZero];
     
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.lineSpacing = 2;
-    NSDictionary *attrs = @{NSFontAttributeName : WOOFont(16),
-                            NSParagraphStyleAttributeName: style,
-                            NSKernAttributeName : @(1.5f)
+    style.lineSpacing = 1.5f;
+    NSDictionary *attrs = @{NSFontAttributeName : WOOMFont(16),
+                            NSParagraphStyleAttributeName: style
                             };
     CGFloat textH = [self.title boundingRectWithSize:CGSizeMake(VERTICAL_SCREEN_WIDTH - 60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
     if (textH > 46) {
@@ -221,15 +220,14 @@ NSString *const kWOOArticleImageList = @"image_list";
 - (CGFloat)bottomTextOnlySCHeight {
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = 2;
-    NSDictionary *attrs = @{NSFontAttributeName : WOOFont(16),
+    NSDictionary *attrs = @{NSFontAttributeName : WOOMFont(16),
                             NSParagraphStyleAttributeName: style,
-                            NSKernAttributeName : @(1.5f)
                             };
     CGFloat textH = [self.title boundingRectWithSize:CGSizeMake(VERTICAL_SCREEN_WIDTH - 60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
 
     NSDictionary *descAttrs = @{NSFontAttributeName : WOOFont(12),
                             NSParagraphStyleAttributeName: style,
-                            NSKernAttributeName : @(1.5f)
+                            NSKernAttributeName : @(1.0f)
                             };
     CGFloat descH = [self.abstract boundingRectWithSize:CGSizeMake(VERTICAL_SCREEN_WIDTH - 60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:descAttrs context:nil].size.height;
 

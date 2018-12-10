@@ -36,6 +36,17 @@
 		67318D7C219AB9F700B527F9 /* WOOInsInformationBottomSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67318D7B219AB9F700B527F9 /* WOOInsInformationBottomSectionController.m */; };
 		674E548E21B92349008D02BC /* WOONewHeaderSC.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E548D21B92349008D02BC /* WOONewHeaderSC.m */; };
 		674E549121B92423008D02BC /* WOONewHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E549021B92423008D02BC /* WOONewHeaderCell.m */; };
+		674E55A721BE437B008D02BC /* WOOBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55A621BE437B008D02BC /* WOOBaseTableView.m */; };
+		674E55AA21BE438D008D02BC /* WOOBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55A921BE438D008D02BC /* WOOBaseTableViewCell.m */; };
+		674E55AD21BE44CD008D02BC /* WOOMineHomePageVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55AC21BE44CD008D02BC /* WOOMineHomePageVM.m */; };
+		674E55BC21BE4976008D02BC /* WOOHeadIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55B721BE4976008D02BC /* WOOHeadIcon.m */; };
+		674E55C021BE4A22008D02BC /* WOOMineService.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55BF21BE4A22008D02BC /* WOOMineService.m */; };
+		674E55C321BE4D1F008D02BC /* WOOProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55C121BE4D1F008D02BC /* WOOProfile.m */; };
+		674E55C621BE5043008D02BC /* WOOThirdLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55C521BE5043008D02BC /* WOOThirdLoginView.m */; };
+		674E55C921BE5058008D02BC /* WOOPhoneLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55C821BE5058008D02BC /* WOOPhoneLoginView.m */; };
+		674E55CC21BE5692008D02BC /* WOOCrossView.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55CB21BE5692008D02BC /* WOOCrossView.m */; };
+		674E55CF21BE56A8008D02BC /* WOOAgreeBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55CE21BE56A8008D02BC /* WOOAgreeBtnView.m */; };
+		674E55D221BE7398008D02BC /* WOOTimerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 674E55D121BE7398008D02BC /* WOOTimerButton.m */; };
 		679C37AC21A57CC9003C6DDF /* WOOFeedbackApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 679C37AB21A57CC9003C6DDF /* WOOFeedbackApi.m */; };
 		679C37B021A69B79003C6DDF /* WOOMainVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 679C37AF21A69B79003C6DDF /* WOOMainVideoModel.m */; };
 		679C37B321A69E17003C6DDF /* WOOVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 679C37B221A69E17003C6DDF /* WOOVideoModel.m */; };
@@ -68,7 +79,6 @@
 		67E930EF2182C9F80042C39A /* WOOAuthToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930EE2182C9F80042C39A /* WOOAuthToken.m */; };
 		67E930F22182CB220042C39A /* WOOLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930F12182CB220042C39A /* WOOLoginModel.m */; };
 		67E930F52182CBFF0042C39A /* WOOMobileAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930F42182CBFF0042C39A /* WOOMobileAuth.m */; };
-		67E930F82182DB060042C39A /* WOOProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930F72182DB060042C39A /* WOOProfile.m */; };
 		67E930FC2182E1760042C39A /* WOOLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930FB2182E1760042C39A /* WOOLoginService.m */; };
 		67E930FF2182E6100042C39A /* WOOValidCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E930FE2182E6100042C39A /* WOOValidCode.m */; };
 		67E931022182EA240042C39A /* WOOBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E931012182EA240042C39A /* WOOBaseViewController.m */; };
@@ -219,6 +229,28 @@
 		674E548D21B92349008D02BC /* WOONewHeaderSC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOONewHeaderSC.m; sourceTree = "<group>"; };
 		674E548F21B92423008D02BC /* WOONewHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOONewHeaderCell.h; sourceTree = "<group>"; };
 		674E549021B92423008D02BC /* WOONewHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOONewHeaderCell.m; sourceTree = "<group>"; };
+		674E55A521BE437B008D02BC /* WOOBaseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOBaseTableView.h; sourceTree = "<group>"; };
+		674E55A621BE437B008D02BC /* WOOBaseTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOBaseTableView.m; sourceTree = "<group>"; };
+		674E55A821BE438D008D02BC /* WOOBaseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOBaseTableViewCell.h; sourceTree = "<group>"; };
+		674E55A921BE438D008D02BC /* WOOBaseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOBaseTableViewCell.m; sourceTree = "<group>"; };
+		674E55AB21BE44CD008D02BC /* WOOMineHomePageVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMineHomePageVM.h; sourceTree = "<group>"; };
+		674E55AC21BE44CD008D02BC /* WOOMineHomePageVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOMineHomePageVM.m; sourceTree = "<group>"; };
+		674E55B521BE4976008D02BC /* WOOHeadIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOOHeadIcon.h; sourceTree = "<group>"; };
+		674E55B721BE4976008D02BC /* WOOHeadIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOOHeadIcon.m; sourceTree = "<group>"; };
+		674E55BE21BE4A22008D02BC /* WOOMineService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMineService.h; sourceTree = "<group>"; };
+		674E55BF21BE4A22008D02BC /* WOOMineService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOMineService.m; sourceTree = "<group>"; };
+		674E55C121BE4D1F008D02BC /* WOOProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOOProfile.m; sourceTree = "<group>"; };
+		674E55C221BE4D1F008D02BC /* WOOProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOOProfile.h; sourceTree = "<group>"; };
+		674E55C421BE5043008D02BC /* WOOThirdLoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOThirdLoginView.h; sourceTree = "<group>"; };
+		674E55C521BE5043008D02BC /* WOOThirdLoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOThirdLoginView.m; sourceTree = "<group>"; };
+		674E55C721BE5058008D02BC /* WOOPhoneLoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOPhoneLoginView.h; sourceTree = "<group>"; };
+		674E55C821BE5058008D02BC /* WOOPhoneLoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOPhoneLoginView.m; sourceTree = "<group>"; };
+		674E55CA21BE5692008D02BC /* WOOCrossView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOCrossView.h; sourceTree = "<group>"; };
+		674E55CB21BE5692008D02BC /* WOOCrossView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOCrossView.m; sourceTree = "<group>"; };
+		674E55CD21BE56A8008D02BC /* WOOAgreeBtnView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOAgreeBtnView.h; sourceTree = "<group>"; };
+		674E55CE21BE56A8008D02BC /* WOOAgreeBtnView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOAgreeBtnView.m; sourceTree = "<group>"; };
+		674E55D021BE7398008D02BC /* WOOTimerButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOTimerButton.h; sourceTree = "<group>"; };
+		674E55D121BE7398008D02BC /* WOOTimerButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOTimerButton.m; sourceTree = "<group>"; };
 		679C37AA21A57CC9003C6DDF /* WOOFeedbackApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOFeedbackApi.h; sourceTree = "<group>"; };
 		679C37AB21A57CC9003C6DDF /* WOOFeedbackApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOFeedbackApi.m; sourceTree = "<group>"; };
 		679C37AE21A69B79003C6DDF /* WOOMainVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMainVideoModel.h; sourceTree = "<group>"; };
@@ -284,8 +316,6 @@
 		67E930F12182CB220042C39A /* WOOLoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOLoginModel.m; sourceTree = "<group>"; };
 		67E930F32182CBFF0042C39A /* WOOMobileAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOMobileAuth.h; sourceTree = "<group>"; };
 		67E930F42182CBFF0042C39A /* WOOMobileAuth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOMobileAuth.m; sourceTree = "<group>"; };
-		67E930F62182DB060042C39A /* WOOProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOProfile.h; sourceTree = "<group>"; };
-		67E930F72182DB060042C39A /* WOOProfile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOProfile.m; sourceTree = "<group>"; };
 		67E930FA2182E1760042C39A /* WOOLoginService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOLoginService.h; sourceTree = "<group>"; };
 		67E930FB2182E1760042C39A /* WOOLoginService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOOLoginService.m; sourceTree = "<group>"; };
 		67E930FD2182E6100042C39A /* WOOValidCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOOValidCode.h; sourceTree = "<group>"; };
@@ -540,6 +570,8 @@
 		671934A121B239E300C95A42 /* MineModel */ = {
 			isa = PBXGroup;
 			children = (
+				674E55B521BE4976008D02BC /* WOOHeadIcon.h */,
+				674E55B721BE4976008D02BC /* WOOHeadIcon.m */,
 				671934A821B23C2100C95A42 /* WOOMineBasicModel.h */,
 				671934A921B23C2100C95A42 /* WOOMineBasicModel.m */,
 			);
@@ -555,6 +587,15 @@
 				679C37AB21A57CC9003C6DDF /* WOOFeedbackApi.m */,
 			);
 			path = MainFlow;
+			sourceTree = "<group>";
+		};
+		674E55BD21BE4A04008D02BC /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				674E55BE21BE4A22008D02BC /* WOOMineService.h */,
+				674E55BF21BE4A22008D02BC /* WOOMineService.m */,
+			);
+			path = Mine;
 			sourceTree = "<group>";
 		};
 		679C37AD21A69B53003C6DDF /* FlowVideoModel */ = {
@@ -581,6 +622,16 @@
 		67E930AE2181C6410042C39A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				674E55C421BE5043008D02BC /* WOOThirdLoginView.h */,
+				674E55C521BE5043008D02BC /* WOOThirdLoginView.m */,
+				674E55C721BE5058008D02BC /* WOOPhoneLoginView.h */,
+				674E55C821BE5058008D02BC /* WOOPhoneLoginView.m */,
+				674E55CA21BE5692008D02BC /* WOOCrossView.h */,
+				674E55CB21BE5692008D02BC /* WOOCrossView.m */,
+				674E55CD21BE56A8008D02BC /* WOOAgreeBtnView.h */,
+				674E55CE21BE56A8008D02BC /* WOOAgreeBtnView.m */,
+				674E55D021BE7398008D02BC /* WOOTimerButton.h */,
+				674E55D121BE7398008D02BC /* WOOTimerButton.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -772,6 +823,8 @@
 		67E930E52182C9570042C39A /* LoginAndShare */ = {
 			isa = PBXGroup;
 			children = (
+				674E55C221BE4D1F008D02BC /* WOOProfile.h */,
+				674E55C121BE4D1F008D02BC /* WOOProfile.m */,
 				67E930ED2182C9F80042C39A /* WOOAuthToken.h */,
 				67E930EE2182C9F80042C39A /* WOOAuthToken.m */,
 				67E930EA2182C9E00042C39A /* WOOThirdAuthResponse.h */,
@@ -780,8 +833,6 @@
 				67E930F12182CB220042C39A /* WOOLoginModel.m */,
 				67E930F32182CBFF0042C39A /* WOOMobileAuth.h */,
 				67E930F42182CBFF0042C39A /* WOOMobileAuth.m */,
-				67E930F62182DB060042C39A /* WOOProfile.h */,
-				67E930F72182DB060042C39A /* WOOProfile.m */,
 				67E930FD2182E6100042C39A /* WOOValidCode.h */,
 				67E930FE2182E6100042C39A /* WOOValidCode.m */,
 				6709ADBC2189869400A404B0 /* WOOUserDeviceModel.h */,
@@ -846,6 +897,8 @@
 		67E931182182F9740042C39A /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
+				674E55AB21BE44CD008D02BC /* WOOMineHomePageVM.h */,
+				674E55AC21BE44CD008D02BC /* WOOMineHomePageVM.m */,
 			);
 			path = Reactor;
 			sourceTree = "<group>";
@@ -984,6 +1037,7 @@
 		67E9F52321816ABC00FA7ECD /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				674E55BD21BE4A04008D02BC /* Mine */,
 				67318D702199743700B527F9 /* MainFlow */,
 				67E930F92182E1490042C39A /* LoginAndShare */,
 				67E930C52182BA4E0042C39A /* config */,
@@ -1005,6 +1059,10 @@
 				67E9310A2182F1EA0042C39A /* WOOBaseCollectionView.m */,
 				67E9310C2182F2B60042C39A /* WOOBaseCollectionViewCell.h */,
 				67E9310D2182F2B60042C39A /* WOOBaseCollectionViewCell.m */,
+				674E55A521BE437B008D02BC /* WOOBaseTableView.h */,
+				674E55A621BE437B008D02BC /* WOOBaseTableView.m */,
+				674E55A821BE438D008D02BC /* WOOBaseTableViewCell.h */,
+				674E55A921BE438D008D02BC /* WOOBaseTableViewCell.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1603,14 +1661,19 @@
 				67E9F5D42181B89E00FA7ECD /* KSPhotoBrowser.m in Sources */,
 				67E930E92182C9950042C39A /* WOOBaseModel.m in Sources */,
 				67E9F59B2181B42400FA7ECD /* AppDelegate+CMSVersonControl.m in Sources */,
+				674E55C321BE4D1F008D02BC /* WOOProfile.m in Sources */,
+				674E55BC21BE4976008D02BC /* WOOHeadIcon.m in Sources */,
 				67E9F5D12181B89E00FA7ECD /* KSYYImageManager.m in Sources */,
 				6719349621ABCB8B00C95A42 /* WOOGoodsCell.m in Sources */,
+				674E55C921BE5058008D02BC /* WOOPhoneLoginView.m in Sources */,
 				67E930FC2182E1760042C39A /* WOOLoginService.m in Sources */,
 				67318D6F2199631000B527F9 /* WOOApiHostModel.m in Sources */,
 				67E9F5B22181B42400FA7ECD /* UIPasteboard+CMSVerify.m in Sources */,
 				671412FB21A425CF00AA26F8 /* WOOFlowDetailVC.m in Sources */,
 				67E931112182F6BC0042C39A /* WOOTabBarViewController.m in Sources */,
+				674E55C021BE4A22008D02BC /* WOOMineService.m in Sources */,
 				67E9F5A72181B42400FA7ECD /* UILabel+WLAddition.m in Sources */,
+				674E55CF21BE56A8008D02BC /* WOOAgreeBtnView.m in Sources */,
 				67318D79219AAB0400B527F9 /* WOOInsJiuInfoCell.m in Sources */,
 				67E9311F2186DADF0042C39A /* WOOInsJiuCell.m in Sources */,
 				67E9F5A52181B42400FA7ECD /* UIScrollView+RefreshAble.m in Sources */,
@@ -1618,6 +1681,7 @@
 				67E930FF2182E6100042C39A /* WOOValidCode.m in Sources */,
 				67318D7C219AB9F700B527F9 /* WOOInsInformationBottomSectionController.m in Sources */,
 				67E9F5AB2181B42400FA7ECD /* UIView+WLRoundCorner.m in Sources */,
+				674E55AD21BE44CD008D02BC /* WOOMineHomePageVM.m in Sources */,
 				67E9F5932181B42400FA7ECD /* NSObject+ReponderRouterInvocation.m in Sources */,
 				67E9F5A92181B42400FA7ECD /* UIColor+CMSKit.m in Sources */,
 				67E930DC2182BDF40042C39A /* CMSMJRefreshHeader.m in Sources */,
@@ -1641,11 +1705,12 @@
 				671934AA21B23C2100C95A42 /* WOOMineBasicModel.m in Sources */,
 				67E9F5A12181B42400FA7ECD /* NSObject+CMSRefresh.m in Sources */,
 				6709ADA9218717BC00A404B0 /* WOOJiuListDemoModel.m in Sources */,
+				674E55CC21BE5692008D02BC /* WOOCrossView.m in Sources */,
+				674E55C621BE5043008D02BC /* WOOThirdLoginView.m in Sources */,
 				67E930E12182C0CD0042C39A /* WOODevice.m in Sources */,
 				679C37B021A69B79003C6DDF /* WOOMainVideoModel.m in Sources */,
 				67318D662199210100B527F9 /* WOOMainFlowModel.m in Sources */,
 				67E9F5AD2181B42400FA7ECD /* UIView+WHChain.m in Sources */,
-				67E930F82182DB060042C39A /* WOOProfile.m in Sources */,
 				67E9F5D72181BADC00FA7ECD /* WOORouter.m in Sources */,
 				67318D73219974B000B527F9 /* WOOMainFlowListApi.m in Sources */,
 				67E9F5952181B42400FA7ECD /* NSNotificationCenter+CMSExtension.m in Sources */,
@@ -1683,8 +1748,10 @@
 				67E9F5982181B42400FA7ECD /* NSString+CMSAttributedString.m in Sources */,
 				67E930DB2182BDF40042C39A /* CMSRefreshNormalHeader.m in Sources */,
 				67A9BBF921B685780024A23A /* WOOBottomImagListCell.m in Sources */,
+				674E55AA21BE438D008D02BC /* WOOBaseTableViewCell.m in Sources */,
 				67E930CB2182BA4F0042C39A /* WOOServiceGlobalConfig.m in Sources */,
 				6719349921ABD02A00C95A42 /* WOOGoodsDetailVC.m in Sources */,
+				674E55A721BE437B008D02BC /* WOOBaseTableView.m in Sources */,
 				67E9F5B42181B42400FA7ECD /* UIImageView+WLAddition.m in Sources */,
 				67E930D92182BDF40042C39A /* WOOAlertTool.m in Sources */,
 				6719349F21ABD8B000C95A42 /* WOOGoodsDetailCashBackView.m in Sources */,
@@ -1695,6 +1762,7 @@
 				67E9311B2182F9A70042C39A /* WOOMineHomePageVC.m in Sources */,
 				67A9BBE421B673CC0024A23A /* WOONewListModel.m in Sources */,
 				679C37B321A69E17003C6DDF /* WOOVideoModel.m in Sources */,
+				674E55D221BE7398008D02BC /* WOOTimerButton.m in Sources */,
 				67E9F5A02181B42400FA7ECD /* AppDelegate+CMSInstaBugConfig.m in Sources */,
 				67E9F59C2181B42400FA7ECD /* AppDelegate+CMSConfigRouter.m in Sources */,
 				67318D76219A715B00B527F9 /* WOOJiuListViewModel.m in Sources */,

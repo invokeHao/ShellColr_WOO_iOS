@@ -7,13 +7,14 @@
 //
 
 #import "WOOMineHomePageVC.h"
-#import "WOOMineSectionController.h"
+#import "WOOMineHomePageVM.h"
+#import "WOOLoginViewController.h"
 
-@interface WOOMineHomePageVC ()<IGListAdapterDataSource>
+@interface WOOMineHomePageVC ()
 
-@property (nonatomic, strong)ASCollectionNode * collectionNode;
+@property (nonatomic, strong)WOOBaseTableView * MainTable;
 
-@property (nonatomic, strong)IGListAdapter * apdapter;
+@property (nonatomic, strong)WOOMineHomePageVM * viewModel;
 
 @end
 
@@ -26,31 +27,16 @@
 
 - (void)setupUI {
     self.view.backgroundColor = [UIColor whiteColor];
-    IGListAdapterUpdater * updater = [[IGListAdapterUpdater alloc]init];
-    self.apdapter = [[IGListAdapter alloc]initWithUpdater:updater viewController:self workingRangeSize:0];
-    self.apdapter.dataSource = self;
-    [self.apdapter setASDKCollectionNode:self.collectionNode];
+    UIButton * loginBtn = UIButton.button.WH_setTitle_forState(@"登录",UIControlStateNormal).WH_setTitleColor_forState([UIColor blackColor],UIControlStateNormal);
+    [loginBtn setFrame:CGRectMake(100, 100, 44, 44)];
+    [loginBtn addTarget:self action:@selector(goToLogin) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:loginBtn];
 }
 
-- (nullable UIView *)emptyViewForListAdapter:(nonnull IGListAdapter *)listAdapter {
-    return nil;
-}
-
-- (nonnull IGListSectionController *)listAdapter:(nonnull IGListAdapter *)listAdapter sectionControllerForObject:(nonnull id)object {
-    return [[WOOMineSectionController alloc]init];
-}
-
-- (nonnull NSArray<id<IGListDiffable>> *)objectsForListAdapter:(nonnull IGListAdapter *)listAdapter {
-    return nil;
-}
-
-- (ASCollectionNode *)collectionNode {
-    if (!_collectionNode) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        _collectionNode = [[ASCollectionNode alloc] initWithCollectionViewLayout:layout];
-        [_collectionNode setBackgroundColor:woo_colorWithHexString(@"F2F2F2")];
-    }
-    return _collectionNode;
+- (void)goToLogin{
+    WOOLoginViewController * loginVC = [[WOOLoginViewController alloc]init];
+    [self.navigationController presentViewController:loginVC animated:YES completion:NULL
+     ];
 }
 
 

@@ -49,25 +49,25 @@
 
 - (void)setModel:(WOOArticleModel *)model {
     if (model) {
-        self.titleLabel.attributedText = [model.title attributedStringWithLineSpace:2 fontSpace:1.5f];
+        self.titleLabel.attributedText = [model.title attributedStringWithLineSpace:2 fontSpace:0.0f];
         self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        self.abstractLabel.attributedText = [model.abstract attributedStringWithLineSpace:2 fontSpace:1.5f];
+        self.abstractLabel.attributedText = [model.abstract attributedStringWithLineSpace:2 fontSpace:1.0f];
         self.abstractLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     }
 }
 
 - (void)configTheLayer {
-    self.layer.cornerRadius = 10;
-    self.layer.shadowOffset = CGSizeMake(0, 2);
+    self.layer.cornerRadius = 7;
+    self.layer.shadowOffset = CGSizeMake(0, 10);
     self.layer.shadowColor = woo_colorWithHexAndAlpha(@"000000", 0.2).CGColor;
-    self.layer.shadowOpacity = 0.5;
-    self.layer.shadowRadius = 2;
+    self.layer.shadowOpacity = 0.2;
+    self.layer.shadowRadius = 5;
 }
 
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = UILabel.label.WH_font(WOOFont(16)).WH_textColor(woo_colorWithHexString(@"#222222")).WH_numberOfLines(2);
+        _titleLabel = UILabel.label.WH_font(WOOMFont(16)).WH_textColor(woo_colorWithHexString(@"#222222")).WH_numberOfLines(2);
     }
     return _titleLabel;
 }

@@ -59,12 +59,12 @@
 }
 
 - (void)configTheLayer {
-    [self.coverImageV roundCorner:UIRectCornerTopLeft|UIRectCornerTopRight radius:10];
-    self.layer.cornerRadius = 10;
-    self.layer.shadowOffset = CGSizeMake(0, 2);
-    self.layer.shadowColor = woo_colorWithHexAndAlpha(@"000000", 0.2).CGColor;
+    [self.coverImageV roundCorner:UIRectCornerTopLeft|UIRectCornerTopRight radius:5];
+    self.layer.cornerRadius = 5;
+    self.layer.shadowOffset = CGSizeMake(0, 10);
+    self.layer.shadowColor = woo_colorWithHexAndAlpha(@"000000", 0.1).CGColor;
     self.layer.shadowOpacity = 0.5;
-    self.layer.shadowRadius = 2;
+    self.layer.shadowRadius = 5;
 }
 
 
@@ -72,7 +72,7 @@
     if (model) {
         NSString * imageUrlStr = model.large_image ? model.large_image : model.middle_image;
         [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:imageUrlStr] options:YYWebImageOptionProgressive];
-        self.titleLabel.attributedText = [model.title attributedStringWithLineSpace:1.5 fontSpace:1.0f];
+        self.titleLabel.attributedText = [model.title attributedStringWithLineSpace:1.5 fontSpace:0.0f];
         self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         if (model.has_video) {
             [self.iconView setImage:[UIImage imageNamed:@"play_button"]];
@@ -107,10 +107,30 @@
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = UILabel.label.WH_font(WOOFont(15)).WH_textColor(woo_colorWithHexString(@"#171F24  ")).WH_numberOfLines(3);
+        _titleLabel = UILabel.label.WH_font(WOOMFont(15)).WH_textColor(woo_colorWithHexString(@"#171F24")).WH_numberOfLines(3);
     }
     return _titleLabel;
 }
+
+//-(void)drawRect:(CGRect)rect{
+//    //根据需求
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    //// Color Declarations
+//    UIColor* color = woo_colorWithHexAndAlpha(@"000000", 0.1);
+//    //// Shadow Declarations
+//    NSShadow* shadow2 = [[NSShadow alloc] init];
+//    shadow2.shadowColor = color;
+//    shadow2.shadowOffset = CGSizeMake(0, 10);
+//    shadow2.shadowBlurRadius = 5;
+//
+//    //// Rectangle Drawing
+//    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: self.frame cornerRadius: 5];
+//    CGContextSaveGState(context);
+//    CGContextSetShadowWithColor(context, shadow2.shadowOffset, shadow2.shadowBlurRadius, [shadow2.shadowColor CGColor]);
+//    [color setFill];
+//    [rectanglePath fill];
+//    CGContextRestoreGState(context);
+//}
 
 
 @end

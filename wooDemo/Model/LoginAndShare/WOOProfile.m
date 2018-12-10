@@ -14,7 +14,7 @@ NSString *const kWOOProfileCity = @"city";
 NSString *const kWOOProfileCountry = @"country";
 NSString *const kWOOProfileCreatedCircleAmount = @"createdCircleAmount";
 NSString *const kWOOProfileGenderId = @"genderId";
-//NSString *const kWOOProfileHeadIcon = @"headIcon";
+NSString *const kWOOProfileHeadIcon = @"headIcon";
 NSString *const kWOOProfileImToken = @"imToken";
 NSString *const kWOOProfileImUserNo = @"imUserNo";
 NSString *const kWOOProfileJoinedCircleAmount = @"joinedCircleAmount";
@@ -60,10 +60,10 @@ NSString *const kWOOProfileUserNo = @"userNo";
     if(![dictionary[kWOOProfileGenderId] isKindOfClass:[NSNull class]]){
         self.genderId = [dictionary[kWOOProfileGenderId] integerValue];
     }
-//
-//    if(![dictionary[kCMSProfileHeadIcon] isKindOfClass:[NSNull class]]){
-//        self.headIcon = [[CMSHeadIcon alloc] initWithDictionary:dictionary[kCMSProfileHeadIcon]];
-//    }
+
+    if(![dictionary[kWOOProfileHeadIcon] isKindOfClass:[NSNull class]]){
+        self.headIcon = [[WOOHeadIcon alloc] initWithDictionary:dictionary[kWOOProfileHeadIcon]];
+    }
     
     if(![dictionary[kWOOProfileImToken] isKindOfClass:[NSNull class]]){
         self.imToken = dictionary[kWOOProfileImToken];
@@ -120,9 +120,9 @@ NSString *const kWOOProfileUserNo = @"userNo";
     }
     dictionary[kWOOProfileCreatedCircleAmount] = @(self.createdCircleAmount);
     dictionary[kWOOProfileGenderId] = @(self.genderId);
-//    if(self.headIcon != nil){
-//        dictionary[kCMSProfileHeadIcon] = [self.headIcon toDictionary];
-//    }
+    if(self.headIcon != nil){
+        dictionary[kWOOProfileHeadIcon] = [self.headIcon toDictionary];
+    }
     if(self.imToken != nil){
         dictionary[kWOOProfileImToken] = self.imToken;
     }
@@ -169,9 +169,9 @@ NSString *const kWOOProfileUserNo = @"userNo";
         [aCoder encodeObject:self.country forKey:kWOOProfileCountry];
     }
     [aCoder encodeObject:@(self.createdCircleAmount) forKey:kWOOProfileCreatedCircleAmount];    [aCoder encodeObject:@(self.genderId) forKey:kWOOProfileGenderId];
-//    if(self.headIcon != nil){
-//        [aCoder encodeObject:self.headIcon forKey:kCMSProfileHeadIcon];
-//    }
+    if(self.headIcon != nil){
+        [aCoder encodeObject:self.headIcon forKey:kWOOProfileHeadIcon];
+    }
     if(self.imToken != nil){
         [aCoder encodeObject:self.imToken forKey:kWOOProfileImToken];
     }
@@ -210,7 +210,7 @@ NSString *const kWOOProfileUserNo = @"userNo";
     self.country = [aDecoder decodeObjectForKey:kWOOProfileCountry];
     self.createdCircleAmount = [[aDecoder decodeObjectForKey:kWOOProfileCreatedCircleAmount] integerValue];
     self.genderId = [[aDecoder decodeObjectForKey:kWOOProfileGenderId] integerValue];
-//    self.headIcon = [aDecoder decodeObjectForKey:kWOOProfileHeadIcon];
+    self.headIcon = [aDecoder decodeObjectForKey:kWOOProfileHeadIcon];
     self.imToken = [aDecoder decodeObjectForKey:kWOOProfileImToken];
     self.imUserNo = [aDecoder decodeObjectForKey:kWOOProfileImUserNo];
     self.joinedCircleAmount = [[aDecoder decodeObjectForKey:kWOOProfileJoinedCircleAmount] integerValue];
@@ -237,7 +237,7 @@ NSString *const kWOOProfileUserNo = @"userNo";
     copy.country = [self.country copy];
     copy.createdCircleAmount = self.createdCircleAmount;
     copy.genderId = self.genderId;
-//    copy.headIcon = [self.headIcon copy];
+    copy.headIcon = [self.headIcon copy];
     copy.imToken = [self.imToken copy];
     copy.imUserNo = [self.imUserNo copy];
     copy.joinedCircleAmount = self.joinedCircleAmount;

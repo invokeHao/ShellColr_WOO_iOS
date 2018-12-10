@@ -11,8 +11,8 @@
 
 #define VERTICAL_SCREEN_HEIGHT MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
 #define VERTICAL_SCREEN_WIDTH  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
-#define WINTH_SCALE VERTICAL_SCREEN_WIDTH / 414.0
-#define HEIGHT_SCALE VERTICAL_SCREEN_HEIGHT / 736.0
+#define WINTH_SCALE VERTICAL_SCREEN_WIDTH / 375.0
+#define HEIGHT_SCALE VERTICAL_SCREEN_HEIGHT / 812.0
 #define W_SCALE(r) (WINTH_SCALE * r)
 #define H_SCALE(r) (HEIGHT_SCALE * r)
 #define SCREEN_SCALE [UIScreen mainScreen].scale
@@ -46,9 +46,8 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 } while(0)
 
 // 判断是否是iPhone X
-#define IS_IPHONEX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define IS_IPHONEX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? [[UIScreen mainScreen] currentMode].size.height / [[UIScreen mainScreen] currentMode].size.width > 1.8 : NO)
 
-//#define IS_IPHONEX [[[UIApplication sharedApplication] delegate] window].safeAreaInsets.bottom > 0.0
 // 状态栏高度
 #define STATUS_BAR_HEIGHT (IS_IPHONEX ? 44.f : 20.f)
 // 导航栏高度
@@ -77,6 +76,9 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
 #define FORMAT(f, ...)      [NSString stringWithFormat:f, ## __VA_ARGS__]
 
 #define WOOFont(a) (([[[UIDevice currentDevice] systemVersion] floatValue] >=9.0)? ([UIFont fontWithName:@"PingFangSC-Regular" size:a]):([UIFont systemFontOfSize:a]))
+
+#define WOOMFont(a) (([[[UIDevice currentDevice] systemVersion] floatValue] >=9.0)? ([UIFont fontWithName:@"PingFangSC-Medium" size:a]):([UIFont systemFontOfSize:a]))
+
 
 #define WOOImageNamed(a) [UIImage imageNamed: a]
 
