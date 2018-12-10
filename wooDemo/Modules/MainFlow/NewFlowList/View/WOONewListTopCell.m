@@ -70,7 +70,8 @@
 
 - (void)setModel:(WOOArticleModel *)model {
     if (model) {
-        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:model.middle_image] options:YYWebImageOptionProgressive];
+        NSString * imageUrlStr = model.large_image ? model.large_image : model.middle_image;
+        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:imageUrlStr] options:YYWebImageOptionProgressive];
         self.titleLabel.attributedText = [model.title attributedStringWithLineSpace:1.5 fontSpace:1.0f];
         self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         if (model.has_video) {
