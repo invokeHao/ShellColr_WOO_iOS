@@ -67,12 +67,12 @@
 }
 
 - (void)configTheLayer {
-    [self.coverImageV roundCorner:UIRectCornerTopLeft|UIRectCornerTopRight radius:10];
-    self.layer.cornerRadius = 10;
-    self.layer.shadowOffset = CGSizeMake(0, 2);
-    self.layer.shadowColor = woo_colorWithHexAndAlpha(@"000000", 0.2).CGColor;
+    [self.coverImageV roundCorner:UIRectCornerTopLeft|UIRectCornerTopRight radius:5];
+    self.layer.cornerRadius = 5;
+    self.layer.shadowOffset = CGSizeMake(0, 10);
+    self.layer.shadowColor = woo_colorWithHexAndAlpha(@"000000", 0.1).CGColor;
     self.layer.shadowOpacity = 0.5;
-    self.layer.shadowRadius = 2;
+    self.layer.shadowRadius = 5;
 }
 
 
@@ -80,23 +80,36 @@
     if (model) {
         [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:model.goodsCoverUrl] options:YYWebImageOptionProgressive];
         NSString * priceStr = FORMAT(@"¥%@",model.goodsPrice);
-        self.descLabel.attributedText = [model.goodsName attributedStringWithLineSpace:1.5 fontSpace:1.0f];
+        
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.lineSpacing = 1.5f;
+
+        NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithString:priceStr attributes:@{NSParagraphStyleAttributeName: style}];
+        
+        NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+        attrs[NSFontAttributeName] = WOOFont(10);
+        attrs[NSForegroundColorAttributeName] = woo_colorWithHexString(@"#4F4F4F");
+
+        NSRange rang1 = [priceStr rangeOfString:@".00"];
+        [attrStr addAttributes:attrs range:rang1];
+
+        self.priceLabel.attributedText = attrStr;
+        self.descLabel.attributedText = [model.goodsName attributedStringWithLineSpace:1.5 fontSpace:0.0f];
         self.descLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        self.priceLabel.text = priceStr;
         _model = model;
     }
 }
 
 - (UILabel *)priceLabel {
     if (!_priceLabel) {
-        _priceLabel = UILabel.label.WH_font(WOOFont(15)).WH_textColor(woo_colorWithHexString(@"#4F4F4F"));
+        _priceLabel = UILabel.label.WH_font(WOOMFont(15)).WH_textColor(woo_colorWithHexString(@"#4F4F4F"));
     }
     return _priceLabel;
 }
 
 - (UILabel *)descLabel {
     if (!_descLabel) {
-        _descLabel = UILabel.label.WH_font(WOOFont(15)).WH_textColor(woo_colorWithHexString(@"#171F24")).WH_numberOfLines(2);
+        _descLabel = UILabel.label.WH_font(WOOMFont(15)).WH_textColor(woo_colorWithHexString(@"#171F24")).WH_numberOfLines(2);
     }
     return _descLabel;
 }

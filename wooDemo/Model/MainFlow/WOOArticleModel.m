@@ -16,6 +16,7 @@ NSString *const kWOOArticleGroupId = @"group_id";
 NSString *const kWOOArticleVideoId = @"video_id";
 NSString *const kWOOArticleSource = @"source";
 NSString *const kWOOArticleMiddleImage = @"middle_image";
+NSString *const kWOOArticleLargeImage = @"large_image";
 NSString *const kWOOArticleImageList = @"image_list";
 
 @implementation WOOArticleModel
@@ -58,6 +59,12 @@ NSString *const kWOOArticleImageList = @"image_list";
     if(![dictionary[kWOOArticleMiddleImage] isKindOfClass:[NSNull class]]){
         self.middle_image = dictionary[kWOOArticleMiddleImage];
     }
+    
+    if(![dictionary[kWOOArticleLargeImage] isKindOfClass:[NSNull class]]){
+        self.large_image = dictionary[kWOOArticleLargeImage];
+    }
+
+    
     if(![dictionary[kWOOArticleImageList] isKindOfClass:[NSNull class]] && [dictionary[kWOOArticleImageList] isKindOfClass:[NSArray class]]){
         self.image_list = dictionary[kWOOArticleImageList];
     }
@@ -93,6 +100,9 @@ NSString *const kWOOArticleImageList = @"image_list";
     if(self.middle_image != nil){
         dictionary[kWOOArticleMiddleImage] = self.middle_image;
     }
+    if (self.middle_image != nil) {
+        dictionary[kWOOArticleLargeImage] = self.large_image;
+    }
     if(self.image_list != nil){
         dictionary[kWOOArticleImageList] = self.image_list;
     }
@@ -127,6 +137,9 @@ NSString *const kWOOArticleImageList = @"image_list";
     if(self.middle_image != nil){
         [aCoder encodeObject:self.middle_image forKey:kWOOArticleMiddleImage];
     }
+    if (self.large_image != nil) {
+        [aCoder encodeObject:self.large_image forKey:kWOOArticleLargeImage];
+    }
     if(self.image_list != nil){
         [aCoder encodeObject:self.image_list forKey:kWOOArticleImageList];
     }
@@ -145,6 +158,7 @@ NSString *const kWOOArticleImageList = @"image_list";
     self.group_id = [aDecoder decodeObjectForKey:kWOOArticleGroupId];
     self.source = [aDecoder decodeObjectForKey:kWOOArticleSource];
     self.middle_image = [aDecoder decodeObjectForKey:kWOOArticleMiddleImage];
+    self.large_image = [aDecoder decodeObjectForKey:kWOOArticleLargeImage];
     self.image_list = [aDecoder decodeObjectForKey:kWOOArticleImageList];
     return self;
     
@@ -164,6 +178,7 @@ NSString *const kWOOArticleImageList = @"image_list";
     copy.group_id = [self.group_id copy];
     copy.source = [self.source copy];
     copy.middle_image = [self.middle_image copy];
+    copy.large_image = [self.large_image copy];
     copy.image_list = [self.image_list copy];    
     return copy;
 }
@@ -184,6 +199,43 @@ NSString *const kWOOArticleImageList = @"image_list";
     else{
         return WOOArticleModelUnknowType;
     }
+}
+
+- (CGFloat)bottomImageListSCHeight {
+    CGFloat kimageH = 97 * VERTICAL_SCREEN_WIDTH / 375;
+    [self.title sizeWithFont:WOOFont(16) maxSize:CGSizeZero];
+    
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 1.5f;
+    NSDictionary *attrs = @{NSFontAttributeName : WOOMFont(16),
+                            NSParagraphStyleAttributeName: style
+                            };
+    CGFloat textH = [self.title boundingRectWithSize:CGSizeMake(VERTICAL_SCREEN_WIDTH - 60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
+    if (textH > 46) {
+        textH = 46;
+    }
+    return kimageH + textH + 30;
+}
+
+- (CGFloat)bottomTextOnlySCHeight {
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 2;
+    NSDictionary *attrs = @{NSFontAttributeName : WOOMFont(16),
+                            NSParagraphStyleAttributeName: style,
+                            };
+    CGFloat textH = [self.title boundingRectWithSize:CGSizeMake(VERTICAL_SCREEN_WIDTH - 60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
+
+    NSDictionary *descAttrs = @{NSFontAttributeName : WOOFont(12),
+                            NSParagraphStyleAttributeName: style,
+                            NSKernAttributeName : @(1.0f)
+                            };
+    CGFloat descH = [self.abstract boundingRectWithSize:CGSizeMake(VERTICAL_SCREEN_WIDTH - 60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:descAttrs context:nil].size.height;
+
+    CGFloat totalH = 12 + textH + descH + 15;
+    if (totalH > 120) {
+        totalH = 120;
+    }
+    return totalH;
 }
 
 @end

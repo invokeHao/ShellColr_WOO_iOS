@@ -13,6 +13,7 @@
 #import "WOOGoodsListSC.h"
 #import "WOOHotVideoSC.h"
 #import "WOONewBottomListSC.h"
+#import "WOONewHeaderSC.h"
 
 @interface WOONewFlowListVC ()<IGListAdapterDataSource>
 @property (nonatomic, strong) IGListAdapter *adapter;
@@ -41,7 +42,7 @@
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(0);
         make.leading.trailing.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-HOME_INDICATOR_HEIGHT);
+        make.bottom.equalTo(self.view).offset(0);
     }];
     
     if (@available(iOS 11.0, *)) {
@@ -61,7 +62,7 @@
 - (NSArray<id<IGListDiffable>> *)objectsForListAdapter:(IGListAdapter *)listAdapter {
     NSMutableArray * mutableArr = [NSMutableArray arrayWithCapacity:0];
     for (WOONewListModel * model in self.ViewModel.dataList) {
-        [mutableArr addObject: model];
+        [mutableArr addObject:model];
     }
     return [mutableArr copy];
 }
@@ -69,6 +70,7 @@
 - (IGListSectionController *)listAdapter:(IGListAdapter *)listAdapter sectionControllerForObject:(id)object {
     IGListStackedSectionController *sc = [[IGListStackedSectionController alloc]
                                           initWithSectionControllers:@[
+                                                                       [[WOONewHeaderSC alloc] init],
                                                                        [[WOONewListTopSC alloc] init],
                                                                        
                                                                        [[WOOGoodsListSC alloc] init],
@@ -77,6 +79,7 @@
                                                                        
                                                                        [[WOONewBottomListSC alloc] init]
                                                                        ]];
+    [sc isFirstSection];
     sc.inset = UIEdgeInsetsMake(20, 15, 0, 15);
     sc.minimumLineSpacing = 15;
     return sc;
@@ -121,7 +124,7 @@
 
 - (void)bindingData{
     @weakify(self);
-    [[RACObserve(self, ViewModel.dataList) skip:1] subscribeNext:^(NSArray *articleArr) {
+    [[[RACObserve(self, ViewModel.dataList) skip:1] deliverOnMainThread] subscribeNext:^(NSArray *articleArr) {
         @strongify(self);
         [self.collectionView.mj_header endRefreshing];
         [self.collectionView.mj_footer endRefreshing];

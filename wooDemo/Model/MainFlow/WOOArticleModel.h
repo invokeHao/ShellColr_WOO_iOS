@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString* middle_image;
 
+@property (nonatomic, copy) NSString* large_image;
+
 @property (nonatomic, strong)NSArray * image_list;
 
 //业务字段
@@ -53,6 +55,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 
 - (NSDictionary *)toDictionary;
+
+//bottomSC专用
+- (CGFloat)bottomImageListSCHeight;
+
+- (CGFloat)bottomTextOnlySCHeight;
 
 @end
 

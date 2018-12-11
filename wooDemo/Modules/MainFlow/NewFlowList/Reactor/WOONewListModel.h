@@ -20,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy)NSArray * BottomArray;
 
+@property (nonatomic, assign)BOOL isTop;
+
+@property (nonatomic, assign)BOOL showTheDate;
+
 @end
 
 NS_ASSUME_NONNULL_END

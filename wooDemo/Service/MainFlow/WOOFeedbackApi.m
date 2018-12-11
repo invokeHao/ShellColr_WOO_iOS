@@ -21,7 +21,7 @@
     [Mutabledic setObject:dataDic forKey:@"article"];
     
     NSString * path = FORMAT(@"http:/47.101.155.197/service/1/article/v1/log/");
-    [[WOOHTTPManager sharedManager] POST:path parameters:Mutabledic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
+    [[WOOHTTPManager sharedManager] TTPOST:path parameters:Mutabledic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
         if (responseObject.errorId == 0) {
             completion(YES,nil);
         }else{

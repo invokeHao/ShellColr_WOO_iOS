@@ -74,11 +74,11 @@
     self.coverImageV.layer.cornerRadius = 10;
     self.maskView.layer.cornerRadius = 10;
     self.layer.cornerRadius = 10;
-    self.layer.shadowOffset = CGSizeMake(0, 2);
-    self.layer.shadowColor = woo_colorWithHexAndAlpha(@"000000", 0.2).CGColor;
+    self.layer.shadowOffset = CGSizeMake(0, 10);
+    self.layer.shadowColor = woo_colorWithHexAndAlpha(@"000000", 0.1).CGColor;
     self.layer.shadowOpacity = 0.5;
-    self.layer.shadowRadius = 2;
-    
+    self.layer.shadowRadius = 5;
+
     NSArray * colorArr = @[woo_colorWithHexAndAlpha(@"000000", 0.0),woo_colorWithHexAndAlpha(@"000000", 0.4)];
     [_maskView setGradientBackgroundWithColors:colorArr locations:nil startPoint:CGPointMake(0, 0) endPoint:CGPointMake(0, 1)];
 }
@@ -86,10 +86,11 @@
 
 - (void)setModel:(WOOArticleModel *)model {
     if (model) {
-        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:model.middle_image] options:YYWebImageOptionProgressive];
+        NSString * imageUrlStr = model.large_image ? model.large_image : model.middle_image;
+        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:imageUrlStr] options:YYWebImageOptionProgressive];
         self.videoIcon.hidden = !model.has_video;
         self.videoIcon.hidden = YES;
-        self.titleLabel.attributedText = [model.title attributedStringWithLineSpace:1.5 fontSpace:1.0f];
+        self.titleLabel.attributedText = [model.title attributedStringWithLineSpace:0.0 fontSpace:2.0f];
         self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         if (model.has_video) {
             [self.iconView setImage:[UIImage imageNamed:@"play_button"]];
@@ -139,7 +140,7 @@
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = UILabel.label.WH_font(WOOFont(13)).WH_textColor([UIColor whiteColor]).WH_numberOfLines(2);
+        _titleLabel = UILabel.label.WH_font(WOOMFont(16)).WH_textColor(woo_colorWithHexString(@"EEEEEE")).WH_numberOfLines(2);
     }
     return _titleLabel;
 }

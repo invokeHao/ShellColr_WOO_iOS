@@ -44,7 +44,7 @@
     NSString *path = @"/verify/code/send";
     NSDictionary *dict = @{@"avti": @(CMSAvtiTypeMobile),
                            @"authvalue": phoneNumber ? phoneNumber : @"",
-                           @"cti" : @(CMSCtlTypeBinding)
+                           @"ctno" : @(CMSCtlTypeRegister)
                            };
     
     [[WOOHTTPManager sharedManager] POST:path
@@ -62,9 +62,9 @@
                                  }];
 }
 
-+ (void)postForBindPhoneNumber:(NSString *)phoneNumber code:(NSString *)code completion:(void (^)(WOOMobileAuth *, NSError *))completion {
-    NSString *path = @"/self/auth/self/bind";
-    NSDictionary *dict = @{@"avti": @(CMSAvtiTypeMobile),
++ (void)loginWithPhoneNumber:(NSString *)phoneNumber code:(NSString *)code completion:(void (^)(WOOLoginModel *, NSError *))completion {
+    NSString *path = @"/auth/signon/verify";
+    NSDictionary *dict = @{@"avtno": @(CMSAvtiTypeMobile),
                            @"authvalue": phoneNumber ? phoneNumber : @"",
                            @"verifycode" : code ? code : @""
                            };
@@ -73,8 +73,11 @@
                                  success:^(NSURLSessionDataTask *task, id responseObject) {
                                      WOOResponseObject *resp = responseObject;
                                      if (resp.code == 1) {
-                                         WOOMobileAuth *mobileAuth = [[WOOMobileAuth alloc] initWithDictionary:resp.result];
-                                         completion(mobileAuth, nil);
+                                         NSString * nextStepCode = resp.result[@"nextStepCode"];
+                                         if ([nextStepCode isEqualToString:@"success"]) {
+                                             WOOLoginModel *model = [[WOOLoginModel alloc] initWithDictionary:resp.result[@"accountSession"]];
+                                             completion(model, nil);
+                                         }
                                      } else {
                                          completion(nil, [NSError errorWithCode:resp.errorId desc:resp.errorDesc]);
                                      }
@@ -123,7 +126,7 @@
     NSDictionary * dic = [model toDictionary];
     NSLog(@"%@",dic);
     NSString * path = FORMAT(@"http:/47.104.253.57/service/init/");
-    [[WOOHTTPManager sharedManager] POST:path parameters:dic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
+    [[WOOHTTPManager sharedManager] TTPOST:path parameters:dic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
         if ([responseObject.message isEqualToString:@"success"]) {
             completion(YES,nil);
         }else{
@@ -143,7 +146,7 @@
     WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
     NSDictionary * pramDic = [model streamListDictionary];
     NSString * path = FORMAT(@"http:/47.104.253.57/service/settings/stream/");
-    [[WOOHTTPManager sharedManager] POST:path parameters:pramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
+    [[WOOHTTPManager sharedManager] TTPOST:path parameters:pramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
         if ([responseObject.message isEqualToString:@"success"]) {
             completion(responseObject.api_report,nil);
         }else{

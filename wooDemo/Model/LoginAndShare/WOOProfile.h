@@ -7,6 +7,7 @@
 //
 
 #import "WOOBaseModel.h"
+#import "WOOHeadIcon.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * country;
 @property (nonatomic, assign) NSInteger createdCircleAmount;
 @property (nonatomic, assign) NSInteger genderId;
-//@property (nonatomic, strong) CMSHeadIcon * headIcon;
+@property (nonatomic, strong) WOOHeadIcon * headIcon;
 @property (nonatomic, strong) NSString * imToken;
 @property (nonatomic, strong) NSString * imUserNo;
 @property (nonatomic, assign) NSInteger joinedCircleAmount;

@@ -8,7 +8,9 @@
 
 #ifndef WOODefineViewMarco_h
 #define WOODefineViewMarco_h
-
+//baseView
+#import "WOOBaseTableView.h"
+#import "WOOBaseTableViewCell.h"
 //categroy
 
 #import "UIView+CMSGradient.h"
