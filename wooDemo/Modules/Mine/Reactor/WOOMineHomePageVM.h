@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WOOMineBasicModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WOOMineHomePageVM : NSObject
+
+@property (strong, nonatomic, readonly)NSArray<WOOMineBasicModel*> * dataList;
+
+@property (strong, nonatomic, readonly)WOOLoginModel * userModel;
+
+- (void)refreshTheUserInfo;
 
 @end
 

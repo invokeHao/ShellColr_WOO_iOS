@@ -24,6 +24,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self loadCustomViewControllers];
     [self setupIQKeyboardManager];
+    [self apiConfig];
     return YES;
 }
 
@@ -76,5 +77,8 @@
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
 }
 
+- (void)apiConfig {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:WOODebugMode];
+}
 
 @end

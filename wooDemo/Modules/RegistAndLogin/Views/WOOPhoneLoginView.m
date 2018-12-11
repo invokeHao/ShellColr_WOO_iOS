@@ -106,9 +106,19 @@
 
 - (void)bindEvents {
     [self.sendValideCodeButton addTarget:self action:@selector(sendValitedCodeAction:) forControlEvents:UIControlEventTouchUpInside];
+    @weakify(self)
+    [[self.valideCodeTextField rac_textSignal] subscribeNext:^(NSString * code) {
+        @strongify(self);
+        if (code.length == 6) {
+            [self loginWOO];
+        }
+    }];
 }
 
 - (void)sendValitedCodeAction:(WOOTimerButton *)button {
+    if (![self.valideCodeTextField isFirstResponder]) {
+        [self.valideCodeTextField becomeFirstResponder];
+    }
     if (self.phoneField.text.length != 11) {
         [WOOHud showString:@"手机号格式错误"];
         return;
@@ -120,12 +130,51 @@
             if (error.code == 0) {
                 [WOOHud showString:@"此号码已达到今日上限，请明天再来"];
             } else {
-                [WOOHud showString:@"网络异常"];
+                [WOOHud showString:error.descriptionFromServer];
             }
         } else {
             self.codeModel = validCode;
         }
     }];
+}
+
+- (void)loginWOO {
+    if (self.phoneField.text.length != 11) {
+        [WOOHud showString:@"手机号格式不正确"];
+        return;
+    }
+    if (self.valideCodeTextField.text.length != 6) {
+        [WOOHud showString:@"验证码格式不正确"];
+        return;
+    }
+    [WOOLoginService loginWithPhoneNumber:self.phoneField.text code:self.valideCodeTextField.text completion:^(WOOLoginModel * _Nonnull loginModel, NSError * _Nonnull error) {
+        if (loginModel) {
+            [WOOLoginManager sharedManager].userLoginModel = loginModel;
+            [[WOOAlertTool WHTopViewController] dismissViewControllerAnimated:YES completion:NULL];
+        }
+    }];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == self.phoneField) {
+        NSUInteger oldLength = [textField.text length];
+        NSUInteger replacementLength = [string length];
+        NSUInteger rangeLength = range.length;
+        NSUInteger newLength = oldLength - rangeLength + replacementLength;
+        BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+        return newLength <= 11 || returnKey;
+    }
+    if (textField == self.valideCodeTextField) {
+        NSUInteger oldLength = [textField.text length];
+        NSUInteger replacementLength = [string length];
+        NSUInteger rangeLength = range.length;
+        NSUInteger newLength = oldLength - rangeLength + replacementLength;
+        BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+        return newLength <= 6 || returnKey;
+    }
+    return NO;
 }
 
 
@@ -190,7 +239,7 @@
         _phoneField = [[UITextField alloc] init];
         _phoneField.font = WOOFont(14);
         _phoneField.textColor = woo_colorWithHexString(@"4F4F4F");
-//        _phoneField.delegate = self;
+        _phoneField.delegate = self;
         _phoneField.keyboardType = UIKeyboardTypePhonePad;
         _phoneField.returnKeyType = UIReturnKeyDone;
         _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"输入手机号"

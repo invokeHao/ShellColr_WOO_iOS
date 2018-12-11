@@ -9,12 +9,11 @@
 #import "WOOHTTPManager.h"
 #import "WOOResponseObject.h"
 #import "WOOServiceGlobalConfig.h"
+#import "WOOUserDeviceModel.h"
 
 static dispatch_once_t onceToken;
 
 @interface WOOHTTPManager ()
-
-@property (nonatomic, strong)NSString * ApiDomain;
 
 @end
 
@@ -35,7 +34,6 @@ static dispatch_once_t onceToken;
 
 - (instancetype)initWithBaseURL:(NSURL *)url {
     if (self = [super initWithBaseURL:url]) {
-        self.ApiDomain = [WOOServiceGlobalConfig shareInstance].apiDomain;
         AFHTTPRequestSerializer *serializer = self.requestSerializer;
         serializer.timeoutInterval = 20;
         [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -58,43 +56,11 @@ static dispatch_once_t onceToken;
     return self;
 }
 
-#pragma mark- 不封装返回数据
-
-- (NSURLSessionDataTask *)EasyGET:(NSString *)URLString
-                    parameters:(id)parameters
-                       success:(void (^)(NSURLSessionDataTask * task, id responseObjc))success
-                       failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure {
-    if ([URLString hasPrefix:self.ApiDomain]) {
-        [self woo_configHttpHeaderField];
-    }
-    NSURLSessionDataTask *task = [self GET:URLString
-                                parameters:parameters
-                                  progress:nil
-                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                           if (responseObject) {
-                                               success(task, responseObject);
-                                           } else {
-                                               NSError * error = [NSError errorWithCode:1 desc:@"请求错误"];
-                                               failure(task, error);
-                                           }
-                                       });
-                                   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                           failure(task, error);
-                                       });
-                                   }];
-    return task;
-}
-
 - (NSURLSessionDataTask *)GET:(NSString *)URLString
                    parameters:(id)parameters
                       success:(void (^)(NSURLSessionDataTask * task, WOOResponseObject * cmsResponse))success
                       failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure {
-    if ([URLString hasPrefix:self.ApiDomain]) {
-        [self woo_configHttpHeaderField];
-    }
-
+    [self woo_configHttpHeaderField];
     NSURLSessionDataTask *task = [self GET:URLString
                                 parameters:parameters
                                   progress:nil
@@ -122,10 +88,7 @@ static dispatch_once_t onceToken;
                     parameters:(id)parameters
                        success:(void (^)(NSURLSessionDataTask *task, WOOResponseObject *responseObject))success
                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
-    if ([URLString hasPrefix:self.ApiDomain]) {
-        [self woo_configHttpHeaderField];
-    }
-
+    [self woo_configHttpHeaderField];
     NSURLSessionDataTask *task = [self POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             WOOResponseObject *cmsResponse = [[WOOResponseObject alloc]initWithDictionary:responseObject];
@@ -145,6 +108,88 @@ static dispatch_once_t onceToken;
     }];
     return task;
 }
+
+#pragma mark- TT专属请求
+
+#pragma mark- 不封装返回数据
+
+- (NSURLSessionDataTask *)TTEasyGET:(NSString *)URLString
+                         parameters:(id)parameters
+                            success:(void (^)(NSURLSessionDataTask * task, id responseObjc))success
+                            failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure {
+    NSURLSessionDataTask *task = [self GET:URLString
+                                parameters:parameters
+                                  progress:nil
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           if (responseObject) {
+                                               success(task, responseObject);
+                                           } else {
+                                               NSError * error = [NSError errorWithCode:1 desc:@"请求错误"];
+                                               failure(task, error);
+                                           }
+                                       });
+                                   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           failure(task, error);
+                                       });
+                                   }];
+    return task;
+}
+
+- (NSURLSessionDataTask *)TTGET:(NSString *)URLString
+                   parameters:(id)parameters
+                      success:(void (^)(NSURLSessionDataTask * task, WOOResponseObject * cmsResponse))success
+                      failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure {
+    [self woo_configHttpHeaderField];
+    NSURLSessionDataTask *task = [self GET:URLString
+                                parameters:parameters
+                                  progress:nil
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           WOOResponseObject *cmsResponse = [[WOOResponseObject alloc]initWithDictionary:responseObject];
+                                           if (cmsResponse.errorId == 0) {
+                                               success(task, cmsResponse);
+                                           } else {
+                                               NSError *error = [NSError errorWithDomain:cmsResponse.errorDesc
+                                                                                    code:cmsResponse.code
+                                                                                userInfo:nil];
+                                               failure(task, error);
+                                           }
+                                       });
+                                   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           failure(task, error);
+                                       });
+                                   }];
+    return task;
+}
+
+
+- (NSURLSessionDataTask *)TTPOST:(NSString *)URLString
+                    parameters:(id)parameters
+                       success:(void (^)(NSURLSessionDataTask *task, WOOResponseObject *responseObject))success
+                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
+    NSURLSessionDataTask *task = [self POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            WOOResponseObject *cmsResponse = [[WOOResponseObject alloc]initWithDictionary:responseObject];
+            if (cmsResponse.errorId == 0) {
+                success(task, cmsResponse);
+            } else {
+                NSError *error = [NSError errorWithDomain:cmsResponse.errorDesc
+                                                     code:cmsResponse.code
+                                                 userInfo:nil];
+                failure(task, error);
+            }
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            failure(task, error);
+        });
+    }];
+    return task;
+}
+
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                       HTTPBody:(NSDictionary *)parameters
@@ -248,9 +293,7 @@ static dispatch_once_t onceToken;
                       HTTPBody:(NSDictionary *)bodyDic
                        success:(void (^) (id responseObject))success
                        failure:(void (^)(id responseObject))failure {
-    if ([URLString hasPrefix:self.ApiDomain]) {
-        [self woo_configHttpHeaderField];
-    }
+    [self woo_configHttpHeaderField];
     NSMutableDictionary * mDic = [NSMutableDictionary dictionaryWithCapacity:0];
     [mDic setObject:@"application/json" forKey:@"Content-Type"];
     [mDic setObject:@"application/json" forKey:@"Accept"];
@@ -277,6 +320,8 @@ static dispatch_once_t onceToken;
     [[self requestSerializer] setValue:@"ecypc8htcxr8lq7a" forHTTPHeaderField:@"x-app-id"];
     [[self requestSerializer] setValue:@"colr.ios.phone" forHTTPHeaderField:@"x-site-code"];
     [[self requestSerializer] setValue:@"appstore" forHTTPHeaderField:@"x-channel"];
+    WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
+    [[self requestSerializer] setValue:model.Openudid forHTTPHeaderField:@"x-dev-id"];
 }
 
 @end

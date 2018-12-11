@@ -45,10 +45,21 @@
                        success:(void (^)(WOOResponseObject *responseObject))success
                        failure:(void (^)(NSError *error))failure;
 
+#pragma mark- TT专属请求
+- (NSURLSessionDataTask *)TTGET:(NSString *)URLString
+                   parameters:(id)parameters
+                      success:(void (^)(NSURLSessionDataTask * task, WOOResponseObject * cmsResponse))success
+                      failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure;
 
 
-- (NSURLSessionDataTask *)EasyGET:(NSString *)URLString
+- (NSURLSessionDataTask *)TTEasyGET:(NSString *)URLString
                        parameters:(id)parameters
                           success:(void (^)(NSURLSessionDataTask * task, id responseObjc))success
                           failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure;
+
+- (NSURLSessionDataTask *)TTPOST:(NSString *)URLString
+                      parameters:(id)parameters
+                         success:(void (^)(NSURLSessionDataTask *task, WOOResponseObject *responseObject))success
+                         failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+
 @end
