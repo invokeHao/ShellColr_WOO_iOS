@@ -127,16 +127,53 @@
 
 - (void)setModel:(WOORewardRow *)model {
     if (model) {
+        _model = model;
         NSString * timeStr = [self getDateStringWithTimeStr:model.createDate];
         self.dateLabel.text = FORMAT(@"购买日期 %@",timeStr);
         NSString * imageStr = model.productImage.url;
-        imageStr = @"https://img13.360buyimg.com/babel/s320x320_jfs/t25333/286/1148627644/132468/e935cde5/5b8df4e1Nfdcae39e.jpg";
+        if (!imageStr) {
+            imageStr = @"https://img13.360buyimg.com/babel/s320x320_jfs/t25333/286/1148627644/132468/e935cde5/5b8df4e1Nfdcae39e.jpg";
+        }
         [self.goodsIconV yy_setImageWithURL:[NSURL URLWithString:imageStr] options:YYWebImageOptionProgressive];
         [self.goodsNameLabel setText:model.productName];
-        [self.goodsRewardLabel setText:FORMAT(@"返利：     ¥%ld.00",model.rewardAmount)];
-        [self.goodsPriceLabel setText:FORMAT(@"原价：  ¥%ld.00",model.priceAmount)];
-        [self.goodsCoinLabel setText:FORMAT(@"花费注意力： ¥%ld.00",model.payCoinAmount)];
+        [self.goodsRewardLabel setText:FORMAT(@"返利：     ¥%ld.00",(long)model.rewardAmount)];
+        [self.goodsPriceLabel setText:FORMAT(@"原价：  ¥%ld.00",(long)model.priceAmount)];
+        [self.goodsCoinLabel setText:FORMAT(@"花费注意力： ¥%ld.00",(long)model.payCoinAmount)];
+        //配置orderStatus
+        [self configTheOrderStatus];
     }
+}
+
+- (void)configTheOrderStatus {
+    NSString * statusStr = nil;
+    NSString * backgroundStr = nil;
+    switch (self.model.orderStatusType) {
+        case WOOOrderStatusTypeCancel:
+            statusStr = @"已取消";
+            backgroundStr = @"#D5D5D5";
+            break;
+        case WOOOrderStatusTypePayed:
+            statusStr = @"已付款";
+            backgroundStr = @"##EB5E6E";
+            break;
+        case WOOOrderStatusTypeSended:
+            statusStr = @"已发货";
+            backgroundStr = @"#F5A623";
+            break;
+        case WOOOrderStatusTypeCompleted:
+            statusStr = @"已收获";
+            backgroundStr = @"#B3E220";
+            break;
+        case WOOOrderStatusTypeDefault:
+            statusStr = @"未支付";
+            backgroundStr = @"#EB5E6E";
+            break;
+        default:
+            break;
+    }
+    self.statusLabel.text = statusStr;
+    self.statusLabel.backgroundColor = woo_colorWithHexString(backgroundStr);
+    self.shareLabel.hidden = self.model.orderStatus != WOOOrderStatusTypeCompleted;
 }
 
 - (UIView *)headerView {

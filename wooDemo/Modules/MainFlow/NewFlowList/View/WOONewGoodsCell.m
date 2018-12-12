@@ -78,8 +78,9 @@
 
 -(void)setModel:(WOOGoodsModel *)model {
     if (model) {
-        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:model.goodsCoverUrl] options:YYWebImageOptionProgressive];
-        NSString * priceStr = FORMAT(@"¥%@",model.goodsPrice);
+        WOOImage * image = [model.multiBodyText.images firstObject];
+        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:image.url] options:YYWebImageOptionProgressive];
+        NSString * priceStr = FORMAT(@"¥%ld",model.productPriceAmount);
         
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
         style.lineSpacing = 1.5f;
@@ -94,7 +95,7 @@
         [attrStr addAttributes:attrs range:rang1];
 
         self.priceLabel.attributedText = attrStr;
-        self.descLabel.attributedText = [model.goodsName attributedStringWithLineSpace:1.5 fontSpace:0.0f];
+        self.descLabel.attributedText = [model.title attributedStringWithLineSpace:1.5 fontSpace:0.0f];
         self.descLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _model = model;
     }

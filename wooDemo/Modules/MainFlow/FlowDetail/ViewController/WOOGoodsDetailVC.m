@@ -9,6 +9,7 @@
 #import "WOOGoodsDetailVC.h"
 #import "WOOGoodsDetailTopView.h"
 #import "WOOGoodsDetailCashBackView.h"
+#import "WOOOrderStatusVC.h"
 
 @interface WOOGoodsDetailVC ()
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -79,6 +80,17 @@
 - (void)dataBing {
     [self.goodsView setModel:self.goodsModel];
     [self.cashBackView setModel:self.goodsModel];
+    @weakify(self);
+    [self.cashBackView.rewardSubject subscribeNext:^(WOORewardRow *row) {
+        @strongify(self);
+        if (row.rewardBuyUrl) {
+            NSURL * url = [NSURL URLWithString:row.rewardBuyUrl];
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+            WOOOrderStatusVC * statusVC = [[WOOOrderStatusVC alloc]init];
+            statusVC.model = row;
+            [self.navigationController pushViewController:statusVC animated:YES];
+        }
+    }];
 }
 
 

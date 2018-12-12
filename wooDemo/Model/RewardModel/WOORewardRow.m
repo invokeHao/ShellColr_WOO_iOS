@@ -176,4 +176,42 @@ NSString *const kWOORowCreateDate = @"createDate";
     copy.rewardDeliverStatus = self.rewardDeliverStatus;
     
     return copy;
-}@end
+}
+
+- (WOOOrderStatusType)orderStatusType {
+    if (_orderStatusType == WOOOrderStatusTypeDefault) {
+        switch (self.orderStatus) {
+            case -11:
+                _orderStatusType = WOOOrderStatusTypeCancel;
+                break;
+            case 11:
+                _orderStatusType = WOOOrderStatusTypePayed;
+                break;
+            case 21:
+                _orderStatusType = WOOOrderStatusTypeSended;
+                break;
+            case 31:
+                _orderStatusType = WOOOrderStatusTypeCompleted;
+                break;
+            default:
+                break;
+        }
+    }
+    return _orderStatusType;
+}
+
+- (WOORewardStatusType)rewardStatusType {
+    switch (self.rewardDeliverStatus) {
+        case 0:
+            _rewardStatusType = WOORewardStatusTypeUndeliver;
+            break;
+        case 1:
+            _rewardStatusType = WOORewardStatusTypeDeliver;
+            break;
+        default:
+            break;
+    }
+    return _rewardStatusType;
+}
+
+@end

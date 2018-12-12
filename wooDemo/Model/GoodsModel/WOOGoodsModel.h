@@ -1,35 +1,35 @@
-//
-//  WOOGoodsModel.h
-//  wooDemo
-//
-//  Created by colr on 2018/11/26.
-//  Copyright © 2018 colr. All rights reserved.
-//
-
+#import <UIKit/UIKit.h>
 #import "WOOBaseModel.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "WOOMultiBodyText.h"
 
 @interface WOOGoodsModel : WOOBaseModel
 
-@property (nonatomic, copy)NSString * goodsId; //商品id
+@property (nonatomic, strong) NSString * articleId;
+@property (nonatomic, assign) NSInteger commentTimes;
+@property (nonatomic, assign) BOOL commented;
+@property (nonatomic, assign) NSInteger createDate;
+@property (nonatomic, assign) NSInteger favorTimes;
+@property (nonatomic, assign) BOOL favored;
+@property (nonatomic, assign) NSInteger formatType;
+@property (nonatomic, assign) NSInteger functionType;
+@property (nonatomic, assign) NSInteger likeTimes;
+@property (nonatomic, assign) BOOL liked;
+@property (nonatomic, strong) WOOMultiBodyText * multiBodyText;
+@property (nonatomic, strong) NSString * originalUrl;
+@property (nonatomic, strong) NSString * ownerId;
+@property (nonatomic, assign) NSInteger postType;
+@property (nonatomic, assign) CGFloat productCommissionAmount;
+@property (nonatomic, assign) CGFloat productCommissionRate;
+@property (nonatomic, assign) NSInteger productPriceAmount;
+@property (nonatomic, assign) BOOL read;
+@property (nonatomic, strong) NSString * rootArticleId;
+@property (nonatomic, strong) NSString * title;
+@property (nonatomic, assign) NSInteger unlikeTimes;
+@property (nonatomic, assign) BOOL unliked;
 
-@property (nonatomic, copy)NSString * goodsName; //商品名称
+-(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
-@property (nonatomic, copy)NSString * goodsPrice; //商品价格
-
-@property (nonatomic, copy)NSString * goodsDesc; //商品描述
-
-@property (nonatomic, copy)NSString * goodsCoverUrl; //商品封面
-
-@property (nonatomic, copy)NSString * cashBack; //返现
-
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-
-- (NSDictionary *)toDictionary;
+-(NSDictionary *)toDictionary;
 
 - (CGFloat)cellHeight;
-
 @end
-
-NS_ASSUME_NONNULL_END

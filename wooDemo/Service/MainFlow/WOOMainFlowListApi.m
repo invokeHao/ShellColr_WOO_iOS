@@ -66,4 +66,34 @@
     }];
 }
 
++ (void)getTheGoodsFlowCompletion:(void (^)(NSArray<WOOGoodsModel *> * , NSError * ))completion {
+    NSString * path = @"/article/merchandise/feed";
+    NSDictionary * paramDic = @{@"size": @(2)};
+    [[WOOHTTPManager sharedManager] GET:path parameters:paramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *wooResponse) {
+        if (wooResponse.code == 1) {
+            NSArray *rows = [NSArray yy_modelArrayWithClass:[WOOGoodsModel class]
+                                                       json:[wooResponse.result objectForKey:@"rows"]];
+            completion(rows, nil);
+        } else {
+            completion(nil, [NSError errorWithCode:wooResponse.errorId desc:wooResponse.errorDesc]);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completion(nil, error);
+    }];
+}
+
++ (void)getTheGoodsDetailWithGoodsId:(NSString *)goodsId completion:(void (^)(WOOGoodsModel * , NSError * ))completion {
+    NSString * path = FORMAT(@"/article/merchandise/%@/detail",goodsId);
+    [[WOOHTTPManager sharedManager] GET:path parameters:nil success:^(NSURLSessionDataTask *task, WOOResponseObject *wooResponse) {
+        if (wooResponse.code == 1) {
+            WOOGoodsModel * model = [WOOGoodsModel yy_modelWithDictionary:wooResponse.result];
+            completion(model, nil);
+        }else{
+            completion(nil, [NSError errorWithCode:wooResponse.errorId desc:wooResponse.errorDesc]);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completion(nil, error);
+    }];
+}
+
 @end

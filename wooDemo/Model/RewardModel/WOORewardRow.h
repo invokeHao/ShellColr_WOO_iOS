@@ -5,7 +5,13 @@ typedef NS_ENUM(NSUInteger, WOOOrderStatusType) {
     WOOOrderStatusTypeDefault,
     WOOOrderStatusTypeCancel,
     WOOOrderStatusTypePayed,
-//    WOOOrderStatusType
+    WOOOrderStatusTypeSended,
+    WOOOrderStatusTypeCompleted
+};
+
+typedef NS_ENUM(NSUInteger, WOORewardStatusType) {
+    WOORewardStatusTypeUndeliver, //未到账
+    WOORewardStatusTypeDeliver //到账
 };
 
 @interface WOORewardRow : NSObject
@@ -21,6 +27,11 @@ typedef NS_ENUM(NSUInteger, WOOOrderStatusType) {
 @property (nonatomic, strong) NSString * rewardBuyUrl;
 @property (nonatomic, assign) NSInteger rewardDeliverStatus; //0：未到账，1：已到账
 @property (nonatomic, assign) NSInteger createDate;
+
+//业务字段
+@property (nonatomic, assign) WOOOrderStatusType orderStatusType;
+
+@property (nonatomic, assign) WOORewardStatusType rewardStatusType;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

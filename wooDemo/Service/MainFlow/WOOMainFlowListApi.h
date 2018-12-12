@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WOOMainFlowModel.h"
 #import "WOOMainVideoModel.h"
+#import "WOOGoodsModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)getTheDetailVideoUrlWithVideoId:(NSString *)videoId
                              completion:(void (^)(WOOMainVideoModel * model, NSError * error))completion;
+
++ (void)getTheGoodsFlowCompletion:(void (^)(NSArray <WOOGoodsModel *>* array, NSError * error))completion;
+
++ (void)getTheGoodsDetailWithGoodsId:(NSString *)goodsId
+                             completion:(void (^)(WOOGoodsModel * model, NSError * error))completion;
 
 @end
 

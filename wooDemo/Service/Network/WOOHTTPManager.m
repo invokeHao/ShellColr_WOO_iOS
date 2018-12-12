@@ -128,6 +128,12 @@ static dispatch_once_t onceToken;
     [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [req setValue:[WOOLoginManager token] forHTTPHeaderField:@"x-token"];
+    [req setValue:@"ecypc8htcxr8lq7a" forHTTPHeaderField:@"x-app-id"];
+    [req setValue:@"colr.ios.phone" forHTTPHeaderField:@"x-site-code"];
+    [req setValue:@"appstore" forHTTPHeaderField:@"x-channel"];
+    WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
+    [req setValue:model.Openudid forHTTPHeaderField:@"x-dev-id"];
+    
     __block NSURLSessionDataTask *task = [self dataTaskWithRequest:req uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!error) {

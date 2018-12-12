@@ -10,6 +10,7 @@
 #import "WOORewardHostoryVM.h"
 #import "WOORewardHisCell.h"
 #import "WOORewardHisTopView.h"
+#import "WOOOrderDetailVC.h"
 
 @interface WOORewardHistoryVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -93,10 +94,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        WOORewardHistoryVC * hisVC = [[WOORewardHistoryVC alloc]init];
-        [self.navigationController pushViewController:hisVC animated:YES];
-    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    WOORewardRow * row = self.viewModel.dataList[indexPath.row];
+    if (!row) {return;}
+    WOOOrderDetailVC * detailVC = [[WOOOrderDetailVC alloc]init];
+    detailVC.orderId = row.orderId;
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 

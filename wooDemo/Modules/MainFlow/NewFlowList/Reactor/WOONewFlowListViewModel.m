@@ -18,6 +18,8 @@
 
 @property (strong, nonatomic)NSArray<WOONewListModel *> * dataList;
 
+@property (strong, nonatomic)NSArray<WOOGoodsModel *> * goodsList;
+
 @property (strong, nonatomic)RACSubject *errorSubject;
 
 @property (nonatomic, assign)BOOL firstPullRefresh;
@@ -67,9 +69,15 @@
 
 - (void)fetchMainFlowListWithRefreshType:(WOORefreshType)refreshType {
     if (!self.mainApiHost) {return;}
-    WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
-    NSDictionary * pramDic = [model streamListDictionary];
-    [self refreshTheDataWithPramdic:pramDic refreshType:refreshType];
+    @weakify(self);
+    [self getTheGoodModelCompletion:^(BOOL complete) {
+        @strongify(self);
+        if (complete) {
+            WOOUserDeviceModel * model = [[WOOUserDeviceModel alloc]init];
+            NSDictionary * pramDic = [model streamListDictionary];
+            [self refreshTheDataWithPramdic:pramDic refreshType:refreshType];
+        }
+    }];
 }
 
 #pragma mark- 下拉刷新
@@ -81,6 +89,21 @@
             [self configTheModel:model refreshType:type];
         }else{
             [self.errorSubject sendNext:@"error"];
+        }
+    }];
+}
+
+#pragma mark - 获取商品帖子
+
+- (void )getTheGoodModelCompletion:(void (^)(BOOL complete))completion {
+    @weakify(self)
+    [WOOMainFlowListApi getTheGoodsFlowCompletion:^(NSArray<WOOGoodsModel *> * _Nonnull array, NSError * _Nonnull error) {
+        @strongify(self)
+        if (array) {
+            self.goodsList = array;
+            completion(YES);
+        }else{
+            completion(NO);
         }
     }];
 }
@@ -133,7 +156,7 @@
                 [ArticleArr removeObject:article];
         }
     }
-    for (WOOGoodsModel * model in [self createAGoodsModel]) {
+    for (WOOGoodsModel * model in self.goodsList) {
         [goodsArr addObject:model];
     }
     

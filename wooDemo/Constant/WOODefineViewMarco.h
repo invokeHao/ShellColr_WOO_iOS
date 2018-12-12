@@ -24,6 +24,7 @@
 //unit
 
 #import "WOODevice.h"
+#import "WOOStreamFactory.h"
 
 //manager
 
