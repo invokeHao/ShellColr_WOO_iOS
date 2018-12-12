@@ -62,4 +62,9 @@
                          success:(void (^)(NSURLSessionDataTask *task, WOOResponseObject *responseObject))success
                          failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 
+- (NSURLSessionDataTask *)TTPOST:(NSString *)URLString
+                      HTTPBody:(NSDictionary *)parameters
+                       success:(void (^)(NSURLSessionDataTask *task, id responseObjc))success
+                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+
 @end

@@ -128,7 +128,7 @@
     if (self.Openudid.length > 0) {
         [dic setObject:self.Openudid forKey:@"Openudid"];
     }
-    return [dic copy];
+    return dic;
 }
 
 - (NSDictionary *)streamListDictionary {
@@ -146,7 +146,7 @@
     [dic setObject:self.app_name forKey:@"app_name"];
     [dic setObject:self.version_code forKey:@"version_code"];
     [dic setObject:@(8) forKey:@"count"];
-    return [dic copy];
+    return dic;
 }
 
 - (NSString *)getScreenPix{

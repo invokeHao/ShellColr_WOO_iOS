@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WOOFlowDetailVC : WOOBaseViewController
 
-@property (nonatomic, copy) NSString * itemId;
+@property (nonatomic, strong) NSString * itemId;
 
 @property (nonatomic, copy) NSString * videoId;
 

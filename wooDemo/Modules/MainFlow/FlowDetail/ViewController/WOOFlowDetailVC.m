@@ -212,6 +212,7 @@
         [pramDic setValue:self.itemId forKey:@"group_id"];
     }
     [pramDic setValue:[NSNumber numberWithBool:self.completeRead] forKey:@"complete"];
+    
     [WOOFeedbackApi postTheReadLogWithDataDic:pramDic completion:^(BOOL success, NSError * _Nonnull error) {
         if (!error) {
             NSLog(@"success");
@@ -229,6 +230,7 @@
             NSLog(@"%@",error);
         }
     }];
+    
 }
 
 

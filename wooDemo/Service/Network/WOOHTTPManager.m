@@ -109,6 +109,46 @@ static dispatch_once_t onceToken;
     return task;
 }
 
+- (NSURLSessionDataTask *)POST:(NSString *)URLString
+                      HTTPBody:(NSDictionary *)parameters
+                       success:(void (^)(NSURLSessionDataTask *task, WOOResponseObject *responseObject))success
+                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", [WOOServiceGlobalConfig shareInstance].apiDomain, URLString];
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSMutableURLRequest *req = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST"
+                                                                             URLString:urlStr
+                                                                            parameters:nil
+                                                                                 error:nil];
+    [req setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [req setValue:[WOOLoginManager token] forHTTPHeaderField:@"x-token"];
+    __block NSURLSessionDataTask *task = [self dataTaskWithRequest:req uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!error) {
+                WOOResponseObject *cmsResponse = [WOOResponseObject yy_modelWithJSON:responseObject];
+                if (cmsResponse.errorId == 0) {
+                    success(task, cmsResponse);
+                } else {
+                    NSError *error = [NSError errorWithCode:cmsResponse.errorId
+                                                       desc:cmsResponse.errorDesc];
+                    failure(task, error);
+                }
+            } else {
+                failure(task, error);
+            }
+        });
+    }];
+    [task resume];
+    return task;
+}
+
+
 #pragma mark- TT专属请求
 
 #pragma mark- 不封装返回数据
@@ -190,38 +230,35 @@ static dispatch_once_t onceToken;
     return task;
 }
 
-
-- (NSURLSessionDataTask *)POST:(NSString *)URLString
+- (NSURLSessionDataTask *)TTPOST:(NSString *)URLString
                       HTTPBody:(NSDictionary *)parameters
-                       success:(void (^)(NSURLSessionDataTask *task, WOOResponseObject *responseObject))success
+                       success:(void (^)(NSURLSessionDataTask *task, id rsponseObjc))success
                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@", [WOOServiceGlobalConfig shareInstance].apiDomain, URLString];
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     NSMutableURLRequest *req = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST"
-                                                                             URLString:urlStr
-                                                                            parameters:nil
-                                                                                 error:nil];
+                URLString:URLString
+               parameters:nil
+                    error:nil];
     [req setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
     
     [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [req setValue:[WOOLoginManager token] forHTTPHeaderField:@"x-token"];
+    
     __block NSURLSessionDataTask *task = [self dataTaskWithRequest:req uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!error) {
-                WOOResponseObject *cmsResponse = [WOOResponseObject yy_modelWithJSON:responseObject];
-                if (cmsResponse.errorId == 0) {
-                    success(task, cmsResponse);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (responseObject) {
+                        success(task, responseObject);
+                    } else {
+                        NSError * error = [NSError errorWithCode:1 desc:@"请求错误"];
+                        failure(task, error);
+                    }
+                });
                 } else {
-                    NSError *error = [NSError errorWithCode:cmsResponse.errorId
-                                                       desc:cmsResponse.errorDesc];
-                    failure(task, error);
-                }
-            } else {
                 failure(task, error);
             }
         });
