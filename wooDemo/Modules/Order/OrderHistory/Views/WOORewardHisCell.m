@@ -10,8 +10,6 @@
 
 @interface WOORewardHisCell()
 
-@property (nonatomic, strong)UIView * headerView;
-
 @property (nonatomic, strong)UILabel * dateLabel;
 
 @property (nonatomic, strong)UILabel * shareLabel;
@@ -47,6 +45,7 @@
 }
 
 - (void)setupViews {
+    self.contentView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubviewArray:@[self.headerView, self.bottomView]];
     [self.headerView addSubviewArray:@[self.dateLabel,self.shareLabel,self.statusLabel,self.lineView]];
     [self.bottomView addSubviewArray:@[self.goodsIconV,self.goodsNameLabel,self.goodsRewardLabel,self.goodsPriceLabel,self.goodsCoinLabel,self.moreView]];
@@ -98,6 +97,7 @@
     [self.goodsNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.goodsIconV.mas_top).offset(4);
         make.left.mas_equalTo(self.goodsIconV.mas_right).offset(26);
+        make.right.mas_equalTo(-20);
         make.height.mas_equalTo(17);
     }];
     

@@ -8,6 +8,7 @@
 
 #import "WOOGoodsDetailCashBackView.h"
 #import "WOORewardService.h"
+#import "WOOFavoriteService.h"
 
 @interface WOOGoodsDetailCashBackView()
 
@@ -59,13 +60,26 @@
     self.rewardSubject = [WOOStreamFactory exportFetchSubject];
     @weakify(self)
     [[self.goToWishListBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-//        @strongify(self)
-//        [WOOHud showString:@"加入购物袋"];
+        @strongify(self)
+        [self favoriteTheGoods];
     }];
     
     [[self.goShoppingBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         @strongify(self);
         [self postTheReward];
+    }];
+    
+    [[RACObserve(self, expenseMoney) deliverOnMainThread] subscribeNext:^(id x) {
+        @strongify(self)
+        if (self.expenseMoney > self.myTotalGolg) {
+            self.goShoppingBtn.WH_setTitle_forState(@"注意力不足",UIControlStateNormal);
+            [self.goShoppingBtn setBackgroundColor:woo_colorWithHexString(@"#D5D5D5")];
+            self.goShoppingBtn.userInteractionEnabled = NO;
+        }else{
+            self.goShoppingBtn.backgroundColor = woo_colorWithHexString(@"B3E220");
+            [self.goShoppingBtn setTitle:@"现在使用" forState:UIControlStateNormal];
+            self.goShoppingBtn.userInteractionEnabled = YES;
+        }
     }];
 }
 
@@ -141,7 +155,9 @@
     
     self.expenseMoney = [self getExpenseMoneyWithCashBackMoney:cashBackMoney];
     NSInteger leftMoney = self.myTotalGolg - self.expenseMoney;
-    self.leftgoldLabel.textColor = leftMoney > 0 ? woo_colorWithHexString(@"#868686") : woo_colorWithHexString(@"#EB5E6E");
+    
+    NSString * leftColorStr = nil;
+    leftColorStr = leftMoney > 0 ? @"#868686" : @"#EB5E6E";
     //将数据单位化
     NSString * expenseMoneyStr = [self unitTheMoney:self.expenseMoney];
     NSString * leftMoneyStr = [self unitTheMoney:leftMoney];
@@ -153,7 +169,7 @@
     
     NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
     attrs[NSFontAttributeName] = WOOFont(12);
-    attrs[NSForegroundColorAttributeName] = woo_colorWithHexString(@"EB5E6E");
+    attrs[NSForegroundColorAttributeName] = woo_colorWithHexString(leftColorStr);
     
     NSRange rang = [resultStr rangeOfString:leftMoneyStr];
     
@@ -201,6 +217,8 @@
     }
 }
 
+#pragma mark- 收藏和发起订单
+
 - (void)postTheReward {
     if (!self.model) {return;}
     NSDictionary * paramDic = @{@"articleId":self.model.articleId , @"coinAmount" : @(self.expenseMoney)};
@@ -209,6 +227,18 @@
         [WOOHud hideActivityView];
         if (row) {
             [self.rewardSubject sendNext:row];
+        }
+        if (error) {
+            [WOOHud showString:error.descriptionFromServer];
+        }
+    }];
+}
+
+- (void)favoriteTheGoods {
+    if (!self.model) {return;}
+    [WOOFavoriteService postTheFavoriteWithArticleId:self.model.articleId completion:^(BOOL isSuccess, NSError * _Nonnull error) {
+        if (isSuccess) {
+            [WOOHud showString:@"加入购物袋成功"];
         }
     }];
 }

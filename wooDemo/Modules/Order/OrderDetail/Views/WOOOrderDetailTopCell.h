@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign)WOOOrderStatusType OrderType;
 
+@property (nonatomic, strong)WOOFetchSubject * paySubject;
+
 @end
 
 NS_ASSUME_NONNULL_END

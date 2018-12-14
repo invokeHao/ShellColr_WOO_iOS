@@ -20,6 +20,10 @@
     return CGSizeMake(44, 44);
 }
 
+- (void)setupViews {
+    NSAssert(NO, @"重写吧");
+}
+
 + (NSString *)reuseID {
     return NSStringFromClass([self class]);
 }

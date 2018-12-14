@@ -1,21 +1,19 @@
 //
-//  WOOOrderStatusVC.h
+//  WOOOrderStatusGoodsCell.h
 //  wooDemo
 //
-//  Created by colr on 2018/12/12.
+//  Created by colr on 2018/12/13.
 //  Copyright © 2018 colr. All rights reserved.
 //
 
-#import "WOOBaseViewController.h"
+#import "WOOBaseTableViewCell.h"
 #import "WOORewardRow.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WOOOrderStatusVC : WOOBaseViewController
+@interface WOOOrderStatusGoodsCell : WOOBaseTableViewCell
 
 @property (nonatomic, strong)WOORewardRow * model;
-
-@property (nonatomic, assign)BOOL toCheckTheOrder;
 
 @end
 

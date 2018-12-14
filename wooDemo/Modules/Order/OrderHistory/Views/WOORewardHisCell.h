@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WOORewardHisCell : WOOBaseTableViewCell
 
+@property (nonatomic, strong)UIView * headerView;
+
 @property (nonatomic, strong)WOORewardRow * model;
 
 @end

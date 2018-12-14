@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CGSize)cellSizeWithModel:(id)element args:(NSDictionary *)args;
 
+- (void)setupViews;
+
 + (NSString *)reuseID;
 
 + (NSString *)identifer;

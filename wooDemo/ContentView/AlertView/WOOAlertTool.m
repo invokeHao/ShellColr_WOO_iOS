@@ -96,9 +96,11 @@
 
 -(void)showAlterViewWithTitle:(NSString*)title Message:(NSString*)message cancelBtn:(NSString*)cancelTitle doneBtn:(NSString*)doneTitle andDoneBlock:(void(^)(UIAlertAction * _Nonnull action))doneBlock andCancelBlock:(void(^)(UIAlertAction * _Nonnull action))cancelBlock{
     UIAlertController * alterC = [UIAlertController alertControllerWithTitle:title message: message preferredStyle:UIAlertControllerStyleAlert];
+    alterC.view.tintColor = woo_colorWithHexString(@"#4F4F4F");
+    
     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleDefault handler:cancelBlock];
     
-    UIAlertAction * doneAction = [UIAlertAction actionWithTitle:doneTitle style:UIAlertActionStyleDestructive handler:doneBlock];
+    UIAlertAction * doneAction = [UIAlertAction actionWithTitle:doneTitle style:UIAlertActionStyleDefault handler:doneBlock];
     
     [alterC addAction:cancelAction];
     [alterC addAction:doneAction];

@@ -13,9 +13,10 @@
 #import "WOOFlowDetailVC.h"
 #import "WOOFlowDetailVideoVC.h"
 #import "WOOGoodsDetailVC.h"
+#import "WOONewFlowListVC.h"
 
 
-@interface WOONewBottomListSC()
+@interface WOONewBottomListSC()<IGListDisplayDelegate>
 
 @property (nonatomic, strong)WOONewListModel * listModel;
 
@@ -27,6 +28,7 @@
     self = [super init];
     if (self) {
         self.minimumLineSpacing = 15;
+        self.displayDelegate = self;
     }
     return self;
 }
@@ -91,4 +93,23 @@
     }
 }
 
+- (void)listAdapter:(IGListAdapter *)listAdapter willDisplaySectionController:(IGListSectionController *)sectionController {
+}
+
+- (void)listAdapter:(nonnull IGListAdapter *)listAdapter didEndDisplayingSectionController:(nonnull IGListSectionController *)sectionController {
+//    NSLog(@"didEndDisplayingSectionController");
+}
+
+
+- (void)listAdapter:(nonnull IGListAdapter *)listAdapter didEndDisplayingSectionController:(nonnull IGListSectionController *)sectionController cell:(nonnull UICollectionViewCell *)cell atIndex:(NSInteger)index {
+//    NSLog(@"didEndDisplayingSectionController");
+}
+
+
+- (void)listAdapter:(nonnull IGListAdapter *)listAdapter willDisplaySectionController:(nonnull IGListSectionController *)sectionController cell:(nonnull UICollectionViewCell *)cell atIndex:(NSInteger)index {
+    if ([self.viewController isKindOfClass:[WOONewFlowListVC class]] && index == 0) {
+        WOONewFlowListVC *flowVC = (WOONewFlowListVC *)self.viewController;
+        [flowVC getMoreDataWithDisPlayModel:self.listModel];
+    }
+}
 @end

@@ -24,11 +24,13 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setupViews];
+        [self bindEvents];
     }
     return self;
 }
 
 - (void)setupViews {
+    _paySubject = [WOOStreamFactory exportFetchSubject];
     [self.contentView addSubviewArray:@[self.iconView,self.tipsLabel,self.payBtn]];
 }
 
@@ -54,6 +56,10 @@
         make.size.mas_equalTo(CGSizeMake(278, 52));
         make.centerX.mas_equalTo(self.iconView);
     }];
+}
+
+- (void)bindEvents {
+    @weakify(self);
 }
 
 - (void)setOrderType:(WOOOrderStatusType)OrderType {
@@ -102,6 +108,12 @@
         _payBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
         _payBtn.backgroundColor = woo_colorWithHexString(@"#3A3A3A");
         _payBtn.layer.cornerRadius = 26;
+        @weakify(self)
+        [[_payBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            [self.paySubject sendNext:@"1"];
+        }];
+
     }
     return _payBtn;
 }

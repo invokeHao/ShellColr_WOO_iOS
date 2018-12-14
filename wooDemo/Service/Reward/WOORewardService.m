@@ -29,7 +29,8 @@
 }
 
 
-+ (void)getTheRewardDetailWithRewardId:(NSString *)rewardId completion:(void (^)(WOORewardRow * , NSError * ))completion {
++ (void)getTheRewardDetailWithRewardId:(NSString *)rewardId
+                            completion:(void (^)(WOORewardRow * , NSError * ))completion {
     NSString * path = FORMAT(@"/self/reward/%@/detail",rewardId);
     [[WOOHTTPManager sharedManager] GET:path parameters:nil success:^(NSURLSessionDataTask *task, WOOResponseObject *wooResponse) {
         if (wooResponse.code == 1) {
@@ -43,7 +44,8 @@
     }];
 }
 
-+ (void)postARewardWithParamDic:(NSDictionary *)paramDic completion:(void (^)(WOORewardRow * , NSError * ))completion {
++ (void)postARewardWithParamDic:(NSDictionary *)paramDic
+                     completion:(void (^)(WOORewardRow * , NSError * ))completion {
     NSString * path = @"self/reward/post";
     [[WOOHTTPManager sharedManager] POST:path HTTPBody:paramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
         if (responseObject.code == 1) {
@@ -54,6 +56,19 @@
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completion(nil, error);
+    }];
+}
+
++ (void)getTheRewardPayedWithOrderId:(NSString *)OrderId completion:(void (^)(BOOL, NSError * ))completion {
+    NSString * path = FORMAT(@"self/reward/%@/paid",OrderId);
+    [[WOOHTTPManager sharedManager] GET:path parameters:nil success:^(NSURLSessionDataTask *task, WOOResponseObject *wooResponse) {
+        if (wooResponse.code == 1) {
+            completion(YES, nil);
+        }else{
+            completion(NO, [NSError errorWithCode:wooResponse.errorId desc:wooResponse.errorDesc]);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completion(NO, error);
     }];
 }
 @end

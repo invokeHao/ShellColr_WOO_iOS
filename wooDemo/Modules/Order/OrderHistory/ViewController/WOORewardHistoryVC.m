@@ -55,7 +55,14 @@
     @weakify(self)
     [[[RACObserve(self, viewModel.dataList) skip:1] deliverOnMainThread] subscribeNext:^(NSArray *dataArr) {
         @strongify(self);
+        [self.MainTable stopRefreshWithCurrentDataCount:dataArr.count];
         [self.MainTable reloadData];
+    }];
+    
+    [self.MainTable.onRefreshSubject subscribeNext:^(id x) {
+        @strongify(self)
+        WOORefreshType refreshType = [x integerValue];
+        [self.viewModel fetchRewardHistoryListWithRefreshType:refreshType];
     }];
 }
 
@@ -64,10 +71,10 @@
         _MainTable = [[WOOBaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
         _MainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
         _MainTable.backgroundColor = [UIColor clearColor];
-//        _MainTable.tableHeaderView = self.topUserView;
         _MainTable.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 10)];
         _MainTable.dataSource = self;
         _MainTable.delegate = self;
+        [_MainTable openRefreshWithRefreshType:WOORefreshTypeAll];
     }
     return _MainTable;
 }
