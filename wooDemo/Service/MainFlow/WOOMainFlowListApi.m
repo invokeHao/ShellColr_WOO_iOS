@@ -30,7 +30,7 @@
 }
 
 + (void)getTheDetailDataWithItemID:(NSString *)ItemId completion:(void (^)(NSString * , NSError * ))completion {
-    NSString * path = FORMAT(@"http://is.snssdk.com/article/content/11/1/%@/%@/1/",ItemId, ItemId);
+    NSString * path = FORMAT(@"https://is.snssdk.com/article/content/11/1/%@/%@/1/",ItemId, ItemId);
     NSLog(@"path===%@",path);
     [[WOOHTTPManager manager] TTEasyGET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObjc) {
         if (responseObjc) {
@@ -48,7 +48,7 @@
     if (!videoId) {
         return;
     }
-    NSString * path = FORMAT(@"http://is.snssdk.com/video/urls/1/toutiao/mp4/%@",videoId);
+    NSString * path = FORMAT(@"https://is.snssdk.com/video/urls/1/toutiao/mp4/%@",videoId);
     [[WOOHTTPManager manager] TTEasyGET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObjc) {
         if (responseObjc) {
             NSInteger code = [responseObjc[@"code"] integerValue];
@@ -60,6 +60,36 @@
             }
         }else{
             completion(nil,nil);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completion(nil, error);
+    }];
+}
+
++ (void)getTheGoodsFlowCompletion:(void (^)(NSArray<WOOGoodsModel *> * , NSError * ))completion {
+    NSString * path = @"/article/merchandise/feed";
+    NSDictionary * paramDic = @{@"size": @(2)};
+    [[WOOHTTPManager sharedManager] GET:path parameters:paramDic success:^(NSURLSessionDataTask *task, WOOResponseObject *wooResponse) {
+        if (wooResponse.code == 1) {
+            NSArray *rows = [NSArray yy_modelArrayWithClass:[WOOGoodsModel class]
+                                                       json:[wooResponse.result objectForKey:@"rows"]];
+            completion(rows, nil);
+        } else {
+            completion(nil, [NSError errorWithCode:wooResponse.errorId desc:wooResponse.errorDesc]);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completion(nil, error);
+    }];
+}
+
++ (void)getTheGoodsDetailWithGoodsId:(NSString *)goodsId completion:(void (^)(WOOGoodsModel * , NSError * ))completion {
+    NSString * path = FORMAT(@"/article/merchandise/%@/detail",goodsId);
+    [[WOOHTTPManager sharedManager] GET:path parameters:nil success:^(NSURLSessionDataTask *task, WOOResponseObject *wooResponse) {
+        if (wooResponse.code == 1) {
+            WOOGoodsModel * model = [WOOGoodsModel yy_modelWithDictionary:wooResponse.result];
+            completion(model, nil);
+        }else{
+            completion(nil, [NSError errorWithCode:wooResponse.errorId desc:wooResponse.errorDesc]);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completion(nil, error);

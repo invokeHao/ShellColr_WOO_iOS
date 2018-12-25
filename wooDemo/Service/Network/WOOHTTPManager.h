@@ -22,7 +22,7 @@
 
 - (NSURLSessionDataTask *)GET:(NSString *)URLString
                    parameters:(id)parameters
-                      success:(void (^)(NSURLSessionDataTask * task, WOOResponseObject * cmsResponse))success
+                      success:(void (^)(NSURLSessionDataTask * task, WOOResponseObject * wooResponse))success
                       failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure;
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
@@ -61,5 +61,10 @@
                       parameters:(id)parameters
                          success:(void (^)(NSURLSessionDataTask *task, WOOResponseObject *responseObject))success
                          failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+
+- (NSURLSessionDataTask *)TTPOST:(NSString *)URLString
+                      HTTPBody:(NSDictionary *)parameters
+                       success:(void (^)(NSURLSessionDataTask *task, id responseObjc))success
+                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 
 @end

@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong)WOOGoodsModel * model;
 
+@property (nonatomic, strong)WOOFetchSubject * rewardSubject;
+
 @end
 
 NS_ASSUME_NONNULL_END

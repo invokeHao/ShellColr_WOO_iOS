@@ -7,6 +7,8 @@
 //
 
 #import "WOOGoodsDetailCashBackView.h"
+#import "WOORewardService.h"
+#import "WOOFavoriteService.h"
 
 @interface WOOGoodsDetailCashBackView()
 
@@ -26,6 +28,8 @@
 
 @property (nonatomic, assign)CGFloat myTotalGolg; //我的总金币
 
+@property (nonatomic, assign)NSInteger expenseMoney;
+
 @end
 
 @implementation WOOGoodsDetailCashBackView
@@ -34,6 +38,7 @@
     self = [super init];
     if (self) {
         self.myTotalGolg = 100000000;
+        self.expenseMoney = 0;
         [self setupView];
         [self bindingEvents];
     }
@@ -52,15 +57,29 @@
 }
 
 - (void)bindingEvents {
-//    @weakify(self)
+    self.rewardSubject = [WOOStreamFactory exportFetchSubject];
+    @weakify(self)
     [[self.goToWishListBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-//        @strongify(self)
-        [WOOHud showString:@"加入购物袋"];
+        @strongify(self)
+        [self favoriteTheGoods];
     }];
     
     [[self.goShoppingBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-//        @strongify(self);
-        [WOOHud showString:@"现在使用"];
+        @strongify(self);
+        [self postTheReward];
+    }];
+    
+    [[RACObserve(self, expenseMoney) deliverOnMainThread] subscribeNext:^(id x) {
+        @strongify(self)
+        if (self.expenseMoney > self.myTotalGolg) {
+            self.goShoppingBtn.WH_setTitle_forState(@"注意力不足",UIControlStateNormal);
+            [self.goShoppingBtn setBackgroundColor:woo_colorWithHexString(@"#D5D5D5")];
+            self.goShoppingBtn.userInteractionEnabled = NO;
+        }else{
+            self.goShoppingBtn.backgroundColor = woo_colorWithHexString(@"B3E220");
+            [self.goShoppingBtn setTitle:@"现在使用" forState:UIControlStateNormal];
+            self.goShoppingBtn.userInteractionEnabled = YES;
+        }
     }];
 }
 
@@ -119,9 +138,9 @@
 - (void)setModel:(WOOGoodsModel *)model {
     if (model) {
         _model = model;
-        _cashSlider.maximumValue = [model.goodsPrice floatValue];// 设置最大值
-        _cashSlider.value = [model.cashBack floatValue];// 设置初始值
-        [self showLabelWithCashBackMoney:[model.cashBack floatValue]];
+        _cashSlider.maximumValue = (float)model.productPriceAmount;// 设置最大值
+        _cashSlider.value = model.productCommissionAmount;// 设置初始值
+        [self showLabelWithCashBackMoney:model.productCommissionAmount];
     }
 }
 
@@ -134,19 +153,33 @@
     NSString * cashbackStr = FORMAT(@"返现%ld元",cashBackMoney);
     self.cashBackLabel.text = cashbackStr;
     
-    NSInteger expenseMoney = [self getExpenseMoneyWithCashBackMoney:cashBackMoney];
-    NSInteger leftMoney = self.myTotalGolg - expenseMoney;
+    self.expenseMoney = [self getExpenseMoneyWithCashBackMoney:cashBackMoney];
+    NSInteger leftMoney = self.myTotalGolg - self.expenseMoney;
     
+    NSString * leftColorStr = nil;
+    leftColorStr = leftMoney > 0 ? @"#868686" : @"#EB5E6E";
     //将数据单位化
-    NSString * expenseMoneyStr = [self unitTheMoney:expenseMoney];
+    NSString * expenseMoneyStr = [self unitTheMoney:self.expenseMoney];
     NSString * leftMoneyStr = [self unitTheMoney:leftMoney];
     
     self.consumeGoldLabel.text = FORMAT(@"消耗%@",expenseMoneyStr);
-    self.leftgoldLabel.text = FORMAT(@"剩余%@",leftMoneyStr);
+    
+    NSString * resultStr = FORMAT(@"剩余%@",leftMoneyStr);
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithString:resultStr];
+    
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+    attrs[NSFontAttributeName] = WOOFont(12);
+    attrs[NSForegroundColorAttributeName] = woo_colorWithHexString(leftColorStr);
+    
+    NSRange rang = [resultStr rangeOfString:leftMoneyStr];
+    
+    [attrStr addAttributes:attrs range:rang];
+
+    self.leftgoldLabel.attributedText = attrStr;
 }
 
 - (CGFloat)getExpenseMoneyWithCashBackMoney:(NSInteger)cashBackMoney {
-    CGFloat targetMoney = [self.model.cashBack integerValue];
+    CGFloat targetMoney = self.model.productCommissionAmount;
     CGFloat expenseMoney = 0;
     if (cashBackMoney < targetMoney) {
         expenseMoney = cashBackMoney * 10000;
@@ -182,6 +215,32 @@
             return FORMAT(@"%.1fW",moneyNum);
         }
     }
+}
+
+#pragma mark- 收藏和发起订单
+
+- (void)postTheReward {
+    if (!self.model) {return;}
+    NSDictionary * paramDic = @{@"articleId":self.model.articleId , @"coinAmount" : @(self.expenseMoney)};
+    [WOOHud showActivityView];
+    [WOORewardService postARewardWithParamDic:paramDic completion:^(WOORewardRow * _Nonnull row, NSError * _Nonnull error) {
+        [WOOHud hideActivityView];
+        if (row) {
+            [self.rewardSubject sendNext:row];
+        }
+        if (error) {
+            [WOOHud showString:error.descriptionFromServer];
+        }
+    }];
+}
+
+- (void)favoriteTheGoods {
+    if (!self.model) {return;}
+    [WOOFavoriteService postTheFavoriteWithArticleId:self.model.articleId completion:^(BOOL isSuccess, NSError * _Nonnull error) {
+        if (isSuccess) {
+            [WOOHud showString:@"加入购物袋成功"];
+        }
+    }];
 }
 
 - (UILabel *)titleLabel {

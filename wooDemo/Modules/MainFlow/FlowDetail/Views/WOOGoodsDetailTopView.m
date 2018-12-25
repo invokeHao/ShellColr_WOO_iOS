@@ -28,6 +28,7 @@
     self = [super init];
     if (self) {
         [self setupView];
+        [self bindEvents];
     }
     return self;
 }
@@ -76,15 +77,27 @@
     
     NSArray * colorArr = @[woo_colorWithHexAndAlpha(@"000000", 0.0),woo_colorWithHexAndAlpha(@"000000", 0.4)];
     [_maskView setGradientBackgroundWithColors:colorArr locations:nil startPoint:CGPointMake(0, 0) endPoint:CGPointMake(0, 1)];
+}
 
+- (void)bindEvents {
+    @weakify(self);
+    [[self.detailBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        if (self.model.originalUrl) {
+            NSURL * url = [NSURL URLWithString:self.model.originalUrl];
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        }
+    }];
 }
 
 - (void)setModel:(WOOGoodsModel *)model {
     if (model) {
-        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:model.goodsCoverUrl] options:YYWebImageOptionProgressive];
-        NSString * priceStr = FORMAT(@"¥%@",model.goodsPrice);
+        _model = model;
+        WOOImage * image = [model.multiBodyText.images firstObject];
+        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:image.url] options:YYWebImageOptionProgressive];
+        NSString * priceStr = FORMAT(@"¥%ld",model.productPriceAmount);
         self.priceLabel.text = priceStr;
-        self.titleLabel.text = model.goodsName;
+        self.titleLabel.text = model.title;
     }
 }
 
@@ -100,6 +113,7 @@
         _coverImageV = [[YYAnimatedImageView alloc]init];
         _coverImageV.contentMode = UIViewContentModeScaleAspectFill;
         _coverImageV.backgroundColor = woo_colorWithHexString(@"D8D8D8");
+        _coverImageV.userInteractionEnabled = YES;
     }
     return _coverImageV;
 }

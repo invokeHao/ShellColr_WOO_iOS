@@ -72,16 +72,20 @@
     self.backView = [[UIView alloc] initWithFrame:self.view.frame];
     [self.view addSubview:self.backView];
     [self.view addSubview:self.titleLabel];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = woo_colorWithHexString(@"F2F2F2");
     
+    UIView * blackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, VERTICAL_SCREEN_WIDTH, 30)];
+    blackView.backgroundColor = [UIColor blackColor];
     self.playerContainer = [[UIView alloc] init];
     self.playerContainer.backgroundColor = [UIColor blackColor];
+    [self.backView addSubview:blackView];
     [self.backView addSubview:self.playerContainer];
     self.backView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     CGFloat H = self.view.width*9.0/16.0f;
+    CGFloat topH = IsIPhoneX ? 30 : 0;
     [self.playerContainer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
-        make.top.mas_equalTo(0);
+        make.top.mas_equalTo(topH);
         make.height.mas_equalTo(H);
     }];
     

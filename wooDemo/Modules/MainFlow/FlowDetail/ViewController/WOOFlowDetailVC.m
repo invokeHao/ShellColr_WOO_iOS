@@ -70,26 +70,27 @@
 
 - (void)configThehtmlStr:(NSString *)htmlStr {
     //处理标题
+    NSLog(@"%@",htmlStr);
+    
     NSString * targetStr = [htmlStr stringByReplacingOccurrencesOfString:@"tt-title" withString:@"title"];
-
     //处理图片
     targetStr = [htmlStr stringByReplacingOccurrencesOfString:@"bytedance://large_image?url=" withString:@""];
     targetStr = [targetStr stringByReplacingOccurrencesOfString:@"a class=\"image\"" withString:@"img"];
     targetStr = [targetStr stringByReplacingOccurrencesOfString:@"</a>" withString:@""];
     targetStr = [targetStr stringByReplacingOccurrencesOfString:@"href" withString:@"src"];
     //蠢方法处理图片尾部
-    for (int i = 100; i >= 0; i--) {
-        NSString * indexStr = FORMAT(@"&index=%d",i);
+    NSInteger count = [[targetStr mutableCopy] replaceOccurrencesOfString:@"&index=" withString:@"&INDEX=" options:NSLiteralSearch range:NSMakeRange(0, targetStr.length)];
+    while (count >= 0) {
+        NSString * indexStr = FORMAT(@"&index=%ld",(long)count);
         if ([targetStr containsString:indexStr]) {
             targetStr = [targetStr stringByReplacingOccurrencesOfString:indexStr withString:@""];
         }
+        count--;
     }
     targetStr = [self decodeString:targetStr];
-    NSLog(@"%@",targetStr);
     
 //    ONOXMLDocument * document = [ONOXMLDocument HTMLDocumentWithString:targetStr encoding:NSUTF8StringEncoding error:nil];
 //    ONOXMLElement * element = [document.rootElement firstChildWithTag:@"article"];
-    
     
     NSString *htmlString = [NSString stringWithFormat:@"<html> \n"
                             "<head> \n"
@@ -212,6 +213,7 @@
         [pramDic setValue:self.itemId forKey:@"group_id"];
     }
     [pramDic setValue:[NSNumber numberWithBool:self.completeRead] forKey:@"complete"];
+    
     [WOOFeedbackApi postTheReadLogWithDataDic:pramDic completion:^(BOOL success, NSError * _Nonnull error) {
         if (!error) {
             NSLog(@"success");
@@ -229,6 +231,7 @@
             NSLog(@"%@",error);
         }
     }];
+    
 }
 
 

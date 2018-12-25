@@ -21,8 +21,10 @@
     [Mutabledic setObject:dataDic forKey:@"article"];
     
     NSString * path = FORMAT(@"http:/47.101.155.197/service/1/article/v1/log/");
-    [[WOOHTTPManager sharedManager] TTPOST:path parameters:Mutabledic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
-        if (responseObject.errorId == 0) {
+    [[WOOHTTPManager sharedManager] TTPOST:path HTTPBody:Mutabledic success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSString * message = responseObject[@"message"];
+        if ([message isEqualToString:@"success"]) {
             completion(YES,nil);
         }else{
             NSError *error = [NSError errorWithDomain:@"反馈失败"
@@ -31,8 +33,8 @@
             completion(NO,error);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        completion(NO,error);
         NSLog(@"%@",error);
+        completion(NO,error);
     }];
 }
 

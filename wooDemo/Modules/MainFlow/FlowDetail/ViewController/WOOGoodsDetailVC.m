@@ -9,6 +9,7 @@
 #import "WOOGoodsDetailVC.h"
 #import "WOOGoodsDetailTopView.h"
 #import "WOOGoodsDetailCashBackView.h"
+#import "WOOOrderStatusVC.h"
 
 @interface WOOGoodsDetailVC ()
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -79,8 +80,28 @@
 - (void)dataBing {
     [self.goodsView setModel:self.goodsModel];
     [self.cashBackView setModel:self.goodsModel];
+    @weakify(self);
+    [self.cashBackView.rewardSubject subscribeNext:^(WOORewardRow *row) {
+        @strongify(self);
+        if (row.rewardBuyUrl) {
+            [self showTheAlterWithRow:row];
+        }
+    }];
 }
 
+- (void)showTheAlterWithRow:(WOORewardRow *)row {
+    @weakify(self)
+    [[WOOAlertTool shareInstance] showAlterViewWithTitle:@"" Message:@"将要跳转到第三方购物" cancelBtn:@"取消" doneBtn:@"继续" andDoneBlock:^(UIAlertAction * _Nonnull action) {
+        @strongify(self)
+        NSURL * url = [NSURL URLWithString:row.rewardBuyUrl];
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        WOOOrderStatusVC * statusVC = [[WOOOrderStatusVC alloc]init];
+        statusVC.model = row;
+        statusVC.toCheckTheOrder = YES;
+        [self.navigationController pushViewController:statusVC animated:YES];
+    } andCancelBlock:^(UIAlertAction * _Nonnull action) {
+    }];
+}
 
 - (UIScrollView *)scrollView {
     if (!_scrollView) {

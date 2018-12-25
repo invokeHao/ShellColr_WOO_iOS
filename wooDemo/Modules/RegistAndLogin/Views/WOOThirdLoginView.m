@@ -50,6 +50,7 @@
 
 - (void)selectedToLogin:(UIButton*)button {
     NSLog(@"%ld",button.tag);
+    [WOOHud showString:@"暂时只支持短线验证码登录"];
 }
 
 - (void)setupLoginView {

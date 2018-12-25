@@ -77,8 +77,9 @@
 
 -(void)setModel:(WOOGoodsModel *)model {
     if (model) {
-        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:model.goodsCoverUrl] options:YYWebImageOptionProgressive];
-        NSString * priceStr = FORMAT(@"¥%@",model.goodsPrice);
+        WOOImage * image = [model.multiBodyText.images firstObject];
+        [self.coverImageV yy_setImageWithURL:[NSURL URLWithString:image.url] options:YYWebImageOptionProgressive];
+        NSString * priceStr = FORMAT(@"¥%ld",model.productPriceAmount);
         self.priceLabel.text = priceStr;
         _model = model;
     }

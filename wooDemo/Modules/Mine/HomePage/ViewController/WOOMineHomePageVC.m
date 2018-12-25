@@ -12,6 +12,7 @@
 #import "WOOMinePageCell.h"
 #import "WOOMineTopUserView.h"
 #import "WOORewardHistoryVC.h"
+#import "WOOMyFavoriteVC.h"
 
 @interface WOOMineHomePageVC ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -151,6 +152,10 @@
     if (indexPath.section == 0 && indexPath.row == 0) {
         WOORewardHistoryVC * hisVC = [[WOORewardHistoryVC alloc]init];
         [self.navigationController pushViewController:hisVC animated:YES];
+    }
+    else if (indexPath.section == 0 && indexPath.row == 1) {
+        WOOMyFavoriteVC * favoriteVC = [[WOOMyFavoriteVC alloc]init];
+        [self.navigationController pushViewController:favoriteVC animated:YES];
     }
 }
 

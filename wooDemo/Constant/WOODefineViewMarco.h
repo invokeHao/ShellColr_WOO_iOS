@@ -9,8 +9,11 @@
 #ifndef WOODefineViewMarco_h
 #define WOODefineViewMarco_h
 //baseView
+#import "WOOBaseNavigationController.h"
 #import "WOOBaseTableView.h"
 #import "WOOBaseTableViewCell.h"
+#import "WOOBaseCollectionView.h"
+#import "WOOBaseCollectionViewCell.h"
 //categroy
 
 #import "UIView+CMSGradient.h"
@@ -24,6 +27,7 @@
 //unit
 
 #import "WOODevice.h"
+#import "WOOStreamFactory.h"
 
 //manager
 

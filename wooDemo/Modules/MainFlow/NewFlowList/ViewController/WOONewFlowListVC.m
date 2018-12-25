@@ -55,7 +55,6 @@
     self.adapter = [[IGListAdapter alloc] initWithUpdater:updater viewController:self];
     self.adapter.dataSource = self;
     self.adapter.collectionView = self.collectionView;
-
 }
 #pragma mark - IGListAdapterDataSource
 
@@ -94,6 +93,7 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         _collectionView = [[WOOBaseCollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         [_collectionView setBackgroundColor:[UIColor clearColor]];
+        [_collectionView openRefreshWithRefreshType:WOORefreshTypeAll];
     }
     return _collectionView;
 }
@@ -101,19 +101,15 @@
 - (void)setupData {
     self.ViewModel = [[WOONewFlowListViewModel alloc]init];
     @weakify(self)
-    [self.collectionView setHeaderRefreshingBlock:^{
-        @strongify(self)
-        [self.ViewModel fetchMainFlowListWithRefreshType:WOORefreshTypeHeader];
-    }];
-    [self.collectionView setFooterRefreshingBlock:^{
-        @strongify(self)
-        [self.ViewModel fetchMainFlowListWithRefreshType:WOORefreshTypeFooter];
+    [self.collectionView.onRefreshSubject subscribeNext:^(id x) {
+        @strongify(self);
+        WOORefreshType refreshType = [x integerValue];
+        [self.ViewModel fetchMainFlowListWithRefreshType:refreshType];
     }];
     
     [self.ViewModel.errorSubject subscribeNext:^(id x) {
         @strongify(self);
-        [self.collectionView.mj_header endRefreshing];
-        [self.collectionView.mj_footer endRefreshing];
+        [self.collectionView stopRefresh];
         NSLog(@"%@",x);
     }];
 }
@@ -122,12 +118,18 @@
     [self.collectionView.mj_header beginRefreshing];
 }
 
+- (void)getMoreDataWithDisPlayModel:(WOONewListModel *)model {
+    //判断其为倒数第1个model
+    if ([model isEqual:[self.ViewModel.dataList lastObject]]) {
+        [self.ViewModel fetchMainFlowListWithRefreshType:WOORefreshTypeFooter];
+    }
+}
+
 - (void)bindingData{
     @weakify(self);
     [[[RACObserve(self, ViewModel.dataList) skip:1] deliverOnMainThread] subscribeNext:^(NSArray *articleArr) {
         @strongify(self);
-        [self.collectionView.mj_header endRefreshing];
-        [self.collectionView.mj_footer endRefreshing];
+        [self.collectionView stopRefreshWithCurrentDataCount:articleArr.count];
         if (articleArr.count > 0) {
             [self.adapter reloadDataWithCompletion:NULL];
         }

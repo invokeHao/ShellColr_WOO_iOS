@@ -10,6 +10,7 @@
 #import "WOORewardHostoryVM.h"
 #import "WOORewardHisCell.h"
 #import "WOORewardHisTopView.h"
+#import "WOOOrderDetailVC.h"
 
 @interface WOORewardHistoryVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -54,7 +55,14 @@
     @weakify(self)
     [[[RACObserve(self, viewModel.dataList) skip:1] deliverOnMainThread] subscribeNext:^(NSArray *dataArr) {
         @strongify(self);
+        [self.MainTable stopRefreshWithCurrentDataCount:dataArr.count];
         [self.MainTable reloadData];
+    }];
+    
+    [self.MainTable.onRefreshSubject subscribeNext:^(id x) {
+        @strongify(self)
+        WOORefreshType refreshType = [x integerValue];
+        [self.viewModel fetchRewardHistoryListWithRefreshType:refreshType];
     }];
 }
 
@@ -63,10 +71,10 @@
         _MainTable = [[WOOBaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
         _MainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
         _MainTable.backgroundColor = [UIColor clearColor];
-//        _MainTable.tableHeaderView = self.topUserView;
         _MainTable.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 10)];
         _MainTable.dataSource = self;
         _MainTable.delegate = self;
+        [_MainTable openRefreshWithRefreshType:WOORefreshTypeAll];
     }
     return _MainTable;
 }
@@ -93,10 +101,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        WOORewardHistoryVC * hisVC = [[WOORewardHistoryVC alloc]init];
-        [self.navigationController pushViewController:hisVC animated:YES];
-    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    WOORewardRow * row = self.viewModel.dataList[indexPath.row];
+    if (!row) {return;}
+    WOOOrderDetailVC * detailVC = [[WOOOrderDetailVC alloc]init];
+    detailVC.orderId = row.orderId;
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 

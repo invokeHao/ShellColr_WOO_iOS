@@ -16,6 +16,16 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getTheRewardListStartIndex:(NSInteger)startIndex
                         Completion:(void (^)(NSArray<WOORewardRow *> * rows, NSError * error))completion;
 
++ (void)getTheRewardDetailWithRewardId:(NSString *)rewardId
+                            completion:(void (^)(WOORewardRow * row, NSError * error))completion;
+
+
++ (void)postARewardWithParamDic:(NSDictionary *)paramDic
+                     completion:(void (^)(WOORewardRow * row, NSError * error))completion;
+
++ (void)getTheRewardPayedWithOrderId:(NSString *)OrderId
+                           completion:(void (^)(BOOL isSuccess, NSError * error))completion;
+
 @end
 
 NS_ASSUME_NONNULL_END

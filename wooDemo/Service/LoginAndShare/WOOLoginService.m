@@ -126,18 +126,20 @@
     NSDictionary * dic = [model toDictionary];
     NSLog(@"%@",dic);
     NSString * path = FORMAT(@"http:/47.104.253.57/service/init/");
-    [[WOOHTTPManager sharedManager] TTPOST:path parameters:dic success:^(NSURLSessionDataTask *task, WOOResponseObject *responseObject) {
-        if ([responseObject.message isEqualToString:@"success"]) {
-            completion(YES,nil);
+    [[WOOHTTPManager sharedManager] TTPOST:path HTTPBody:dic success:^(NSURLSessionDataTask *task, id responseObjc) {
+        if (responseObjc) {
+            NSString * message = responseObjc[@"message"];
+            if ([message isEqualToString:@"success"]) {
+                completion(YES,nil);
+            }
         }else{
             NSError *error = [NSError errorWithDomain:@"初始化失败"
-                                                 code:1
-                                             userInfo:nil];
+                                                     code:1
+                                                 userInfo:nil];
             completion(NO,error);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completion(NO,error);
-        NSLog(@"%@",error);
     }];
 }
 
