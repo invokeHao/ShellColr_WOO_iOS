@@ -124,7 +124,6 @@ static dispatch_once_t onceToken;
                                                                             parameters:nil
                                                                                  error:nil];
     [req setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
-    
     [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [req setValue:[WOOLoginManager token] forHTTPHeaderField:@"x-token"];

@@ -30,7 +30,7 @@
 }
 
 + (void)getTheDetailDataWithItemID:(NSString *)ItemId completion:(void (^)(NSString * , NSError * ))completion {
-    NSString * path = FORMAT(@"http://is.snssdk.com/article/content/11/1/%@/%@/1/",ItemId, ItemId);
+    NSString * path = FORMAT(@"https://is.snssdk.com/article/content/11/1/%@/%@/1/",ItemId, ItemId);
     NSLog(@"path===%@",path);
     [[WOOHTTPManager manager] TTEasyGET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObjc) {
         if (responseObjc) {
@@ -48,7 +48,7 @@
     if (!videoId) {
         return;
     }
-    NSString * path = FORMAT(@"http://is.snssdk.com/video/urls/1/toutiao/mp4/%@",videoId);
+    NSString * path = FORMAT(@"https://is.snssdk.com/video/urls/1/toutiao/mp4/%@",videoId);
     [[WOOHTTPManager manager] TTEasyGET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObjc) {
         if (responseObjc) {
             NSInteger code = [responseObjc[@"code"] integerValue];
